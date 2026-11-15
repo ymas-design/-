@@ -17,7 +17,7 @@ header{background:var(--green);color:white;padding:calc(18px + env(safe-area-ins
 .brand{display:flex;align-items:center;gap:12px}.logo{font-size:30px}.brand h1{font-size:19px;letter-spacing:.04em;margin:0}.brand p{font-size:12px;color:var(--lime);margin:4px 0 0}
 main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-bottom:14px}.tab,button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:650;cursor:pointer}.tab{flex:1;background:#e3e9e0;color:var(--green)}.tab.active,button.primary{background:var(--green2);color:white}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:13px;box-shadow:0 2px 7px #193c3508}.card h2{font-size:17px;margin:0 0 11px}.card h3{font-size:14px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .course{background:#f8faf6;border:1px solid var(--line);border-left:5px solid var(--course-color,#d8ddd8);border-radius:9px;padding:8px 3px;text-align:center;color:var(--ink);min-width:0}
-.course.selected{border:2px solid var(--green2);background:#edf5e9}
+.course.selected{border:2px solid var(--green2);background:#edf5e9;font-weight:bold}
 .course strong{display:block;font-size:9px;line-height:1.35;margin:0;overflow-wrap:anywhere}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cc;border-radius:10px;background:white;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1;min-width:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:120px}.secondary{background:#e7ece6;color:var(--green)}.danger{background:#f8e8e6;color:var(--red)}.map{width:100%;display:block;background:#e3eddc;border-radius:14px}.mapnote{font-size:11px;color:var(--muted);margin-top:7px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#f6f8f4;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:27px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:flex-start}.item:last-child{border-bottom:0}.itemtext{flex:1;min-width:0}.itemtext strong{display:block;font-size:14px}.itemtext small{color:var(--muted);display:block;margin-top:3px}.tiny{padding:7px 9px;font-size:12px}.hidden{display:none!important}.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
 @media(min-width:600px){main{padding:20px}}
 </style>
@@ -165,26 +165,18 @@ function renderMap(){
   const grid = document.getElementById('courseGrid');
   const guide = document.getElementById('selectionGuide');
   const resetBtn = document.getElementById('resetArea');
-  const targetCourses = circuits;
 
   if(courseMode === 'circuit'){
     resetBtn.classList.add('hidden');
-    guide.textContent = 'サーキットを1つ選択してください';
+    guide.textContent = selectedCircuit ? `選択中: ${selectedCircuit}` : 'サーキットを1つ選択してください';
 
-    grid.innerHTML = targetCourses.map(c=>`
+    grid.innerHTML = circuits.map(c=>`
       <button class="course ${selectedCircuit===c?'selected':''}"
         style="--course-color:${courseColors[c]||'#d8ddd8'}"
-        data-course="${esc(c)}">
+        onclick="selectCircuitCourse('${esc(c)}')">
         <strong>${esc(c)}</strong>
       </button>
     `).join('');
-
-    grid.querySelectorAll('[data-course]').forEach(b=>{
-      b.onclick=()=>{
-        selectedCircuit=b.dataset.course;
-        renderMap();
-      };
-    });
 
   }else{
     resetBtn.classList.remove('hidden');
@@ -197,40 +189,72 @@ function renderMap(){
       guide.textContent = `選択完了: ${roadOrigin} → ${roadDestination}`;
     }
 
-    grid.innerHTML = targetCourses.map(c=>{
-      let stateClass='';
-      if(!roadOrigin){
-        // 未選択
-      }else if(c===roadOrigin){
-        stateClass='selected';
-      }else if(!roadDestination){
-        // 制限なしですべて選択可能
-      }else if(c===roadDestination){
-        stateClass='selected';
-      }
-
-      return `
-        <button class="course ${stateClass}"
-          style="--course-color:${courseColors[c]||'#d8ddd8'}"
-          data-road="${esc(c)}">
-          <strong>${esc(c)}</strong>
-        </button>
-      `;
-    }).join('');
-
-    grid.querySelectorAll('[data-road]').forEach(b=>{
-      b.onclick=()=>{
-        const c=b.dataset.road;
-        if(!roadOrigin){
-          roadOrigin=c;
-        }else if(!roadDestination){
-          roadDestination=c;
-        }
-        renderMap();
-      };
-    });
+    grid.innerHTML = circuits.map(c=>`
+      <button class="course ${c===roadOrigin || c===roadDestination ? 'selected' : ''}"
+        style="--course-color:${courseColors[c]||'#d8ddd8'}"
+        onclick="selectRoadCourse('${esc(c)}')">
+        <strong>${esc(c)}</strong>
+      </button>
+    `).join('');
   }
 }
+
+function selectCircuitCourse(c){
+  selectedCircuit = c;
+  renderMap();
+}
+
+function selectRoadCourse(c){
+  if(!roadOrigin){
+    roadOrigin = c;
+  }else if(!roadDestination && c !== roadOrigin){
+    roadDestination = c;
+  }
+  renderMap();
+}
+
+function resetRoad(){
+  roadOrigin = null;
+  roadDestination = null;
+  renderMap();
+}
+
+document.getElementById('tabMap').onclick=()=>setPage('map');
+document.getElementById('tabRecord').onclick=()=>{setPage('record');renderRecord()};
+document.getElementById('tabBackup').onclick=()=>setPage('backup');
+document.getElementById('backMap').onclick=()=>setPage('map');
+
+document.getElementById('modeCircuit').onclick=()=>{
+  courseMode='circuit';
+  document.getElementById('modeCircuit').className='primary';
+  document.getElementById('modeRoad').className='secondary';
+  resetRoad();
+};
+
+document.getElementById('modeRoad').onclick=()=>{
+  courseMode='road';
+  document.getElementById('modeCircuit').className='secondary';
+  document.getElementById('modeRoad').className='primary';
+  resetRoad();
+};
+
+document.getElementById('resetSelection').onclick=()=>resetRoad();
+
+document.getElementById('openSelectedCourse').onclick=()=>{
+  if(courseMode==='circuit'){
+    if(!selectedCircuit){
+      alert('サーキットを選択してください。');
+      return;
+    }
+    openCourse(selectedCircuit);
+  }else{
+    if(!roadOrigin||!roadDestination){
+      alert('出発コースと到着コースの両方を選択してください。');
+      return;
+    }
+    openCourse('道中：'+roadOrigin+' → '+roadDestination);
+  }
+};
 
 function renderRecord(){
  const races=data.races.filter(r=>r.course===activeCourse), thunder=races.filter(r=>r.position);
@@ -262,47 +286,6 @@ function addRace(position){
     renderRecord();
   }
 }
-
-document.getElementById('tabMap').onclick=()=>setPage('map');
-document.getElementById('tabRecord').onclick=()=>{setPage('record');renderRecord()};
-document.getElementById('tabBackup').onclick=()=>setPage('backup');
-document.getElementById('backMap').onclick=()=>setPage('map');
-
-document.getElementById('modeCircuit').onclick=()=>{
-  courseMode='circuit';
-  document.getElementById('modeCircuit').className='primary';
-  document.getElementById('modeRoad').className='secondary';
-  renderMap();
-};
-
-document.getElementById('modeRoad').onclick=()=>{
-  courseMode='road';
-  document.getElementById('modeCircuit').className='secondary';
-  document.getElementById('modeRoad').className='primary';
-  renderMap();
-};
-
-document.getElementById('resetSelection').onclick=()=>{
-  roadOrigin=null;
-  roadDestination=null;
-  renderMap();
-};
-
-document.getElementById('openSelectedCourse').onclick=()=>{
-  if(courseMode==='circuit'){
-    if(!selectedCircuit){
-      alert('サーキットを選択してください。');
-      return;
-    }
-    openCourse(selectedCircuit);
-  }else{
-    if(!roadOrigin||!roadDestination){
-      alert('出発コースと到着コースの両方を選択してください。');
-      return;
-    }
-    openCourse('道中：'+roadOrigin+' → '+roadDestination);
-  }
-};
 
 document.getElementById('addThunder').onclick=()=>{
   const lap=document.getElementById('thunderLap').value;
