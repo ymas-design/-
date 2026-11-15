@@ -20,6 +20,11 @@ main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-
 .course.selected{border:2px solid var(--green2);background:#edf5e9}
 .course strong{display:block;font-size:9px;line-height:1.35;margin:0;overflow-wrap:anywhere}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cc;border-radius:10px;background:white;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1;min-width:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:120px}.secondary{background:#e7ece6;color:var(--green)}.danger{background:#f8e8e6;color:var(--red)}.map{width:100%;display:block;background:#e3eddc;border-radius:14px}.mapnote{font-size:11px;color:var(--muted);margin-top:7px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#f6f8f4;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:27px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:flex-start}.item:last-child{border-bottom:0}.itemtext{flex:1;min-width:0}.itemtext strong{display:block;font-size:14px}.itemtext small{color:var(--muted);display:block;margin-top:3px}.tiny{padding:7px 9px;font-size:12px}.hidden{display:none!important}.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
 @media(min-width:600px){main{padding:20px}}
+.course.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  filter: grayscale(80%);
+}
 </style>
 </head>
 <body>
@@ -43,11 +48,20 @@ main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-
     </div>
 
     <div id="roadSelectArea" class="hidden">
-      <h3 style="margin-top:18px">出発コース</h3>
-      <select id="origin"></select>
+      <!-- 選択状況ガイド -->
+      <div style="margin-top:16px; background:#edf5e9; border:1px solid #c4dcbd; border-radius:12px; padding:12px; text-align:center;">
+        <span id="roadStepLabel" style="font-weight:bold; color:var(--green2); font-size:14px;">1/2 出発コースを選択してください</span>
+        <div id="roadRouteDisplay" style="margin-top:6px; font-size:13px; color:var(--muted);">
+          未選択 ➔ 未選択
+        </div>
+      </div>
 
-      <h3 style="margin-top:14px">到着コース</h3>
-      <select id="destination"></select>
+      <h3 style="margin-top:14px" id="roadGridTitle">コース一覧</h3>
+      <div class="grid" id="roadCircuitList"></div>
+      
+      <div style="margin-top:8px; text-align:right;">
+        <button class="secondary tiny" id="resetRoadSelection">↻ 選び直す</button>
+      </div>
     </div>
 
     <div class="btnrow">
@@ -142,41 +156,48 @@ const courseColors={
 let data={version:1,races:[],shortcuts:[]}, activeCourse='サーキットA';
 let courseMode='circuit';
 let selectedCircuit=circuits[0];
+
+// --- 道中コースの接続マップ設定 ---
+const roadConnections = {
+  'マリオブラザーズサーキット': ['ピーチスタジアム', 'キノピオファクトリー', 'トロフィーシティ'],
+  'トロフィーシティ': ['シュポポコースター', 'マリオブラザーズサーキット'],
+  'シュポポコースター': ['DKうちゅうセンター', 'トロフィーシティ'],
+  'DKうちゅうセンター': ['DKスノーマウンテン', 'シュポポコースター'],
+  'サンサンさばく': ['ヘイホーカーニバル', 'ソルティータウン'],
+  'ヘイホーカーニバル': ['ワリオスタジアム', 'サンサンさばく'],
+  'ワリオスタジアム': ['キラーシップ', 'ヘイホーカーニバル'],
+  'キラーシップ': ['ワリオシップ', 'ワリオスタジアム'],
+  'DKスノーマウンテン': ['アイスビルディング', 'DKうちゅうセンター'],
+  'ロゼッタてんもんだい': ['レインボーロード', 'キラーシップ'],
+  'アイスビルディング': ['ロゼッタてんもんだい', 'DKスノーマウンテン'],
+  'ワリオシップ': ['ソルティータウン', 'キラーシップ'],
+  'ノコノコビーチ': ['リバーサイドサファリ', 'ピーチビーチ'],
+  'リバーサイドサファリ': ['ディノディノジャングル', 'ノコノコビーチ'],
+  'ピーチスタジアム': ['マリオブラザーズサーキット', 'ピーチビーチ'],
+  'ピーチビーチ': ['ノコノコビーチ', 'ピーチスタジアム'],
+  'ソルティータウン': ['サンサンさばく', 'ワリオシップ'],
+  'ディノディノジャングル': ['ハテナしんでん', 'リバーサイドサファリ'],
+  'ハテナしんでん': ['プクプクフォールズ', 'ディノディノジャングル'],
+  'プクプクフォールズ': ['ショーニューロード', 'ハテナしんでん'],
+  'ショーニューロード': ['おばけシネマ', 'プクプクフォールズ'],
+  'おばけシネマ': ['ホネホネツイスター', 'ショーニューロード'],
+  'ホネホネツイスター': ['クッパキャッスル', 'おばけシネマ'],
+  'モーモーカントリー': ['チョコマウンテン', 'どんぐりツリーハウス'],
+  'チョコマウンテン': ['モーモーカントリー', 'キノピオファクトリー'],
+  'キノピオファクトリー': ['マリオブラザーズサーキット', 'チョコマウンテン'],
+  'クッパキャッスル': ['ホネホネツイスター', 'マリオサーキット'],
+  'どんぐりツリーハウス': ['モーモーカントリー', 'マリオサーキット'],
+  'マリオサーキット': ['クッパキャッスル', 'どんぐりツリーハウス'],
+  'レインボーロード': ['ロゼッタてんもんだい']
+};
+
+let roadOrigin = null;
+let roadDestination = null;
+
 try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(parsed&&Array.isArray(parsed.races)&&Array.isArray(parsed.shortcuts))data=parsed;}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('端末内に保存できませんでした。空き容量やSafariの設定を確認してください。');return false}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function renderCourseGuide(){
-  const el=document.getElementById('course攻略');
-  if(!el)return;
 
-  const guides={
-    'マリオブラザーズサーキット':{
-      title:'マリオブラザーズサーキット',
-      points:[
-        'コーナーの手前で走行ラインを整え、無理な切り返しを減らす。',
-        'アイテムを使う前に、前方のコーナーとライバルの位置を確認する。',
-        'ショートカットは、実際に走って進入位置と必要なアイテムを確認してから狙う。'
-      ],
-      route:'まずはコース中央寄りの安定したラインを走り、コーナー出口で加速しやすい位置を探す。',
-      caution:'未確認のショートカットに無理に入ると減速することがある。最初は安全なラインを優先。'
-    }
-  };
-
-  const g=guides[activeCourse];
-
-  if(!g){
-    el.innerHTML='<h3>'+esc(activeCourse)+'</h3><p>このコースの攻略情報はまだ登録されていません。</p>';
-    return;
-  }
-
-  el.innerHTML=
-    '<h3>'+esc(g.title)+'</h3>'+
-    '<h4>攻略ポイント</h4><ul>'+
-    g.points.map(p=>'<li>'+esc(p)+'</li>').join('')+
-    '</ul><h4>おすすめルート</h4><p>'+esc(g.route)+'</p>'+
-    '<h4>注意点</h4><p>'+esc(g.caution)+'</p>';
-}
-function roadKey(){return '道中：'+document.getElementById('origin').value+' → '+document.getElementById('destination').value}
 function setPage(name){['Map','Record','Backup'].forEach(n=>{document.getElementById('page'+n).classList.toggle('hidden',n.toLowerCase()!==name);document.getElementById('tab'+n).classList.toggle('active',n.toLowerCase()===name)})}
 function openCourse(name){
   activeCourse=name;
@@ -188,7 +209,105 @@ function openCourse(name){
   setPage('record');
   renderRecord();
   window.scrollTo(0,0);
+}
+
+function renderMap(){
+  // 周回コース表示
+  document.getElementById('circuitList').innerHTML=circuits.map(c=>`
+    <button class="course ${selectedCircuit===c?'selected':''}"
+      style="--course-color:${courseColors[c]||'#d8ddd8'}"
+      data-course="${esc(c)}">
+      <strong>${esc(c)}</strong>
+    </button>
+  `).join('');
+
+  document.querySelectorAll('#circuitList [data-course]').forEach(b=>{
+    b.onclick=()=>{
+      selectedCircuit=b.dataset.course;
+      renderMap();
+    };
+  });
+
+  // 道中コース表示
+  renderRoadGrid();
+}
+
+function renderRoadGrid(){
+  const roadCourses=circuits.filter(c=>!c.startsWith('SFC '));
+  const grid=document.getElementById('roadCircuitList');
+  const stepLabel=document.getElementById('roadStepLabel');
+  const routeDisplay=document.getElementById('roadRouteDisplay');
+
+  const validDestinations=roadOrigin?(roadConnections[roadOrigin]||[]):[];
+
+  grid.innerHTML=roadCourses.map(c=>{
+    let stateClass='';
+    if(!roadOrigin){
+      // 未選択
+    }else if(c===roadOrigin){
+      stateClass='selected';
+    }else if(!roadDestination){
+      stateClass=validDestinations.includes(c)?'':'disabled';
+    }else if(c===roadDestination){
+      stateClass='selected';
+    }else{
+      stateClass='disabled';
+    }
+
+    return `
+      <button class="course ${stateClass}"
+        style="--course-color:${courseColors[c]||'#d8ddd8'}"
+        data-road-course="${esc(c)}">
+        <strong>${esc(c)}</strong>
+      </button>
+    `;
+  }).join('');
+
+  if(!roadOrigin){
+    stepLabel.textContent='1/2 出発コースを選択してください';
+    routeDisplay.textContent='未選択 ➔ 未選択';
+  }else if(!roadDestination){
+    stepLabel.textContent='2/2 到着コースを選択してください';
+    routeDisplay.textContent=`${roadOrigin} ➔ (選択してください)`;
+  }else{
+    stepLabel.textContent='選択完了！「コースを開く」を押してください';
+    routeDisplay.textContent=`${roadOrigin} ➔ ${roadDestination}`;
   }
+
+  document.querySelectorAll('[data-road-course]').forEach(b=>{
+    b.onclick=()=>{
+      const course=b.dataset.roadCourse;
+      if(!roadOrigin){
+        roadOrigin=course;
+      }else if(!roadDestination&&validDestinations.includes(course)){
+        roadDestination=course;
+      }
+      renderRoadGrid();
+    };
+  });
+}
+
+document.getElementById('resetRoadSelection').onclick=()=>{
+  roadOrigin=null;
+  roadDestination=null;
+  renderRoadGrid();
+};
+
+document.getElementById('openSelectedCourse').onclick=()=>{
+  if(courseMode==='circuit'){
+    if(!selectedCircuit){
+      alert('サーキットを選択してください。');
+      return;
+    }
+    openCourse(selectedCircuit);
+  }else{
+    if(!roadOrigin||!roadDestination){
+      alert('出発コースと到着コースの両方を選択してください。');
+      return;
+    }
+    openCourse('道中：'+roadOrigin+' → '+roadDestination);
+  }
+};
 
 
 function renderMap(){
