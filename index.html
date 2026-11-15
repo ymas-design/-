@@ -26,13 +26,36 @@ main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-
 <header><div class="brand"><div class="logo">🏁</div><div><h1>WORLD TRACK NOTE</h1><p>マリオカート ワールド攻略ノート</p></div></div></header>
 <main>
 <div class="tabs"><button class="tab active" id="tabMap">🗺 コース選択</button><button class="tab" id="tabRecord">⚡ 記録・統計</button><button class="tab" id="tabBackup">💾 保存・バックアップ</button></div>
-<section id="pageMap">
 
- <div class="card"><h2>サーキットを選ぶ</h2><p class="muted">選んだコースごとに、サンダー履歴とショートカットメモを管理します。</p><div class="grid" id="circuitList"></div></div>
- <div class="card"><h2>道中コース</h2><p class="muted">出発地と到着地の組み合わせごとに別のコースとして保存します。</p>
- <div class="row"><div><label for="origin">出発サーキット</label><select id="origin"></select></div><div><label for="destination">到着サーキット</label><select id="destination"></select></div></div>
- <div class="btnrow"><button class="primary" id="openRoad">この道中コースを開く →</button></div></div>
+<section id="pageMap">
+  <div class="card">
+    <h2>コースを選ぶ</h2>
+    <p class="muted">周回コースか道中コースを選択してください。</p>
+
+    <div class="row">
+      <button class="primary" id="modeCircuit">🏁 周回</button>
+      <button class="secondary" id="modeRoad">🛣 道中</button>
+    </div>
+
+    <div id="circuitSelectArea">
+      <h3 style="margin-top:18px">サーキットを選択</h3>
+      <div class="grid" id="circuitList"></div>
+    </div>
+
+    <div id="roadSelectArea" class="hidden">
+      <h3 style="margin-top:18px">出発コース</h3>
+      <select id="origin"></select>
+
+      <h3 style="margin-top:14px">到着コース</h3>
+      <select id="destination"></select>
+    </div>
+
+    <div class="btnrow">
+      <button class="primary" id="openSelectedCourse">コースを開く →</button>
+    </div>
+  </div>
 </section>
+
 <section id="pageRecord" class="hidden">
  <div class="card"><button class="secondary tiny" id="backMap">← コース選択へ</button><h2 id="activeTitle" style="margin-top:12px">コース</h2><p class="muted">このコースの記録は端末内に自動保存されます。</p></div>
  <div class="card"><h2>サンダー発生率</h2><div class="statgrid"><div class="stat"><span>記録レース数</span><strong id="raceCount">0</strong></div><div class="stat"><span>サンダーあり</span><strong id="thunderCount">0</strong></div></div><div id="stats" class="muted" style="margin-top:12px">記録を追加すると、位置ごとの発生率が表示されます。</div></div>
@@ -117,6 +140,8 @@ const courseColors={
 };
 
 let data={version:1,races:[],shortcuts:[]}, activeCourse='サーキットA';
+let courseMode='circuit';
+let selectedCircuit=circuits[0];
 try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(parsed&&Array.isArray(parsed.races)&&Array.isArray(parsed.shortcuts))data=parsed;}}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('端末内に保存できませんでした。空き容量やSafariの設定を確認してください。');return false}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
@@ -166,7 +191,32 @@ function openCourse(name){
   }
 
 
-function renderMap(){document.getElementById('circuitList').innerHTML=circuits.map((c,i)=>`<button class="course" style="--course-color:${courseColors[c]||'#d8ddd8'}" data-course="${esc(c)}"><strong>${esc(c)}</strong></button>`).join('');document.querySelectorAll('[data-course]').forEach(b=>b.onclick=()=>openCourse(b.dataset.course));const roadCourses=circuits.filter(c=>!c.startsWith('SFC '));['origin','destination'].forEach(id=>{const el=document.getElementById(id);el.innerHTML=roadCourses.map(c=>`<option>${esc(c)}</option>`).join('')});document.getElementById('destination').value='サーキットB'}
+function renderMap(){
+  const roadCourses=circuits.filter(c=>!c.startsWith('SFC '));
+
+  document.getElementById('circuitList').innerHTML=circuits.map(c=>`
+    <button class="course ${selectedCircuit===c?'selected':''}"
+      style="--course-color:${courseColors[c]||'#d8ddd8'}"
+      data-course="${esc(c)}">
+      <strong>${esc(c)}</strong>
+    </button>
+  `).join('');
+
+  document.querySelectorAll('[data-course]').forEach(b=>{
+    b.onclick=()=>{
+      selectedCircuit=b.dataset.course;
+      renderMap();
+    };
+  });
+
+  ['origin','destination'].forEach(id=>{
+    const el=document.getElementById(id);
+    el.innerHTML=roadCourses.map(c=>`<option>${esc(c)}</option>`).join('');
+  });
+
+  document.getElementById('origin').value=roadCourses[0];
+  document.getElementById('destination').value=roadCourses[1];
+}
 
 
 function renderRecord(){
@@ -198,7 +248,42 @@ function addRace(position){
     renderRecord();
   }
 }
-document.getElementById('tabMap').onclick=()=>setPage('map');document.getElementById('tabRecord').onclick=()=>{setPage('record');renderRecord()};document.getElementById('tabBackup').onclick=()=>setPage('backup');document.getElementById('backMap').onclick=()=>setPage('map');document.getElementById('openRoad').onclick=()=>{if(document.getElementById('origin').value===document.getElementById('destination').value){alert('出発地と到着地を別々に選んでください。');return}openCourse(roadKey())};
+document.getElementById('tabMap').onclick=()=>setPage('map');
+document.getElementById('tabRecord').onclick=()=>{setPage('record');renderRecord()};
+document.getElementById('tabBackup').onclick=()=>setPage('backup');
+document.getElementById('backMap').onclick=()=>setPage('map');
+
+document.getElementById('modeCircuit').onclick=()=>{
+  courseMode='circuit';
+  document.getElementById('circuitSelectArea').classList.remove('hidden');
+  document.getElementById('roadSelectArea').classList.add('hidden');
+  document.getElementById('modeCircuit').className='primary';
+  document.getElementById('modeRoad').className='secondary';
+};
+
+document.getElementById('modeRoad').onclick=()=>{
+  courseMode='road';
+  document.getElementById('circuitSelectArea').classList.add('hidden');
+  document.getElementById('roadSelectArea').classList.remove('hidden');
+  document.getElementById('modeCircuit').className='secondary';
+  document.getElementById('modeRoad').className='primary';
+};
+
+document.getElementById('openSelectedCourse').onclick=()=>{
+  if(courseMode==='circuit'){
+    if(!selectedCircuit){
+      alert('サーキットを選択してください。');
+      return;
+    }
+    openCourse(selectedCircuit);
+  }else{
+    if(document.getElementById('origin').value===document.getElementById('destination').value){
+      alert('出発地と到着地を別々に選んでください。');
+      return;
+    }
+    openCourse(roadKey());
+  }
+};
 document.getElementById('addThunder').onclick=()=>{
   const lap=document.getElementById('thunderLap').value;
   const slot=document.getElementById('thunderSlot').value;
