@@ -614,6 +614,220 @@ document.getElementById('clearAll').onclick=()=>{
  }
 };
 
+// ===== TODOリスト機能 =====
+
+// 既存データを残したままTODO欄を追加
+if (!Array.isArray(data.todos)) data.todos = [];
+
+// トップ画面のTODO欄
+document.querySelector('#pageMap .card').insertAdjacentHTML('afterend', `
+<div class="card">
+  <h2>📌 TODOリスト</h2>
+  <p class="muted">やることを登録して管理できます。</p>
+  <label>対象コース</label>
+  <select id="todoCourse">
+    <option value="共通">共通・全コース</option>
+    ${circuits.map(c => `<option value="${esc(c)}">${esc(c)}</option>`).join('')}
+  </select>
+  <label>やること</label>
+  <textarea id="todoInput" rows="2" placeholder="例：ショートカットの場所を確認する"></textarea>
+  <button class="primary" id="addTodo" style="width:100%;margin-top:8px">＋ TODOを追加</button>
+  <div id="todoAllList" style="margin-top:12px"></div>
+</div>
+`);
+
+// コース画面のTODO欄
+document.querySelector('#pageRecord .card').insertAdjacentHTML('afterend', `
+<div class="card">
+  <h2>📌 このコースのTODO</h2>
+  <textarea id="courseTodoInput" rows="2" placeholder="このコースでやること"></textarea>
+  <button class="primary" id="addCourseTodo" style="width:100%;margin-top:8px">＋ TODOを追加</button>
+  <div id="todoCourseList" style="margin-top:12px"></div>
+</div>
+`);
+
+// TODO表示
+function renderTodoList(scope) {
+  const targetId = scope === 'all' ? 'todoAllList' : 'todoCourseList';
+  const el = document.getElementById(targetId);
+  if (!el) return;
+
+  let todos = scope === 'all'
+    ? data.todos
+    : data.todos.filter(t => t.course === activeCourse);
+
+  if (!todos.length) {
+    el.innerHTML = '<p class="muted">TODOはまだありません。</p>';
+    return;
+  }
+
+  el.innerHTML = todos.map(t => `
+    <div class="item">
+      <div class="itemtext">
+        <strong>${esc(t.text)}</strong>
+        ${scope === 'all' ? `<small>${esc(t.course)}</small>` : ''}
+      </div>
+      <button class="secondary tiny" data-todo-edit="${t.id}">編集</button>
+      <button class="danger tiny" data-todo-delete="${t.id}">削除</button>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('[data-todo-edit]').forEach(btn => {
+    btn.onclick = () => {
+      const todo = data.todos.find(t => t.id === Number(btn.dataset.todoEdit));
+      if (!todo) return;
+
+      const newText = prompt('TODOを編集してください', todo.text);
+      if (newText === null) return;
+
+      if (!newText.trim()) {
+        alert('内容を入力してください。');
+        return;
+      }
+
+      todo.text = newText.trim();
+      save();
+      renderTodoList('all');
+      renderTodoList('course');
+    };
+  });
+
+  el.querySelectorAll('[data-todo-delete]').forEach(btn => {
+    btn.onclick = () => {
+      if (!confirm('このTODOを削除しますか？')) return;
+
+      data.todos = data.todos.filter(
+        t => t.id !== Number(btn.dataset.todoDelete)
+      );
+
+      save();
+      renderTodoList('all');
+      renderTodoList('course');
+    };
+  });
+}
+
+// トップ画面からTODO追加
+document.getElementById('addTodo').onclick = () => {
+  const text = document.getElementById('todoInput').value.trim();
+  const course = document.getElementById('todoCourse').value;
+
+  if (!text) {
+    alert('TODOの内容を入力してください。');
+    return;
+  }
+
+  data.todos.push({
+    id: Date.now(),
+    course,
+    text,
+    created: new Date().toLocaleString('ja-JP')
+  });
+
+  if (save()) {
+    document.getElementById('todoInput').value = '';
+    renderTodoList('all');
+  }
+};
+
+// コース画面からTODO追加
+document.getElementById('addCourseTodo').onclick = () => {
+  const text = document.getElementById('courseTodoInput').value.trim();
+
+  if (!text) {
+    alert('TODOの内容を入力してください。');
+    return;
+  }
+
+  data.todos.push({
+    id: Date.now(),
+    course: activeCourse,
+    text,
+    created: new Date().toLocaleString('ja-JP')
+  });
+
+  if (save()) {
+    document.getElementById('courseTodoInput').value = '';
+    renderTodoList('all');
+    renderTodoList('course');
+  }
+};
+
+// コース画面を表示するたびに該当TODOを更新
+const originalRenderRecord = renderRecord;
+renderRecord = function() {
+  originalRenderRecord();
+  renderTodoList('course');
+};
+
+// バックアップからTODOも復元する
+document.getElementById('importData').onclick = () => {
+  const f = document.getElementById('importFile').files[0];
+
+  if (!f) {
+    alert('バックアップファイルを選択してください。');
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try {
+      const x = JSON.parse(reader.result);
+
+      if (!x || !Array.isArray(x.races) ||
+          !Array.isArray(x.shortcuts)) {
+        throw Error('invalid');
+      }
+
+      if (!confirm('現在の記録をバックアップの内容で置き換えますか？')) return;
+
+      data = {
+        version: 1,
+        races: x.races,
+        shortcuts: x.shortcuts,
+        todos: Array.isArray(x.todos) ? x.todos : []
+      };
+
+      if (save()) {
+        alert('バックアップを復元しました。');
+        renderRecord();
+        renderTodoList('all');
+      }
+    } catch (e) {
+      alert('バックアップを読み込めませんでした。');
+    }
+  };
+
+  reader.readAsText(f);
+};
+
+// 全消去にもTODOを含める
+document.getElementById('clearAll').onclick = () => {
+  if (
+    confirm('すべての記録とTODOを消去しますか？') &&
+    confirm('本当に消去しますか？')
+  ) {
+    data = {
+      version: 1,
+      races: [],
+      shortcuts: [],
+      todos: []
+    };
+
+    save();
+    renderRecord();
+    renderTodoList('all');
+    alert('すべての記録を消去しました。');
+  }
+};
+
+// 初期表示
+renderTodoList('all');
+renderTodoList('course');
+
+// ===== TODOリスト機能ここまで =====
+
 renderMap();
 renderRecord();
 
