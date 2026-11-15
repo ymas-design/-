@@ -11,307 +11,196 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>WORLD TRACK NOTE</title>
 <style>
-:root{--green:#163c35;--green2:#2e6a50;--lime:#d5f18a;--bg:#f3f5ef;--card:#fff;--ink:#1c2923;--muted:#647168;--line:#dce3db;--red:#a64236}
+:root{--green:#163c35;--green2:#2e6a50;--lime:#d5f18a;--bg:#f3f5ef;--card:#fff;--ink:#1c2923;--muted:#647168;--line:#dce3db;--red:#a64236;--orange:#d97724}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
 header{background:var(--green);color:white;padding:calc(18px + env(safe-area-inset-top)) 18px 18px}
 .brand{display:flex;align-items:center;gap:12px}.logo{font-size:30px}.brand h1{font-size:19px;letter-spacing:.04em;margin:0}.brand p{font-size:12px;color:var(--lime);margin:4px 0 0}
 main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-bottom:14px}.tab,button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:650;cursor:pointer}.tab{flex:1;background:#e3e9e0;color:var(--green)}.tab.active,button.primary{background:var(--green2);color:white}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:13px;box-shadow:0 2px 7px #193c3508}.card h2{font-size:17px;margin:0 0 11px}.card h3{font-size:14px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
-.course{background:#f8faf6;border:1px solid var(--line);border-left:5px solid var(--course-color,#d8ddd8);border-radius:9px;padding:8px 3px;text-align:center;color:var(--ink);min-width:0}
-.course.selected{border:2px solid var(--green2);background:#edf5e9;font-weight:bold}
-.course strong{display:block;font-size:9px;line-height:1.35;margin:0;overflow-wrap:anywhere}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cc;border-radius:10px;background:white;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1;min-width:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:120px}.secondary{background:#e7ece6;color:var(--green)}.danger{background:#f8e8e6;color:var(--red)}.map{width:100%;display:block;background:#e3eddc;border-radius:14px}.mapnote{font-size:11px;color:var(--muted);margin-top:7px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#f6f8f4;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:27px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:flex-start}.item:last-child{border-bottom:0}.itemtext{flex:1;min-width:0}.itemtext strong{display:block;font-size:14px}.itemtext small{color:var(--muted);display:block;margin-top:3px}.tiny{padding:7px 9px;font-size:12px}.hidden{display:none!important}.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
+.course{background:#f8faf6;border:1px solid var(--line);border-left:5px solid var(--course-color,#d8ddd8);border-radius:9px;padding:9px 3px;text-align:center;color:var(--ink);min-width:0;min-height:48px}
+.course strong{display:block;font-size:10px;line-height:1.35;overflow-wrap:anywhere}
+.course.selected{border:3px solid var(--green2);background:#e5f3e8;font-weight:bold}
+.course.origin{border:3px solid #23834b;background:#e3f5e8;color:#14552f}
+.course.destination{border:3px solid #e58a27;background:#fff0dc;color:#87420b}
+.course:disabled{opacity:.28;filter:grayscale(1);cursor:not-allowed;background:#e8eae6;border:1px solid #d5d9d3}
+label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cc;border-radius:10px;background:white;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1;min-width:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:120px}.secondary{background:#e7ece6;color:var(--green)}.danger{background:#f8e8e6;color:var(--red)}.mapnote{font-size:11px;color:var(--muted);margin-top:7px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#f6f8f4;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:27px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:flex-start}.item:last-child{border-bottom:0}.itemtext{flex:1;min-width:0}.itemtext strong{display:block;font-size:14px}.itemtext small{color:var(--muted);display:block;margin-top:3px}.tiny{padding:7px 9px;font-size:12px}.hidden{display:none!important}.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
 @media(min-width:600px){main{padding:20px}}
 </style>
 </head>
 <body>
-<header><div class="brand"><div class="logo">🏁</div><div><h1>WORLD TRACK NOTE</h1><p>マリオカート ワールド攻略ノート</p></div></div></header>
+<header><div class="brand"><div class="logo">ð</div><div><h1>WORLD TRACK NOTE</h1><p>ããªãªã«ã¼ã ã¯ã¼ã«ãæ»ç¥ãã¼ã</p></div></div></header>
 <main>
-<div class="tabs"><button class="tab active" id="tabMap">🗺 コース選択</button><button class="tab" id="tabRecord">⚡ 記録・統計</button><button class="tab" id="tabBackup">💾 保存・バックアップ</button></div>
+<div class="tabs"><button class="tab active" id="tabMap">ðº ã³ã¼ã¹é¸æ</button><button class="tab" id="tabRecord">â¡ è¨é²ã»çµ±è¨</button><button class="tab" id="tabBackup">ð¾ ä¿å­ã»ããã¯ã¢ãã</button></div>
 
 <section id="pageMap">
-  <div class="card">
-    <h2>コースを選ぶ</h2>
-    <p class="muted">モードを選んでコースを選択してください。</p>
-
-    <div class="row">
-      <button class="primary" id="modeCircuit">🏁 周回</button>
-      <button class="secondary" id="modeRoad">🛣 道中</button>
-    </div>
-
-    <!-- 選択状況の案内 -->
-    <div style="margin-top:14px; background:#edf5e9; border:1px solid #c4dcbd; border-radius:12px; padding:10px; text-align:center;">
-      <span id="selectionGuide" style="font-weight:bold; color:var(--green2); font-size:13px;">サーキットを1つ選択してください</span>
-    </div>
-
-    <h3 style="margin-top:14px" id="gridTitle">サーキットを選択</h3>
-    <div class="grid" id="courseGrid"></div>
-
-    <div style="margin-top:8px; text-align:right;" id="resetArea" class="hidden">
-      <button class="secondary tiny" id="resetSelection">↻ 選び直す</button>
-    </div>
-
-    <div class="btnrow" style="margin-top:14px;">
-      <button class="primary" id="openSelectedCourse">コースを開く →</button>
-    </div>
-  </div>
+ <div class="card">
+  <h2>ã³ã¼ã¹ãé¸ã¶</h2><p class="muted">ã¢ã¼ããé¸ãã§ã³ã¼ã¹ãé¸æãã¦ãã ããã</p>
+  <div class="row"><button class="primary" id="modeCircuit">ð å¨å</button><button class="secondary" id="modeRoad">ð£ éä¸­</button></div>
+  <div style="margin-top:14px;background:#edf5e9;border:1px solid #c4dcbd;border-radius:12px;padding:10px;text-align:center"><span id="selectionGuide" style="font-weight:bold;color:var(--green2);font-size:13px">ãµã¼ã­ããã1ã¤é¸æãã¦ãã ãã</span></div>
+  <h3 style="margin-top:14px" id="gridTitle">ãµã¼ã­ãããé¸æ</h3><div class="grid" id="courseGrid"></div>
+  <div style="margin-top:8px;text-align:right" id="resetArea" class="hidden"><button class="secondary tiny" id="resetSelection">â» é¸ã³ç´ã</button></div>
+  <div class="btnrow" style="margin-top:14px"><button class="primary" id="openSelectedCourse">ã³ã¼ã¹ãéã â</button></div>
+  <p class="mapnote" id="mapNote"></p>
+ </div>
 </section>
 
 <section id="pageRecord" class="hidden">
- <div class="card"><button class="secondary tiny" id="backMap">← コース選択へ</button><h2 id="activeTitle" style="margin-top:12px">コース</h2><p class="muted">このコースの記録は端末内に自動保存されます。</p></div>
- <div class="card"><h2>サンダー発生率</h2><div class="statgrid"><div class="stat"><span>記録レース数</span><strong id="raceCount">0</strong></div><div class="stat"><span>サンダーあり</span><strong id="thunderCount">0</strong></div></div><div id="stats" class="muted" style="margin-top:12px">記録を追加すると、位置ごとの発生率が表示されます。</div></div>
-
-<div class="card">
-  <h2>📝 コースメモ</h2>
-  <textarea id="courseMemo" rows="5" placeholder="このコースの攻略メモを自由に入力"></textarea>
-  <button class="primary" id="saveCourseMemo">メモを保存</button>
-  <p id="courseMemoStatus" class="muted">メモはまだ保存されていません。</p>
-</div>
-<div class="card"><h2>サンダーを記録</h2><p class="muted">位置は「周回-アイテム位置」の形式で入力（例：3-2）。サンダーが出なかったレースも必ず記録すると、発生率が正しく計算できます。</p>
-<label>発生位置</label>
-<div style="display:flex;align-items:center;gap:8px">
-  <input id="thunderLap" type="number" inputmode="numeric" min="1" placeholder="3">
-  <span>-</span>
-  <input id="thunderSlot" type="number" inputmode="numeric" min="1" placeholder="2">
-</div>
- <div class="btnrow"><button class="primary" id="addThunder">⚡ サンダーあり</button><button class="secondary" id="addNoThunder">○ サンダーなし</button></div>
- </div>
-
- <div class="card"><h2>レース履歴</h2><div id="history" class="muted">まだ記録はありません。</div></div>
+ <div class="card"><button class="secondary tiny" id="backMap">â ã³ã¼ã¹é¸æã¸</button><h2 id="activeTitle" style="margin-top:12px">ã³ã¼ã¹</h2><p class="muted">ãã®ã³ã¼ã¹ã®è¨é²ã¯ç«¯æ«åã«èªåä¿å­ããã¾ãã</p></div>
+ <div class="card"><h2>ãµã³ãã¼çºçç</h2><div class="statgrid"><div class="stat"><span>è¨é²ã¬ã¼ã¹æ°</span><strong id="raceCount">0</strong></div><div class="stat"><span>ãµã³ãã¼ãã</span><strong id="thunderCount">0</strong></div></div><div id="stats" class="muted" style="margin-top:12px">è¨é²ãè¿½å ããã¨ãä½ç½®ãã¨ã®çºççãè¡¨ç¤ºããã¾ãã</div></div>
+ <div class="card"><h2>ð ã³ã¼ã¹ã¡ã¢</h2><textarea id="courseMemo" rows="5" placeholder="ãã®ã³ã¼ã¹ã®æ»ç¥ã¡ã¢ãèªç±ã«å¥å"></textarea><button class="primary" id="saveCourseMemo">ã¡ã¢ãä¿å­</button><p id="courseMemoStatus" class="muted">ã¡ã¢ã¯ã¾ã ä¿å­ããã¦ãã¾ããã</p></div>
+ <div class="card"><h2>ãµã³ãã¼ãè¨é²</h2><p class="muted">ä½ç½®ã¯ãå¨å-ã¢ã¤ãã ä½ç½®ãã®å½¢å¼ã§å¥åï¼ä¾ï¼3-2ï¼ããµã³ãã¼ãåºãªãã£ãã¬ã¼ã¹ãå¿ãè¨é²ããã¨ãçºççãæ­£ããè¨ç®ã§ãã¾ãã</p><label>çºçä½ç½®</label><div style="display:flex;align-items:center;gap:8px"><input id="thunderLap" type="number" inputmode="numeric" min="1" placeholder="3"><span>-</span><input id="thunderSlot" type="number" inputmode="numeric" min="1" placeholder="2"></div><div class="btnrow"><button class="primary" id="addThunder">â¡ ãµã³ãã¼ãã</button><button class="secondary" id="addNoThunder">â ãµã³ãã¼ãªã</button></div></div>
+ <div class="card"><h2>ã¬ã¼ã¹å±¥æ­´</h2><div id="history" class="muted">ã¾ã è¨é²ã¯ããã¾ããã</div></div>
 </section>
 
 <section id="pageBackup" class="hidden">
- <div class="card"><h2>💾 自動保存について</h2><p>記録を追加・削除すると、このiPhoneのブラウザ内に自動保存します。Safariを閉じても通常は残ります。</p><div class="notice">注意：Safariの履歴とWebサイトデータを消去すると、端末内の記録も消える場合があります。定期的にバックアップを書き出してください。</div></div>
- <div class="card"><h2>バックアップを書き出す</h2><p class="muted">すべてのコース、サンダー履歴、ショートカットメモをJSONファイルに保存します。</p><button class="primary" id="exportData" style="width:100%">⬇ バックアップを保存</button></div>
- <div class="card"><h2>バックアップから復元</h2><p class="muted">以前書き出したJSONファイルを選択します。現在の記録に上書きされるので、必要なら先にバックアップを取ってください。</p><input type="file" id="importFile" accept=".json,application/json"><div class="btnrow"><button class="secondary" id="importData">バックアップを読み込む</button></div></div>
- <div class="card"><h2>ホーム画面に追加</h2><p>1. このアプリをSafariで開く</p><p>2. 共有ボタン（□↑）をタップ</p><p>3. 「ホーム画面に追加」を選ぶ</p><p>4. 追加をタップ</p><p class="muted">ホーム画面から開けば、アプリのように使えます。ホーム画面追加とオフライン対応には、HTTPSで公開されたサイトが必要です。</p></div>
- <div class="card"><h2>記録をすべて消去</h2><p class="muted">消去前にバックアップを保存してください。</p><button class="danger" id="clearAll">すべての記録を消去</button></div>
+ <div class="card"><h2>ð¾ èªåä¿å­ã«ã¤ãã¦</h2><p>è¨é²ãè¿½å ã»åé¤ããã¨ããã®iPhoneã®ãã©ã¦ã¶åã«èªåä¿å­ãã¾ããSafariãéãã¦ãéå¸¸ã¯æ®ãã¾ãã</p><div class="notice">æ³¨æï¼Safariã®å±¥æ­´ã¨Webãµã¤ããã¼ã¿ãæ¶å»ããã¨ãç«¯æ«åã®è¨é²ãæ¶ããå ´åãããã¾ããå®æçã«ããã¯ã¢ãããæ¸ãåºãã¦ãã ããã</div></div>
+ <div class="card"><h2>ããã¯ã¢ãããæ¸ãåºã</h2><p class="muted">ãã¹ã¦ã®ã³ã¼ã¹ããµã³ãã¼å±¥æ­´ãã·ã§ã¼ãã«ããã¡ã¢ãJSONãã¡ã¤ã«ã«ä¿å­ãã¾ãã</p><button class="primary" id="exportData" style="width:100%">â¬ ããã¯ã¢ãããä¿å­</button></div>
+ <div class="card"><h2>ããã¯ã¢ããããå¾©å</h2><p class="muted">ä»¥åæ¸ãåºããJSONãã¡ã¤ã«ãé¸æãã¾ããç¾å¨ã®è¨é²ã«ä¸æ¸ããããã®ã§ãå¿è¦ãªãåã«ããã¯ã¢ãããåã£ã¦ãã ããã</p><input type="file" id="importFile" accept=".json,application/json"><div class="btnrow"><button class="secondary" id="importData">ããã¯ã¢ãããèª­ã¿è¾¼ã</button></div></div>
+ <div class="card"><h2>ãã¼ã ç»é¢ã«è¿½å </h2><p>1. ãã®ã¢ããªãSafariã§éã</p><p>2. å±æãã¿ã³ï¼â¡âï¼ãã¿ãã</p><p>3. ããã¼ã ç»é¢ã«è¿½å ããé¸ã¶</p><p>4. è¿½å ãã¿ãã</p><p class="muted">ãã¼ã ç»é¢ããéãã°ãã¢ããªã®ããã«ä½¿ãã¾ãããã¼ã ç»é¢è¿½å ã¨ãªãã©ã¤ã³å¯¾å¿ã«ã¯ãHTTPSã§å¬éããããµã¤ããå¿è¦ã§ãã</p></div>
+ <div class="card"><h2>è¨é²ããã¹ã¦æ¶å»</h2><p class="muted">æ¶å»åã«ããã¯ã¢ãããä¿å­ãã¦ãã ããã</p><button class="danger" id="clearAll">ãã¹ã¦ã®è¨é²ãæ¶å»</button></div>
 </section>
-<div class="foot">WORLD TRACK NOTE · データはこの端末のブラウザ内に保存</div>
+<div class="foot">WORLD TRACK NOTE Â· ãã¼ã¿ã¯ãã®ç«¯æ«ã®ãã©ã¦ã¶åã«ä¿å­</div>
 </main>
 
 <script>
 const KEY='worldTrackNote.v1';
 
-const circuits=['マリオブラザーズサーキット','トロフィーシティ','シュポポコースター','DKうちゅうセンター','サンサンさばく','ヘイホーカーニバル','ワリオスタジアム','キラーシップ','DKスノーマウンテン','ロゼッタてんもんだい','アイスビルディング','ワリオシップ','ノコノコビーチ','リバーサイドサファリ','ピーチスタジアム','ピーチビーチ','ソルティータウン','ディノディノジャングル','ハテナしんでん','プクプクフォールズ','ショーニューロード','おばけシネマ','ホネホネツイスター','モーモーカントリー','チョコマウンテン','キノピオファクトリー','クッパキャッスル','どんぐりツリーハウス','マリオサーキット','レインボーロード','SFC マリオサーキット1','SFC マリオサーキット2','SFC マリオサーキット3','SFC おばけぬま1','SFC おばけぬま2','SFC おばけぬま3','SFC チョコレーとう1','SFC チョコレーとう2','SFC バニラレイク1','SFC ノコノコビーチ1'];
-
+/* å¨åã§é¸ã¹ã40ã³ã¼ã¹ */
+const circuits=['ããªãªãã©ã¶ã¼ãºãµã¼ã­ãã','ãã­ãã£ã¼ã·ãã£','ã·ã¥ããã³ã¼ã¹ã¿ã¼','DKãã¡ããã»ã³ã¿ã¼','ãµã³ãµã³ãã°ã','ãã¤ãã¼ã«ã¼ããã«','ã¯ãªãªã¹ã¿ã¸ã¢ã ','ã­ã©ã¼ã·ãã','DKã¹ãã¼ãã¦ã³ãã³','ã­ã¼ãã¿ã¦ãããã ã','ã¢ã¤ã¹ãã«ãã£ã³ã°','ã¯ãªãªã·ãã','ãã³ãã³ãã¼ã','ãªãã¼ãµã¤ããµãã¡ãª','ãã¼ãã¹ã¿ã¸ã¢ã ','ãã¼ããã¼ã','ã½ã«ãã£ã¼ã¿ã¦ã³','ãã£ããã£ãã¸ã£ã³ã°ã«','ãããããã§ã','ãã¯ãã¯ãã©ã¼ã«ãº','ã·ã§ã¼ãã¥ã¼ã­ã¼ã','ãã°ãã·ãã','ãããããã¤ã¹ã¿ã¼','ã¢ã¼ã¢ã¼ã«ã³ããªã¼','ãã§ã³ãã¦ã³ãã³','ã­ãããªãã¡ã¯ããªã¼','ã¯ããã­ã£ãã¹ã«','ã©ãããããªã¼ãã¦ã¹','ããªãªãµã¼ã­ãã','ã¬ã¤ã³ãã¼ã­ã¼ã','SFC ããªãªãµã¼ã­ãã1','SFC ããªãªãµã¼ã­ãã2','SFC ããªãªãµã¼ã­ãã3','SFC ãã°ãã¬ã¾1','SFC ãã°ãã¬ã¾2','SFC ãã°ãã¬ã¾3','SFC ãã§ã³ã¬ã¼ã¨ã1','SFC ãã§ã³ã¬ã¼ã¨ã2','SFC ããã©ã¬ã¤ã¯1','SFC ãã³ãã³ãã¼ã1'];
 circuits.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
 
+/* éä¸­ã§ä½¿ã30ã®ã¡ã¤ã³ãµã¼ã­ãããSFCã³ã¼ã¹10åã¯å«ããªãã */
+const roadCourses=['ã©ãããããªã¼ãã¦ã¹','ã­ã©ã¼ã·ãã','ãã°ãã·ãã','ã¯ããã­ã£ãã¹ã«','ãã¯ãã¯ãã©ã¼ã«ãº','ãã§ã³ãã¦ã³ãã³','ãã­ãã£ã¼ã·ãã£','ã·ã§ã¼ãã¥ã¼ã­ã¼ã','ãµã³ãµã³ãã°ã','ãã£ããã£ãã¸ã£ã³ã°ã«','DKã¹ãã¼ãã¦ã³ãã³','DKãã¡ããã»ã³ã¿ã¼','ãããããã¤ã¹ã¿ã¼','ãªãã¼ãµã¤ããµãã¡ãª','ãããããã§ã','ãã³ãã³ãã¼ã','ããªãªãã©ã¶ã¼ãºãµã¼ã­ãã','ããªãªãµã¼ã­ãã','ã¢ã¼ã¢ã¼ã«ã³ããªã¼','ãã¼ããã¼ã','ãã¼ãã¹ã¿ã¸ã¢ã ','ã½ã«ãã£ã¼ã¿ã¦ã³','ãã¤ãã¼ã«ã¼ããã«','ã¢ã¤ã¹ãã«ãã£ã³ã°','ã­ã¼ãã¿ã¦ãããã ã','ã­ãããªãã¡ã¯ããªã¼','ã¯ãªãªã·ãã','ã¯ãªãªã¹ã¿ã¸ã¢ã ','ã·ã¥ããã³ã¼ã¹ã¿ã¼','ã¬ã¤ã³ãã¼ã­ã¼ã'];
+
+/* 202ã«ã¼ãã®æ¥ç¶è¡¨ãè±èªåã®ç¥å·ãæ¥æ¬èªåã«å¯¾å¿ããã¦ããã */
+const routeNames={
+ A:'ã©ãããããªã¼ãã¦ã¹',B:'ã­ã©ã¼ã·ãã',C:'ãã°ãã·ãã',D:'ã¯ããã­ã£ãã¹ã«',
+ E:'ãã¯ãã¯ãã©ã¼ã«ãº',F:'ãã§ã³ãã¦ã³ãã³',G:'ãã­ãã£ã¼ã·ãã£',H:'ã·ã§ã¼ãã¥ã¼ã­ã¼ã',
+ I:'ãµã³ãµã³ãã°ã',J:'ãã£ããã£ãã¸ã£ã³ã°ã«',K:'DKã¹ãã¼ãã¦ã³ãã³',L:'DKãã¡ããã»ã³ã¿ã¼',
+ M:'ãããããã¤ã¹ã¿ã¼',N:'ãªãã¼ãµã¤ããµãã¡ãª',O:'ãããããã§ã',P:'ãã³ãã³ãã¼ã',
+ Q:'ããªãªãã©ã¶ã¼ãºãµã¼ã­ãã',R:'ããªãªãµã¼ã­ãã',S:'ã¢ã¼ã¢ã¼ã«ã³ããªã¼',T:'ãã¼ããã¼ã',
+ U:'ãã¼ãã¹ã¿ã¸ã¢ã ',V:'ã½ã«ãã£ã¼ã¿ã¦ã³',W:'ãã¤ãã¼ã«ã¼ããã«',X:'ã¢ã¤ã¹ãã«ãã£ã³ã°',
+ Y:'ã­ã¼ãã¿ã¦ãããã ã',Z:'ã­ãããªãã¡ã¯ããªã¼',a:'ã¯ãªãªã·ãã',b:'ã¯ãªãªã¹ã¿ã¸ã¢ã ',
+ c:'ã·ã¥ããã³ã¼ã¹ã¿ã¼',d:'ã¬ã¤ã³ãã¼ã­ã¼ã'
+};
+const routeData={
+ A:'C H M R Z',
+ B:'D M W Z b',
+ C:'A H M R Y',
+ D:'B F M R Z b',
+ E:'F H K N S U V Y a',
+ F:'D E G Q S U W Z b c',
+ G:'F I L N P Q S U b c',
+ H:'A C E K R S X Y Z',
+ I:'G P Q W c',
+ J:'N O P T V',
+ K:'E H S V X Y a',
+ L:'G I P Q U c',
+ M:'A B C D R S Z b',
+ N:'E G J O P T U V',
+ O:'J N P T V',
+ P:'G J L N U',
+ Q:'F G I W Z b c',
+ R:'A C D H M S U Y Z',
+ S:'E F G H K M R U Z',
+ T:'J N O V a',
+ U:'E F G N P S d Z',
+ V:'E J K N O T a',
+ W:'B F I Q b',
+ X:'E H K V Y a',
+ Y:'C E H K R X a',
+ Z:'A B D F H M Q R S U b',
+ a:'E K T V X Y',
+ b:'B D F G M Q W Z',
+ c:'F G I L P Q'
+};
+const allowedDestinations={};
+Object.entries(routeData).forEach(([from,list])=>{
+ const origin=routeNames[from];
+ allowedDestinations[origin]=list.split(' ').map(code=>routeNames[code]);
+});
+const routeCount=Object.values(allowedDestinations).reduce((n,a)=>n+a.length,0);
+if(routeCount!==202) console.error('éä¸­ã«ã¼ãä»¶æ°ã202ã§ã¯ããã¾ãã:',routeCount);
+
 const courseColors={
-'マリオブラザーズサーキット':'#E85D5D',
-'トロフィーシティ':'#E5B84B',
-'シュポポコースター':'#E99A45',
-'DKうちゅうセンター':'#5489D5',
-'サンサンさばく':'#E6B34C',
-'ヘイホーカーニバル':'#D879B5',
-'ワリオスタジアム':'#E5A044',
-'キラーシップ':'#687D9B',
-'DKスノーマウンテン':'#8CC8E8',
-'ロゼッタてんもんだい':'#8B78D1',
-'アイスビルディング':'#75C8D8',
-'ワリオシップ':'#477DAD',
-'ノコノコビーチ':'#43BFC4',
-'リバーサイドサファリ':'#62A96D',
-'ピーチスタジアム':'#E98DBB',
-'ピーチビーチ':'#F0A6C5',
-'ソルティータウン':'#D9A66B',
-'ディノディノジャングル':'#6D9B54',
-'ハテナしんでん':'#A68ACB',
-'プクプクフォールズ':'#50B9D0',
-'ショーニューロード':'#D9B85B',
-'おばけシネマ':'#9875C7',
-'ホネホネツイスター':'#A18B78',
-'モーモーカントリー':'#83AD59',
-'チョコマウンテン':'#A97955',
-'キノピオファクトリー':'#8496A8',
-'クッパキャッスル':'#D6534D',
-'どんぐりツリーハウス':'#79A65C',
-'マリオサーキット':'#E85D5D',
-'レインボーロード':'#B47BD1',
-'SFC マリオサーキット1':'#E85D5D',
-'SFC マリオサーキット2':'#E85D5D',
-'SFC マリオサーキット3':'#E85D5D',
-'SFC おばけぬま1':'#9875C7',
-'SFC おばけぬま2':'#9875C7',
-'SFC おばけぬま3':'#9875C7',
-'SFC チョコレーとう1':'#A97955',
-'SFC チョコレーとう2':'#A97955',
-'SFC バニラレイク1':'#8CC8E8',
-'SFC ノコノコビーチ1':'#43BFC4'
+'ããªãªãã©ã¶ã¼ãºãµã¼ã­ãã':'#E85D5D','ãã­ãã£ã¼ã·ãã£':'#E5B84B','ã·ã¥ããã³ã¼ã¹ã¿ã¼':'#E99A45','DKãã¡ããã»ã³ã¿ã¼':'#5489D5','ãµã³ãµã³ãã°ã':'#E6B34C','ãã¤ãã¼ã«ã¼ããã«':'#D879B5','ã¯ãªãªã¹ã¿ã¸ã¢ã ':'#E5A044','ã­ã©ã¼ã·ãã':'#687D9B','DKã¹ãã¼ãã¦ã³ãã³':'#8CC8E8','ã­ã¼ãã¿ã¦ãããã ã':'#8B78D1','ã¢ã¤ã¹ãã«ãã£ã³ã°':'#75C8D8','ã¯ãªãªã·ãã':'#477DAD','ãã³ãã³ãã¼ã':'#43BFC4','ãªãã¼ãµã¤ããµãã¡ãª':'#62A96D','ãã¼ãã¹ã¿ã¸ã¢ã ':'#E98DBB','ãã¼ããã¼ã':'#F0A6C5','ã½ã«ãã£ã¼ã¿ã¦ã³':'#D9A66B','ãã£ããã£ãã¸ã£ã³ã°ã«':'#6D9B54','ãããããã§ã':'#A68ACB','ãã¯ãã¯ãã©ã¼ã«ãº':'#50B9D0','ã·ã§ã¼ãã¥ã¼ã­ã¼ã':'#D9B85B','ãã°ãã·ãã':'#9875C7','ãããããã¤ã¹ã¿ã¼':'#A18B78','ã¢ã¼ã¢ã¼ã«ã³ããªã¼':'#83AD59','ãã§ã³ãã¦ã³ãã³':'#A97955','ã­ãããªãã¡ã¯ããªã¼':'#8496A8','ã¯ããã­ã£ãã¹ã«':'#D6534D','ã©ãããããªã¼ãã¦ã¹':'#79A65C','ããªãªãµã¼ã­ãã':'#E85D5D','ã¬ã¤ã³ãã¼ã­ã¼ã':'#B47BD1',
+'SFC ããªãªãµã¼ã­ãã1':'#E85D5D','SFC ããªãªãµã¼ã­ãã2':'#E85D5D','SFC ããªãªãµã¼ã­ãã3':'#E85D5D','SFC ãã°ãã¬ã¾1':'#9875C7','SFC ãã°ãã¬ã¾2':'#9875C7','SFC ãã°ãã¬ã¾3':'#9875C7','SFC ãã§ã³ã¬ã¼ã¨ã1':'#A97955','SFC ãã§ã³ã¬ã¼ã¨ã2':'#A97955','SFC ããã©ã¬ã¤ã¯1':'#8CC8E8','SFC ãã³ãã³ãã¼ã1':'#43BFC4'
 };
 
 let data={version:1,races:[],shortcuts:[]};
-let activeCourse='サーキットA';
+let activeCourse='ãµã¼ã­ããA';
 let courseMode='circuit';
 let selectedCircuit=circuits[0];
-let roadOrigin=null;
-let roadDestination=null;
-
+let roadOrigin=null,roadDestination=null;
 try{const raw=localStorage.getItem(KEY);if(raw){const parsed=JSON.parse(raw);if(parsed&&Array.isArray(parsed.races)&&Array.isArray(parsed.shortcuts))data=parsed;}}catch(e){}
-function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('端末内に保存できませんでした。');return false}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert('ç«¯æ«åã«ä¿å­ã§ãã¾ããã§ããã');return false}}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-
 function setPage(name){['Map','Record','Backup'].forEach(n=>{document.getElementById('page'+n).classList.toggle('hidden',n.toLowerCase()!==name);document.getElementById('tab'+n).classList.toggle('active',n.toLowerCase()===name)})}
-
-function openCourse(name){
-  activeCourse=name;
-  document.getElementById('activeTitle').textContent=name;
-  document.getElementById('courseMemo').value=localStorage.getItem('courseMemo_'+name)||'';
-  document.getElementById('courseMemoStatus').textContent='このコースのメモを入力できます。';
-  setPage('record');
-  renderRecord();
-  window.scrollTo(0,0);
-}
-
+function openCourse(name){activeCourse=name;document.getElementById('activeTitle').textContent=name;document.getElementById('courseMemo').value=localStorage.getItem('courseMemo_'+name)||'';document.getElementById('courseMemoStatus').textContent='ãã®ã³ã¼ã¹ã®ã¡ã¢ãå¥åã§ãã¾ãã';setPage('record');renderRecord();window.scrollTo(0,0)}
 function renderMap(){
-  const grid = document.getElementById('courseGrid');
-  const guide = document.getElementById('selectionGuide');
-  const resetBtn = document.getElementById('resetArea');
-
-  if(courseMode === 'circuit'){
-    resetBtn.classList.add('hidden');
-    guide.textContent = selectedCircuit ? `選択中: ${selectedCircuit}` : 'サーキットを1つ選択してください';
-
-    grid.innerHTML = circuits.map(c=>`
-      <button class="course ${selectedCircuit===c?'selected':''}"
-        style="--course-color:${courseColors[c]||'#d8ddd8'}"
-        onclick="selectCircuitCourse('${esc(c)}')">
-        <strong>${esc(c)}</strong>
-      </button>
-    `).join('');
-
-  }else{
-    resetBtn.classList.remove('hidden');
-
-    if(!roadOrigin){
-      guide.textContent = '1/2 出発コースをタップしてください';
-    }else if(!roadDestination){
-      guide.textContent = `出発: ${roadOrigin} ➔ 2/2 到着コースをタップしてください`;
-    }else{
-      guide.textContent = `選択完了: ${roadOrigin} → ${roadDestination}`;
-    }
-
-    grid.innerHTML = circuits.map(c=>`
-      <button class="course ${c===roadOrigin || c===roadDestination ? 'selected' : ''}"
-        style="--course-color:${courseColors[c]||'#d8ddd8'}"
-        onclick="selectRoadCourse('${esc(c)}')">
-        <strong>${esc(c)}</strong>
-      </button>
-    `).join('');
-  }
+ const grid=document.getElementById('courseGrid'),guide=document.getElementById('selectionGuide');
+ const resetArea=document.getElementById('resetArea'),title=document.getElementById('gridTitle'),note=document.getElementById('mapNote');
+ if(courseMode==='circuit'){
+  resetArea.classList.add('hidden');title.textContent='ãµã¼ã­ãããé¸æ';
+  guide.textContent='é¸æä¸­: '+selectedCircuit;
+  note.textContent='å¨åã¢ã¼ãã§ã¯40ã³ã¼ã¹ããé¸ã¹ã¾ãã';
+  grid.innerHTML=circuits.map(c=>`<button class="course ${selectedCircuit===c?'selected':''}" style="--course-color:${courseColors[c]||'#d8ddd8'}" onclick="selectCircuitCourse('${esc(c)}')"><strong>${esc(c)}</strong></button>`).join('');
+ }else{
+  resetArea.classList.remove('hidden');title.textContent=roadOrigin?'å°çã³ã¼ã¹ãé¸æ':'åºçºã³ã¼ã¹ãé¸æ';
+  if(!roadOrigin)guide.textContent='1/2 åºçºã³ã¼ã¹ãé¸ãã§ãã ãã';
+  else if(!roadDestination)guide.textContent='åºçºï¼'+roadOrigin+'ãâãå°çã³ã¼ã¹ãé¸ãã§ãã ãã';
+  else guide.textContent='é¸æå®äºï¼'+roadOrigin+' â '+roadDestination;
+  note.textContent='åºçºã³ã¼ã¹ãé¸ã¶ã¨ãæ¥ç¶ãã¦ããå°çã³ã¼ã¹ã ãé¸æã§ãã¾ããåºçºã»å°çã®åããåºå¥ãã¦ãã¾ãã';
+  const choices=roadOrigin?(allowedDestinations[roadOrigin]||[]):roadCourses;
+  grid.innerHTML=roadCourses.map(c=>{
+   const isOrigin=c===roadOrigin,isDest=c===roadDestination;
+   const enabled=!roadOrigin||choices.includes(c)||isOrigin;
+   const cls=isOrigin?'origin':isDest?'destination':'';
+   return `<button class="course ${cls}" style="--course-color:${courseColors[c]||'#d8ddd8'}" ${enabled?'':'disabled'} onclick="selectRoadCourse('${esc(c)}')"><strong>${esc(c)}</strong></button>`;
+  }).join('');
+ }
 }
-
-function selectCircuitCourse(c){
-  selectedCircuit = c;
-  renderMap();
-}
-
+function selectCircuitCourse(c){selectedCircuit=c;renderMap()}
 function selectRoadCourse(c){
-  if(!roadOrigin){
-    roadOrigin = c;
-  }else if(!roadDestination && c !== roadOrigin){
-    roadDestination = c;
-  }
-  renderMap();
+ if(!roadOrigin){roadOrigin=c;roadDestination=null;}
+ else if(c===roadOrigin){roadOrigin=null;roadDestination=null;}
+ else if((allowedDestinations[roadOrigin]||[]).includes(c)){roadDestination=c;}
+ renderMap();
 }
-
-function resetRoad(){
-  roadOrigin = null;
-  roadDestination = null;
-  renderMap();
-}
-
+function resetRoad(){roadOrigin=null;roadDestination=null;renderMap()}
 document.getElementById('tabMap').onclick=()=>setPage('map');
 document.getElementById('tabRecord').onclick=()=>{setPage('record');renderRecord()};
 document.getElementById('tabBackup').onclick=()=>setPage('backup');
 document.getElementById('backMap').onclick=()=>setPage('map');
-
-document.getElementById('modeCircuit').onclick=()=>{
-  courseMode='circuit';
-  document.getElementById('modeCircuit').className='primary';
-  document.getElementById('modeRoad').className='secondary';
-  resetRoad();
-};
-
-document.getElementById('modeRoad').onclick=()=>{
-  courseMode='road';
-  document.getElementById('modeCircuit').className='secondary';
-  document.getElementById('modeRoad').className='primary';
-  resetRoad();
-};
-
-document.getElementById('resetSelection').onclick=()=>resetRoad();
-
+document.getElementById('modeCircuit').onclick=()=>{courseMode='circuit';document.getElementById('modeCircuit').className='primary';document.getElementById('modeRoad').className='secondary';renderMap()};
+document.getElementById('modeRoad').onclick=()=>{courseMode='road';document.getElementById('modeCircuit').className='secondary';document.getElementById('modeRoad').className='primary';resetRoad()};
+document.getElementById('resetSelection').onclick=resetRoad;
 document.getElementById('openSelectedCourse').onclick=()=>{
-  if(courseMode==='circuit'){
-    if(!selectedCircuit){
-      alert('サーキットを選択してください。');
-      return;
-    }
-    openCourse(selectedCircuit);
-  }else{
-    if(!roadOrigin||!roadDestination){
-      alert('出発コースと到着コースの両方を選択してください。');
-      return;
-    }
-    openCourse('道中：'+roadOrigin+' → '+roadDestination);
-  }
+ if(courseMode==='circuit'){if(!selectedCircuit){alert('ãµã¼ã­ãããé¸æãã¦ãã ããã');return;}openCourse(selectedCircuit);}
+ else{if(!roadOrigin||!roadDestination){alert('åºçºã³ã¼ã¹ã¨å°çã³ã¼ã¹ã®ä¸¡æ¹ãé¸æãã¦ãã ããã');return;}openCourse('éä¸­ï¼'+roadOrigin+' â '+roadDestination);}
 };
-
 function renderRecord(){
- const races=data.races.filter(r=>r.course===activeCourse), thunder=races.filter(r=>r.position);
- document.getElementById('raceCount').textContent=races.length;
- document.getElementById('thunderCount').textContent=thunder.length;
+ const races=data.races.filter(r=>r.course===activeCourse),thunder=races.filter(r=>r.position);
+ document.getElementById('raceCount').textContent=races.length;document.getElementById('thunderCount').textContent=thunder.length;
  const counts={};thunder.forEach(r=>counts[r.position]=(counts[r.position]||0)+1);
  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
- document.getElementById('stats').innerHTML=sorted.length?'<h3>位置ごとの発生率（全レース中）</h3>'+sorted.map(([p,n])=>`<div class="barrow"><div class="barlabel"><strong>${esc(p)}</strong><span>${n}回・${Math.round(n/races.length*100)}%</span></div><div class="bar"><i style="width:${n/races.length*100}%"></i></div></div>`).join(''):'<p>まだ記録がありません。サンダーなしのレースも含めて登録してください。</p>';
-
+ document.getElementById('stats').innerHTML=sorted.length?'<h3>ä½ç½®ãã¨ã®çºççï¼å¨ã¬ã¼ã¹ä¸­ï¼</h3>'+sorted.map(([p,n])=>`<div class="barrow"><div class="barlabel"><strong>${esc(p)}</strong><span>${n}åã»${Math.round(n/races.length*100)}%</span></div><div class="bar"><i style="width:${n/races.length*100}%"></i></div></div>`).join(''):'<p>ã¾ã è¨é²ãããã¾ããããµã³ãã¼ãªãã®ã¬ã¼ã¹ãå«ãã¦ç»é²ãã¦ãã ããã</p>';
  const history=[...races].reverse();
- document.getElementById('history').innerHTML=history.length?history.map(r=>`<div class="item"><div class="itemtext"><strong>${r.position?'⚡ サンダー：'+esc(r.position):'○ サンダーなし'}</strong><small>${esc(r.created||'記録')}</small></div><button class="danger tiny" data-del-race="${r.id}">削除</button></div>`).join(''):'<p class="muted">まだ記録はありません。</p>';
+ document.getElementById('history').innerHTML=history.length?history.map(r=>`<div class="item"><div class="itemtext"><strong>${r.position?'â¡ ãµã³ãã¼ï¼'+esc(r.position):'â ãµã³ãã¼ãªã'}</strong><small>${esc(r.created||'è¨é²')}</small></div><button class="danger tiny" data-del-race="${r.id}">åé¤</button></div>`).join(''):'<p class="muted">ã¾ã è¨é²ã¯ããã¾ããã</p>';
  document.querySelectorAll('[data-del-race]').forEach(b=>b.onclick=()=>{data.races=data.races.filter(r=>r.id!==Number(b.dataset.delRace));save();renderRecord()});
 }
-
 function addRace(position){
-  if(position&&!/^\d+-\d+$/.test(position.trim())){
-    alert('「3-2」の形式で入力してください。');
-    return;
-  }
-  data.races.push({
-    id:Date.now()+Math.floor(Math.random()*1000),
-    course:activeCourse,
-    position:position?position.trim():'',
-    created:new Date().toLocaleString('ja-JP')
-  });
-  if(save()){
-    document.getElementById('thunderLap').value='';
-    document.getElementById('thunderSlot').value='';
-    renderRecord();
-  }
+ if(position&&!/^\d+-\d+$/.test(position.trim())){alert('ã3-2ãã®å½¢å¼ã§å¥åãã¦ãã ããã');return;}
+ data.races.push({id:Date.now()+Math.floor(Math.random()*1000),course:activeCourse,position:position?position.trim():'',created:new Date().toLocaleString('ja-JP')});
+ if(save()){document.getElementById('thunderLap').value='';document.getElementById('thunderSlot').value='';renderRecord();}
 }
-
-document.getElementById('addThunder').onclick=()=>{
-  const lap=document.getElementById('thunderLap').value;
-  const slot=document.getElementById('thunderSlot').value;
-  if(!lap||!slot){alert('発生位置の2つの数字を入力してください');return;}
-  addRace(lap+'-'+slot);
-};
+document.getElementById('addThunder').onclick=()=>{const lap=document.getElementById('thunderLap').value,slot=document.getElementById('thunderSlot').value;if(!lap||!slot){alert('çºçä½ç½®ã®2ã¤ã®æ°å­ãå¥åãã¦ãã ãã');return;}addRace(lap+'-'+slot)};
 document.getElementById('addNoThunder').onclick=()=>addRace('');
-document.getElementById('saveCourseMemo').onclick=()=>{
-  if(!activeCourse){
-    alert('先にコースを選択してください');
-    return;
-  }
-  const memo=document.getElementById('courseMemo').value;
-  localStorage.setItem('courseMemo_'+activeCourse,memo);
-  document.getElementById('courseMemoStatus').textContent='保存しました！';
-};
-
+document.getElementById('saveCourseMemo').onclick=()=>{if(!activeCourse){alert('åã«ã³ã¼ã¹ãé¸æãã¦ãã ãã');return;}localStorage.setItem('courseMemo_'+activeCourse,document.getElementById('courseMemo').value);document.getElementById('courseMemoStatus').textContent='ä¿å­ãã¾ããï¼'};
 document.getElementById('exportData').onclick=()=>{const blob=new Blob([JSON.stringify({...data,exportedAt:new Date().toISOString()},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='world-track-note-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
-document.getElementById('importData').onclick=()=>{const f=document.getElementById('importFile').files[0];if(!f){alert('バックアップファイルを選択してください。');return}const reader=new FileReader();reader.onload=()=>{try{const x=JSON.parse(reader.result);if(!x||!Array.isArray(x.races)||!Array.isArray(x.shortcuts))throw Error('invalid');if(!confirm('現在の記録をバックアップの内容で置き換えます。よろしいですか？'))return;data={version:1,races:x.races,shortcuts:x.shortcuts};if(save()){alert('バックアップを復元しました。');renderRecord();}}catch(e){alert('このファイルはバックアップとして読み込めませんでした。')}};reader.readAsText(f)};
-document.getElementById('clearAll').onclick=()=>{if(confirm('すべてのサンダー記録とメモを消去します。バックアップはありますか？')&&confirm('本当に消去しますか？')){data={version:1,races:[],shortcuts:[]};save();renderRecord();alert('記録を消去しました。')}};
-
-renderMap();
-renderRecord();
-
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+document.getElementById('importData').onclick=()=>{const f=document.getElementById('importFile').files[0];if(!f){alert('ããã¯ã¢ãããã¡ã¤ã«ãé¸æãã¦ãã ããã');return;}const reader=new FileReader();reader.onload=()=>{try{const x=JSON.parse(reader.result);if(!x||!Array.isArray(x.races)||!Array.isArray(x.shortcuts))throw Error('invalid');if(!confirm('ç¾å¨ã®è¨é²ãããã¯ã¢ããã®åå®¹ã§ç½®ãæãã¾ããããããã§ããï¼'))return;data={version:1,races:x.races,shortcuts:x.shortcuts};if(save()){alert('ããã¯ã¢ãããå¾©åãã¾ããã');renderRecord();}}catch(e){alert('ãã®ãã¡ã¤ã«ã¯ããã¯ã¢ããã¨ãã¦èª­ã¿è¾¼ãã¾ããã§ããã');}};reader.readAsText(f)};
+document.getElementById('clearAll').onclick=()=>{if(confirm('ãã¹ã¦ã®ãµã³ãã¼è¨é²ã¨ã¡ã¢ãæ¶å»ãã¾ããããã¯ã¢ããã¯ããã¾ããï¼')&&confirm('æ¬å½ã«æ¶å»ãã¾ããï¼')){data={version:1,races:[],shortcuts:[]};save();renderRecord();alert('è¨é²ãæ¶å»ãã¾ããã');}};
+renderMap();renderRecord();
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 </script>
 </body>
 </html>
