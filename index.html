@@ -18,7 +18,6 @@ header{background:var(--green);color:white;padding:calc(18px + env(safe-area-ins
 main{max-width:760px;margin:auto;padding:14px}.tabs{display:flex;gap:8px;margin-bottom:14px}.tab,button{border:0;border-radius:12px;padding:12px 14px;font:inherit;font-weight:650;cursor:pointer}.tab{flex:1;background:#e3e9e0;color:var(--green)}.tab.active,button.primary{background:var(--green2);color:white}.card{background:var(--card);border:1px solid var(--line);border-radius:17px;padding:15px;margin-bottom:13px;box-shadow:0 2px 7px #193c3508}.card h2{font-size:17px;margin:0 0 11px}.card h3{font-size:14px;margin:0 0 8px}.muted{color:var(--muted);font-size:13px;line-height:1.5}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .course{background:#f8faf6;border:1px solid var(--line);border-left:5px solid var(--course-color,#d8ddd8);border-radius:9px;padding:8px 3px;text-align:center;color:var(--ink);min-width:0}
 .course.selected{border:2px solid var(--green2);background:#edf5e9}
-.course.disabled{opacity:0.35;pointer-events:none;filter:grayscale(80%)}
 .course strong{display:block;font-size:9px;line-height:1.35;margin:0;overflow-wrap:anywhere}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5cc;border-radius:10px;background:white;color:var(--ink);font:inherit}textarea{resize:vertical;min-height:75px}.row{display:flex;gap:8px;align-items:center}.row>*{flex:1;min-width:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.btnrow button{flex:1;min-width:120px}.secondary{background:#e7ece6;color:var(--green)}.danger{background:#f8e8e6;color:var(--red)}.map{width:100%;display:block;background:#e3eddc;border-radius:14px}.mapnote{font-size:11px;color:var(--muted);margin-top:7px}.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{padding:12px;background:#f6f8f4;border-radius:12px}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:27px}.barrow{margin:12px 0}.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}.item{padding:11px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:flex-start}.item:last-child{border-bottom:0}.itemtext{flex:1;min-width:0}.itemtext strong{display:block;font-size:14px}.itemtext small{color:var(--muted);display:block;margin-top:3px}.tiny{padding:7px 9px;font-size:12px}.hidden{display:none!important}.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
 @media(min-width:600px){main{padding:20px}}
 </style>
@@ -139,50 +138,6 @@ const courseColors={
 'SFC ノコノコビーチ1':'#43BFC4'
 };
 
-// 全コース・SFCコースを含めたすべての双方向ルート網羅データ
-const roadConnections = {
-  'マリオブラザーズサーキット': ['トロフィーシティ', 'ピーチスタジアム', 'キノピオファクトリー', 'SFC マリオサーキット1'],
-  'トロフィーシティ': ['マリオブラザーズサーキット', 'シュポポコースター'],
-  'シュポポコースター': ['トロフィーシティ', 'DKうちゅうセンター'],
-  'DKうちゅうセンター': ['シュポポコースター', 'DKスノーマウンテン'],
-  'サンサンさばく': ['ヘイホーカーニバル', 'ソルティータウン', 'SFC チョコレーとう1'],
-  'ヘイホーカーニバル': ['サンサンさばく', 'ワリオスタジアム'],
-  'ワリオスタジアム': ['ヘイホーカーニバル', 'キラーシップ'],
-  'キラーシップ': ['ワリオスタジアム', 'ワリオシップ', 'ロゼッタてんもんだい'],
-  'DKスノーマウンテン': ['DKうちゅうセンター', 'アイスビルディング', 'SFC バニラレイク1'],
-  'ロゼッタてんもんだい': ['キラーシップ', 'アイスビルディング', 'レインボーロード'],
-  'アイスビルディング': ['DKスノーマウンテン', 'ロゼッタてんもんだい'],
-  'ワリオシップ': ['キラーシップ', 'ソルティータウン'],
-  'ノコノコビーチ': ['ピーチビーチ', 'リバーサイドサファリ', 'SFC ノコノコビーチ1'],
-  'リバーサイドサファリ': ['ノコノコビーチ', 'ディノディノジャングル'],
-  'ピーチスタジアム': ['マリオブラザーズサーキット', 'ピーチビーチ', 'レインボーロード'],
-  'ピーチビーチ': ['ピーチスタジアム', 'ノコノコビーチ'],
-  'ソルティータウン': ['サンサンさばく', 'ワリオシップ'],
-  'ディノディノジャングル': ['リバーサイドサファリ', 'ハテナしんでん'],
-  'ハテナしんでん': ['ディノディノジャングル', 'プクプクフォールズ'],
-  'プクプクフォールズ': ['ハテナしんでん', 'ショーニューロード'],
-  'ショーニューロード': ['プクプクフォールズ', 'おばけシネマ'],
-  'おばけシネマ': ['ショーニューロード', 'ホネホネツイスター', 'SFC おばけぬま1'],
-  'ホネホネツイスター': ['おばけシネマ', 'クッパキャッスル'],
-  'モーモーカントリー': ['チョコマウンテン', 'どんぐりツリーハウス'],
-  'チョコマウンテン': ['モーモーカントリー', 'キノピオファクトリー'],
-  'キノピオファクトリー': ['マリオブラザーズサーキット', 'チョコマウンテン'],
-  'クッパキャッスル': ['ホネホネツイスター', 'マリオサーキット'],
-  'どんぐりツリーハウス': ['モーモーカントリー', 'マリオサーキット'],
-  'マリオサーキット': ['クッパキャッスル', 'どんぐりツリーハウス', 'レインボーロード'],
-  'レインボーロード': ['マリオサーキット', 'ピーチスタジアム', 'ロゼッタてんもんだい'],
-  'SFC マリオサーキット1': ['マリオブラザーズサーキット', 'SFC マリオサーキット2'],
-  'SFC マリオサーキット2': ['SFC マリオサーキット1', 'SFC マリオサーキット3'],
-  'SFC マリオサーキット3': ['SFC マリオサーキット2'],
-  'SFC おばけぬま1': ['おばけシネマ', 'SFC おばけぬま2'],
-  'SFC おばけぬま2': ['SFC おばけぬま1', 'SFC おばけぬま3'],
-  'SFC おばけぬま3': ['SFC おばけぬま2'],
-  'SFC チョコレーとう1': ['サンサンさばく', 'SFC チョコレーとう2'],
-  'SFC チョコレーとう2': ['SFC チョコレーとう1'],
-  'SFC バニラレイク1': ['DKスノーマウンテン'],
-  'SFC ノコノコビーチ1': ['ノコノコビーチ']
-};
-
 let data={version:1,races:[],shortcuts:[]};
 let activeCourse='サーキットA';
 let courseMode='circuit';
@@ -210,7 +165,6 @@ function renderMap(){
   const grid = document.getElementById('courseGrid');
   const guide = document.getElementById('selectionGuide');
   const resetBtn = document.getElementById('resetArea');
-  // 道中モードでもすべてのコース（SFC含む）を選択肢に出すように調整
   const targetCourses = circuits;
 
   if(courseMode === 'circuit'){
@@ -234,7 +188,6 @@ function renderMap(){
 
   }else{
     resetBtn.classList.remove('hidden');
-    const validDestinations = roadOrigin ? (roadConnections[roadOrigin]||[]) : [];
 
     if(!roadOrigin){
       guide.textContent = '1/2 出発コースをタップしてください';
@@ -251,11 +204,9 @@ function renderMap(){
       }else if(c===roadOrigin){
         stateClass='selected';
       }else if(!roadDestination){
-        stateClass=validDestinations.includes(c)?'':'disabled';
+        // 制限なしですべて選択可能
       }else if(c===roadDestination){
         stateClass='selected';
-      }else{
-        stateClass='disabled';
       }
 
       return `
@@ -272,7 +223,7 @@ function renderMap(){
         const c=b.dataset.road;
         if(!roadOrigin){
           roadOrigin=c;
-        }else if(!roadDestination && validDestinations.includes(c)){
+        }else if(!roadDestination){
           roadDestination=c;
         }
         renderMap();
