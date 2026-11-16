@@ -224,14 +224,6 @@ textarea{resize:vertical;min-height:75px}
 
 <!-- コース選択画面 -->
 <section id="pageMap">
-  
- <div class="card">
-  <h2>📌 このコースのTODO</h2>
-  <p class="muted">このコースと共通のTODOを表示します。</p>
-  <div id="courseTodoList">
-   <p class="muted">TODOはまだありません。</p>
-  </div>
- </div>
 
  <div class="card">
   <h2>コースを選ぶ</h2>
@@ -269,9 +261,7 @@ textarea{resize:vertical;min-height:75px}
   <p class="muted">攻略で確認したいことや、やることを登録できます。</p>
 
   <label for="todoCourse">対象コース</label>
-  <select id="todoCourse">
-   <option value="共通">共通・全コース</option>
-  </select>
+  <select id="todoCourse"></select>
 
   <label for="todoInput">やること</label>
   <textarea id="todoInput" rows="2" placeholder="例：ショートカットの場所を確認する"></textarea>
@@ -297,6 +287,14 @@ textarea{resize:vertical;min-height:75px}
   <button class="secondary tiny" id="backMap">← コース選択へ</button>
   <h2 id="activeTitle" style="margin-top:12px">コース</h2>
   <p class="muted">このコースの記録は端末内に自動保存されます。</p>
+ </div>
+
+ <!-- 選択中コースのTODO -->
+ <div class="card">
+  <h2>📌 このコースのTODO</h2>
+  <div id="courseTodoList">
+   <p class="muted">TODOはまだありません。</p>
+  </div>
  </div>
 
  <div class="card">
@@ -868,6 +866,7 @@ function renderRecord(){
   b.onclick=()=>{
 
    if(!confirm('このレース記録を削除しますか？'))return;
+
    data.races=data.races.filter(
     r=>r.id!==Number(b.dataset.delRace)
    );
@@ -957,15 +956,12 @@ function buildTodoCourseOptions(){
 
  const allCourses=[...circuits,...roadRouteNames];
 
- select.innerHTML=
-  '<option value="共通">共通・全コース</option>'+
-  allCourses.map(c=>
-   `<option value="${esc(c)}">${esc(c)}</option>`
-  ).join('');
+ select.innerHTML=allCourses.map(c=>
+  `<option value="${esc(c)}">${esc(c)}</option>`
+ ).join('');
 }
 
-
-/* TODO表示共通処理 */
+/* TODO表示 */
 function renderTodoItems(el,todos){
 
  if(!todos.length){
@@ -977,7 +973,7 @@ function renderTodoItems(el,todos){
   <div class="item">
    <div class="itemtext">
     <strong>${esc(t.text)}</strong>
-    <span class="todo-course">${esc(t.course||'共通')}</span>
+    <span class="todo-course">${esc(t.course||'未分類')}</span>
     <small>${esc(t.created||'')}</small>
    </div>
    <button class="secondary tiny" data-todo-edit="${t.id}">編集</button>
@@ -1027,14 +1023,14 @@ function renderTodoItems(el,todos){
  });
 }
 
-/* 全TODO表示 */
+/* TODOタブ：全TODO表示 */
 function renderTodoList(){
 
  const el=document.getElementById('todoAllList');
  renderTodoItems(el,data.todos);
 }
 
-/* 選択中コースのTODO表示 */
+/* コースページ：選択中のコースだけ表示 */
 function renderCourseTodoList(){
 
  const el=document.getElementById('courseTodoList');
@@ -1042,7 +1038,6 @@ function renderCourseTodoList(){
  if(!el)return;
 
  const todos=data.todos.filter(t=>
-  (t.course||'共通')==='共通'||
   t.course===activeCourse
  );
 
@@ -1054,7 +1049,6 @@ function renderTodoViews(){
  renderTodoList();
  renderCourseTodoList();
 }
-
 
 /* TODO追加 */
 document.getElementById('addTodo').onclick=()=>{
@@ -1171,7 +1165,6 @@ document.getElementById('importData').onclick=()=>{
      !Array.isArray(x.courseMemos)
     ){
 
-     /* 現在のコースメモを削除 */
      const oldKeys=[];
 
      for(let i=0;i<localStorage.length;i++){
@@ -1184,7 +1177,6 @@ document.getElementById('importData').onclick=()=>{
 
      oldKeys.forEach(key=>localStorage.removeItem(key));
 
-     /* バックアップのメモを書き戻す */
      Object.entries(x.courseMemos).forEach(([course,memo])=>{
       if(typeof memo==='string'){
        localStorage.setItem('courseMemo_'+course,memo);
@@ -1195,7 +1187,7 @@ document.getElementById('importData').onclick=()=>{
     alert('バックアップを復元しました。');
 
     renderRecord();
-   renderTodoViews();
+    renderTodoViews();
    }
 
   }catch(e){
@@ -1224,7 +1216,7 @@ document.getElementById('clearAll').onclick=()=>{
 
   if(save()){
    renderRecord();
-   renderTodoList();
+   renderTodoViews();
    alert('記録とTODOを消去しました。');
   }
  }
