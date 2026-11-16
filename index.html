@@ -201,168 +201,129 @@ textarea{resize:vertical;min-height:75px}
 }
 
 /* ===== コース記録画面をコンパクトに ===== */
-
 #pageRecord .card{
-  padding:11px;
-  margin-bottom:8px;
-  border-radius:14px;
+ padding:11px;
+ margin-bottom:8px;
+ border-radius:14px;
 }
-
 #pageRecord .card h2{
-  font-size:15px;
-  margin:0 0 7px;
+ font-size:15px;
+ margin:0 0 7px;
 }
-
 #pageRecord .card h3{
-  font-size:13px;
-  margin-bottom:6px;
+ font-size:13px;
+ margin-bottom:6px;
 }
-
 #pageRecord .muted{
-  font-size:11px;
-  line-height:1.4;
+ font-size:11px;
+ line-height:1.4;
 }
-
 #pageRecord .card > .muted{
-  margin-top:4px;
-  margin-bottom:6px;
+ margin-top:4px;
+ margin-bottom:6px;
 }
-
 #pageRecord button{
-  padding:9px 11px;
-  border-radius:10px;
-  font-size:13px;
+ padding:9px 11px;
+ border-radius:10px;
+ font-size:13px;
 }
-
 #pageRecord button.tiny{
-  padding:6px 8px;
-  font-size:11px;
+ padding:6px 8px;
+ font-size:11px;
 }
-
 #pageRecord input{
-  padding:9px;
-  font-size:14px;
+ padding:9px;
+ font-size:14px;
 }
-
 #pageRecord textarea{
-  min-height:55px;
-  padding:9px;
-  font-size:13px;
+ min-height:55px;
+ padding:9px;
+ font-size:13px;
 }
-
-#pageRecord .statgrid{
-  gap:7px;
-}
-
+#pageRecord .statgrid{gap:7px}
 #pageRecord .stat{
-  padding:8px;
-  border-radius:10px;
+ padding:8px;
+ border-radius:10px;
 }
-
-#pageRecord .stat span{
-  font-size:11px;
-}
-
-#pageRecord .stat strong{
-  font-size:23px;
-}
-
-#pageRecord #stats{
-  margin-top:7px !important;
-}
-
-#pageRecord .barrow{
-  margin:8px 0;
-}
-
+#pageRecord .stat span{font-size:11px}
+#pageRecord .stat strong{font-size:23px}
+#pageRecord #stats{margin-top:7px!important}
+#pageRecord .barrow{margin:8px 0}
 #pageRecord .barlabel{
-  font-size:11px;
-  margin-bottom:4px;
+ font-size:11px;
+ margin-bottom:4px;
 }
-
-#pageRecord .bar{
-  height:6px;
-}
-
+#pageRecord .bar{height:6px}
 #pageRecord .btnrow{
-  gap:6px;
-  margin-top:7px;
+ gap:6px;
+ margin-top:7px;
 }
-
 #pageRecord .item{
-  padding:7px 0;
-  gap:6px;
-  align-items:center;
+ padding:7px 0;
+ gap:6px;
+ align-items:center;
 }
-
-#pageRecord .itemtext strong{
-  font-size:13px;
-}
-
+#pageRecord .itemtext strong{font-size:13px}
 #pageRecord .itemtext small{
-  font-size:10px;
-  margin-top:2px;
+ font-size:10px;
+ margin-top:2px;
 }
-
 #pageRecord .todo-course{
-  font-size:10px;
-  padding:2px 5px;
-  margin-top:3px;
+ font-size:10px;
+ padding:2px 5px;
+ margin-top:3px;
 }
-
-#pageRecord #courseTodoList .item button{
-  flex:0 0 auto;
-  min-width:auto;
-}
-
+#pageRecord #courseTodoList .item button,
 #pageRecord #history .item button{
-  flex:0 0 auto;
-  min-width:auto;
+ flex:0 0 auto;
+ min-width:auto;
 }
-
-#pageRecord #courseMemo{
-  min-height:65px;
-}
-
+#pageRecord #courseMemo{min-height:65px}
 #pageRecord #activeTitle{
-  font-size:17px;
-  margin-top:7px !important;
+ font-size:17px;
+ margin-top:7px!important;
 }
-
-#pageRecord #backMap{
-  padding:7px 10px;
-}
+#pageRecord #backMap{padding:7px 10px}
 
 /* コース画面の説明文を非表示 */
-#pageRecord > .card:first-child > .muted{
-  display:none;
-}
-
-#pageRecord > .card:nth-of-type(4) > .muted{
-  display:none;
-}
-
-#pageRecord #memoGuide{
-  display:none;
-}
-
-/* 不要な案内文を非表示 */
-#pageRecord #courseTodoList > .muted{
-  display:none;
-}
-
-#pageRecord #stats > p{
-  display:none;
-}
-
-#pageRecord #courseMemoStatus{
-  display:none;
-}
-
+#pageRecord > .card:first-child > .muted,
+#pageRecord > .card:nth-of-type(4) > .muted,
+#pageRecord #memoGuide,
+#pageRecord #courseTodoList > .muted,
+#pageRecord #stats > p,
+#pageRecord #courseMemoStatus,
 #pageRecord #history > p{
-  display:none;
+ display:none;
 }
 
+/* TODO画面 */
+#pageTodo .card{
+ padding:11px;
+ margin-bottom:8px;
+}
+#pageTodo .card h2{
+ font-size:15px;
+ margin-bottom:7px;
+}
+#pageTodo .card > .muted{
+ font-size:11px;
+ margin:0 0 6px;
+}
+#pageTodo .course{
+ min-height:43px;
+ padding:7px 3px;
+}
+#pageTodo .item{
+ padding:7px 0;
+ gap:6px;
+ align-items:center;
+}
+#pageTodo .itemtext strong{font-size:13px}
+#pageTodo .itemtext small{font-size:10px}
+#pageTodo button.tiny{
+ padding:6px 7px;
+ font-size:11px;
+}
 </style>
 </head>
 
@@ -388,7 +349,6 @@ textarea{resize:vertical;min-height:75px}
 
 <!-- コース選択画面 -->
 <section id="pageMap">
-
  <div class="card">
   <h2>コースを選ぶ</h2>
   <p class="muted">モードを選んでコースを選択してください。</p>
@@ -419,13 +379,26 @@ textarea{resize:vertical;min-height:75px}
 
 <!-- TODO画面 -->
 <section id="pageTodo" class="hidden">
-
  <div class="card">
   <h2>📌 TODOリスト</h2>
   <p class="muted">攻略で確認したいことや、やることを登録できます。</p>
 
-  <label for="todoCourse">対象コース</label>
-  <select id="todoCourse"></select>
+  <h3>対象コース</h3>
+  <div class="row">
+   <button class="primary" id="todoModeCircuit">🏁 周回</button>
+   <button class="secondary" id="todoModeRoad">🛣 道中</button>
+  </div>
+
+  <div style="margin-top:10px;background:#edf5e9;border:1px solid #c4dcbd;border-radius:12px;padding:10px;text-align:center">
+   <span id="todoSelectionGuide" style="font-weight:bold;color:var(--green2);font-size:13px">サーキットを1つ選択してください</span>
+  </div>
+
+  <h3 style="margin-top:12px" id="todoGridTitle">サーキットを選択</h3>
+  <div class="grid" id="todoCourseGrid"></div>
+
+  <div style="margin-top:8px;text-align:right" id="todoResetArea" class="hidden">
+   <button class="secondary tiny" id="todoResetSelection">↻ 選び直す</button>
+  </div>
 
   <label for="todoInput">やること</label>
   <textarea id="todoInput" rows="2" placeholder="例：ショートカットの場所を確認する"></textarea>
@@ -441,19 +414,16 @@ textarea{resize:vertical;min-height:75px}
    <p class="muted">TODOはまだありません。</p>
   </div>
  </div>
-
 </section>
 
 <!-- コース記録画面 -->
 <section id="pageRecord" class="hidden">
-
  <div class="card">
   <button class="secondary tiny" id="backMap">← コース選択へ</button>
   <h2 id="activeTitle" style="margin-top:12px">コース</h2>
   <p class="muted">このコースの記録は端末内に自動保存されます。</p>
  </div>
 
- <!-- 選択中コースのTODO -->
  <div class="card">
   <h2>📌 このコースのTODO</h2>
   <div id="courseTodoList">
@@ -510,12 +480,10 @@ textarea{resize:vertical;min-height:75px}
   <h2>レース履歴</h2>
   <div id="history" class="muted">まだ記録はありません。</div>
  </div>
-
 </section>
 
 <!-- バックアップ画面 -->
 <section id="pageBackup" class="hidden">
-
  <div class="card">
   <h2>💾 自動保存について</h2>
   <p>
@@ -567,11 +535,9 @@ textarea{resize:vertical;min-height:75px}
   <p class="muted">消去前にバックアップを保存してください。</p>
   <button class="danger" id="clearAll">すべての記録を消去</button>
  </div>
-
 </section>
 
 <div class="foot">WORLD TRACK NOTE · データはこの端末のブラウザ内に保存</div>
-
 </main>
 
 <script>
@@ -766,7 +732,6 @@ function esc(s){
 
 /* 画面切り替え */
 function setPage(name){
-
  const pages=['Map','Todo','Record','Backup'];
 
  pages.forEach(n=>{
@@ -783,17 +748,14 @@ function setPage(name){
 
 /* コースメモの初期テンプレート */
 function createMemoTemplate(course){
-
  if(course.startsWith('道中：')){
   return '・周回方法：\n・サンダーP：\n\n';
  }
-
  return '・サンダーP：\n\n';
 }
 
 /* コースを開く */
 function openCourse(name){
-
  activeCourse=name;
 
  document.getElementById('activeTitle').textContent=name;
@@ -818,7 +780,6 @@ function openCourse(name){
 
 /* コース選択画面 */
 function renderMap(){
-
  const grid=document.getElementById('courseGrid');
  const guide=document.getElementById('selectionGuide');
  const resetArea=document.getElementById('resetArea');
@@ -826,7 +787,6 @@ function renderMap(){
  const note=document.getElementById('mapNote');
 
  if(courseMode==='circuit'){
-
   resetArea.classList.add('hidden');
   title.textContent='サーキットを選択';
   guide.textContent='選択中: '+selectedCircuit;
@@ -842,9 +802,7 @@ function renderMap(){
   `).join('');
 
  }else{
-
   resetArea.classList.remove('hidden');
-
   title.textContent=roadOrigin?'到着コースを選択':'出発コースを選択';
 
   if(!roadOrigin){
@@ -866,7 +824,6 @@ function renderMap(){
     );
 
   grid.innerHTML=roadCourses.map(c=>{
-
    const isOrigin=c===roadOrigin;
    const isDest=c===roadDestination;
 
@@ -895,19 +852,15 @@ function selectCircuitCourse(c){
 }
 
 function selectRoadCourse(c){
-
  if(!roadOrigin){
   roadOrigin=c;
   roadDestination=null;
-
  }else if(c===roadOrigin){
   roadOrigin=null;
   roadDestination=null;
-
  }else if((allowedDestinations[roadOrigin]||[]).includes(c)){
   roadDestination=c;
  }
-
  renderMap();
 }
 
@@ -958,30 +911,23 @@ document.getElementById('resetSelection').onclick=resetRoad;
 
 /* コースを開くボタン */
 document.getElementById('openSelectedCourse').onclick=()=>{
-
  if(courseMode==='circuit'){
-
   if(!selectedCircuit){
    alert('サーキットを選択してください。');
    return;
   }
-
   openCourse(selectedCircuit);
-
  }else{
-
   if(!roadOrigin||!roadDestination){
    alert('出発コースと到着コースの両方を選択してください。');
    return;
   }
-
   openCourse('道中：'+roadOrigin+' → '+roadDestination);
  }
 };
 
 /* 記録・統計 */
 function renderRecord(){
-
  const races=data.races.filter(r=>r.course===activeCourse);
  const thunder=races.filter(r=>r.position);
 
@@ -1026,9 +972,7 @@ function renderRecord(){
   :'<p class="muted">まだ記録はありません。</p>';
 
  document.querySelectorAll('[data-del-race]').forEach(b=>{
-
   b.onclick=()=>{
-
    if(!confirm('このレース記録を削除しますか？'))return;
 
    data.races=data.races.filter(
@@ -1045,7 +989,6 @@ function renderRecord(){
 
 /* サンダー記録追加 */
 function addRace(position){
-
  if(position&&!/^\d+-\d+$/.test(position.trim())){
   alert('「3-2」の形式で入力してください。');
   return;
@@ -1059,16 +1002,13 @@ function addRace(position){
  });
 
  if(save()){
-
   document.getElementById('thunderLap').value='';
   document.getElementById('thunderSlot').value='';
-
   renderRecord();
  }
 }
 
 document.getElementById('addThunder').onclick=()=>{
-
  const lap=document.getElementById('thunderLap').value;
  const slot=document.getElementById('thunderSlot').value;
 
@@ -1086,7 +1026,6 @@ document.getElementById('addNoThunder').onclick=()=>{
 
 /* コースメモ保存 */
 document.getElementById('saveCourseMemo').onclick=()=>{
-
  if(!activeCourse){
   alert('先にコースを選択してください');
   return;
@@ -1099,35 +1038,137 @@ document.getElementById('saveCourseMemo').onclick=()=>{
   );
 
   document.getElementById('courseMemoStatus').textContent='保存しました！';
-
  }catch(e){
   alert('メモを保存できませんでした。');
  }
 };
 
-/* TODO対象コース一覧 */
-function buildTodoCourseOptions(){
+/* ==================================
+   TODO専用コース選択
+   ================================== */
 
- const select=document.getElementById('todoCourse');
+let todoMode='circuit';
+let todoSelectedCircuit=circuits[0];
+let todoRoadOrigin=null;
+let todoRoadDestination=null;
 
- const roadRouteNames=[];
+function renderTodoCoursePicker(){
+ const grid=document.getElementById('todoCourseGrid');
+ const guide=document.getElementById('todoSelectionGuide');
+ const title=document.getElementById('todoGridTitle');
+ const reset=document.getElementById('todoResetArea');
 
- Object.entries(allowedDestinations).forEach(([origin,destinations])=>{
-  destinations.forEach(destination=>{
-   roadRouteNames.push('道中：'+origin+' → '+destination);
-  });
- });
+ if(todoMode==='circuit'){
+  reset.classList.add('hidden');
+  title.textContent='サーキットを選択';
+  guide.textContent='選択中：'+todoSelectedCircuit;
 
- const allCourses=[...circuits,...roadRouteNames];
+  grid.innerHTML=circuits.map(c=>`
+   <button
+    class="course ${todoSelectedCircuit===c?'selected':''}"
+    style="--course-color:${courseColors[c]||'#d8ddd8'}"
+    onclick="selectTodoCircuit('${esc(c)}')">
+    <strong>${esc(c)}</strong>
+   </button>
+  `).join('');
 
- select.innerHTML=allCourses.map(c=>
-  `<option value="${esc(c)}">${esc(c)}</option>`
- ).join('');
+ }else{
+  reset.classList.remove('hidden');
+  title.textContent=todoRoadOrigin?'到着コースを選択':'出発コースを選択';
+
+  if(!todoRoadOrigin){
+   guide.textContent='1/2 出発コースを選んでください';
+  }else if(!todoRoadDestination){
+   guide.textContent='出発：'+todoRoadOrigin+' → 到着コースを選んでください';
+  }else{
+   guide.textContent='選択完了：'+todoRoadOrigin+' → '+todoRoadDestination;
+  }
+
+  const choices=todoRoadOrigin
+   ?(allowedDestinations[todoRoadOrigin]||[])
+   :roadCourses.filter(c=>
+      Array.isArray(allowedDestinations[c])&&
+      allowedDestinations[c].length>0
+    );
+
+  grid.innerHTML=roadCourses.map(c=>{
+   const isOrigin=c===todoRoadOrigin;
+   const isDest=c===todoRoadDestination;
+
+   const enabled=todoRoadOrigin
+    ?(choices.includes(c)||isOrigin)
+    :choices.includes(c);
+
+   const cls=isOrigin?'origin':isDest?'destination':'';
+
+   return `
+    <button
+     class="course ${cls}"
+     style="--course-color:${courseColors[c]||'#d8ddd8'}"
+     ${enabled?'':'disabled'}
+     onclick="selectTodoRoad('${esc(c)}')">
+     <strong>${esc(c)}</strong>
+    </button>
+   `;
+  }).join('');
+ }
+}
+
+function selectTodoCircuit(c){
+ todoSelectedCircuit=c;
+ renderTodoCoursePicker();
+}
+
+function selectTodoRoad(c){
+ if(!todoRoadOrigin){
+  todoRoadOrigin=c;
+  todoRoadDestination=null;
+ }else if(c===todoRoadOrigin){
+  todoRoadOrigin=null;
+  todoRoadDestination=null;
+ }else if((allowedDestinations[todoRoadOrigin]||[]).includes(c)){
+  todoRoadDestination=c;
+ }
+
+ renderTodoCoursePicker();
+}
+
+function resetTodoRoad(){
+ todoRoadOrigin=null;
+ todoRoadDestination=null;
+ renderTodoCoursePicker();
+}
+
+document.getElementById('todoModeCircuit').onclick=()=>{
+ todoMode='circuit';
+ document.getElementById('todoModeCircuit').className='primary';
+ document.getElementById('todoModeRoad').className='secondary';
+ renderTodoCoursePicker();
+};
+
+document.getElementById('todoModeRoad').onclick=()=>{
+ todoMode='road';
+ document.getElementById('todoModeCircuit').className='secondary';
+ document.getElementById('todoModeRoad').className='primary';
+ resetTodoRoad();
+};
+
+document.getElementById('todoResetSelection').onclick=resetTodoRoad;
+
+function getTodoSelectedCourse(){
+ if(todoMode==='circuit'){
+  return todoSelectedCircuit;
+ }
+
+ if(!todoRoadOrigin||!todoRoadDestination){
+  return null;
+ }
+
+ return '道中：'+todoRoadOrigin+' → '+todoRoadDestination;
 }
 
 /* TODO表示 */
 function renderTodoItems(el,todos){
-
  if(!todos.length){
   el.innerHTML='<p class="muted">TODOはまだありません。</p>';
   return;
@@ -1147,9 +1188,7 @@ function renderTodoItems(el,todos){
 
  /* TODO編集 */
  el.querySelectorAll('[data-todo-edit]').forEach(btn=>{
-
   btn.onclick=()=>{
-
    const todo=data.todos.find(
     t=>t.id===Number(btn.dataset.todoEdit)
    );
@@ -1173,9 +1212,7 @@ function renderTodoItems(el,todos){
 
  /* TODO削除 */
  el.querySelectorAll('[data-todo-delete]').forEach(btn=>{
-
   btn.onclick=()=>{
-
    if(!confirm('このTODOを削除しますか？'))return;
 
    data.todos=data.todos.filter(
@@ -1189,14 +1226,12 @@ function renderTodoItems(el,todos){
 
 /* TODOタブ：全TODO表示 */
 function renderTodoList(){
-
  const el=document.getElementById('todoAllList');
  renderTodoItems(el,data.todos);
 }
 
 /* コースページ：選択中のコースだけ表示 */
 function renderCourseTodoList(){
-
  const el=document.getElementById('courseTodoList');
 
  if(!el)return;
@@ -1216,12 +1251,16 @@ function renderTodoViews(){
 
 /* TODO追加 */
 document.getElementById('addTodo').onclick=()=>{
-
  const text=document.getElementById('todoInput').value.trim();
- const course=document.getElementById('todoCourse').value;
+ const course=getTodoSelectedCourse();
 
  if(!text){
   alert('TODOの内容を入力してください。');
+  return;
+ }
+
+ if(!course){
+  alert('出発コースと到着コースを選択してください。');
   return;
  }
 
@@ -1240,11 +1279,9 @@ document.getElementById('addTodo').onclick=()=>{
 
 /* コースメモをまとめて取得 */
 function getAllCourseMemos(){
-
  const memos={};
 
  for(let i=0;i<localStorage.length;i++){
-
   const key=localStorage.key(i);
 
   if(key&&key.startsWith('courseMemo_')){
@@ -1258,7 +1295,6 @@ function getAllCourseMemos(){
 
 /* バックアップ書き出し */
 document.getElementById('exportData').onclick=()=>{
-
  const backup={
   version:2,
   races:data.races,
@@ -1286,7 +1322,6 @@ document.getElementById('exportData').onclick=()=>{
 
 /* バックアップ復元 */
 document.getElementById('importData').onclick=()=>{
-
  const f=document.getElementById('importFile').files[0];
 
  if(!f){
@@ -1297,9 +1332,7 @@ document.getElementById('importData').onclick=()=>{
  const reader=new FileReader();
 
  reader.onload=()=>{
-
   try{
-
    const x=JSON.parse(reader.result);
 
    if(!x||!Array.isArray(x.races)){
@@ -1321,14 +1354,12 @@ document.getElementById('importData').onclick=()=>{
    };
 
    if(save()){
-
     /* 新形式バックアップにメモが含まれる場合だけ復元 */
     if(
      x.courseMemos&&
      typeof x.courseMemos==='object'&&
      !Array.isArray(x.courseMemos)
     ){
-
      const oldKeys=[];
 
      for(let i=0;i<localStorage.length;i++){
@@ -1353,9 +1384,7 @@ document.getElementById('importData').onclick=()=>{
     renderRecord();
     renderTodoViews();
    }
-
   }catch(e){
-
    console.error(e);
    alert('バックアップを読み込めませんでした。');
   }
@@ -1366,12 +1395,10 @@ document.getElementById('importData').onclick=()=>{
 
 /* 全消去 */
 document.getElementById('clearAll').onclick=()=>{
-
  if(
   confirm('すべてのサンダー記録とTODOを消去しますか？')&&
   confirm('本当に消去しますか？')
  ){
-
   data={
    version:2,
    races:[],
@@ -1387,7 +1414,7 @@ document.getElementById('clearAll').onclick=()=>{
 };
 
 /* 初期表示 */
-buildTodoCourseOptions();
+renderTodoCoursePicker();
 renderMap();
 renderRecord();
 renderTodoViews();
@@ -1395,7 +1422,7 @@ renderTodoViews();
 if(
  'serviceWorker'in navigator&&
  location.protocol.startsWith('http')
- ){
+){
  window.addEventListener('load',()=>{
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
  });
