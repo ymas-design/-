@@ -224,6 +224,15 @@ textarea{resize:vertical;min-height:75px}
 
 <!-- コース選択画面 -->
 <section id="pageMap">
+  
+ <div class="card">
+  <h2>📌 このコースのTODO</h2>
+  <p class="muted">このコースと共通のTODOを表示します。</p>
+  <div id="courseTodoList">
+   <p class="muted">TODOはまだありません。</p>
+  </div>
+ </div>
+
  <div class="card">
   <h2>コースを選ぶ</h2>
   <p class="muted">モードを選んでコースを選択してください。</p>
@@ -859,7 +868,6 @@ function renderRecord(){
   b.onclick=()=>{
 
    if(!confirm('このレース記録を削除しますか？'))return;
-
    data.races=data.races.filter(
     r=>r.id!==Number(b.dataset.delRace)
    );
@@ -868,6 +876,8 @@ function renderRecord(){
    renderRecord();
   };
  });
+
+ renderCourseTodoList();
 }
 
 /* サンダー記録追加 */
@@ -954,17 +964,16 @@ function buildTodoCourseOptions(){
   ).join('');
 }
 
-/* TODO表示 */
-function renderTodoList(){
 
- const el=document.getElementById('todoAllList');
+/* TODO表示共通処理 */
+function renderTodoItems(el,todos){
 
- if(!data.todos.length){
+ if(!todos.length){
   el.innerHTML='<p class="muted">TODOはまだありません。</p>';
   return;
  }
 
- el.innerHTML=data.todos.map(t=>`
+ el.innerHTML=todos.map(t=>`
   <div class="item">
    <div class="itemtext">
     <strong>${esc(t.text)}</strong>
@@ -998,7 +1007,7 @@ function renderTodoList(){
 
    todo.text=newText.trim();
 
-   if(save())renderTodoList();
+   if(save())renderTodoViews();
   };
  });
 
@@ -1013,10 +1022,39 @@ function renderTodoList(){
     t=>t.id!==Number(btn.dataset.todoDelete)
    );
 
-   if(save())renderTodoList();
+   if(save())renderTodoViews();
   };
  });
 }
+
+/* 全TODO表示 */
+function renderTodoList(){
+
+ const el=document.getElementById('todoAllList');
+ renderTodoItems(el,data.todos);
+}
+
+/* 選択中コースのTODO表示 */
+function renderCourseTodoList(){
+
+ const el=document.getElementById('courseTodoList');
+
+ if(!el)return;
+
+ const todos=data.todos.filter(t=>
+  (t.course||'共通')==='共通'||
+  t.course===activeCourse
+ );
+
+ renderTodoItems(el,todos);
+}
+
+/* TODO表示をまとめて更新 */
+function renderTodoViews(){
+ renderTodoList();
+ renderCourseTodoList();
+}
+
 
 /* TODO追加 */
 document.getElementById('addTodo').onclick=()=>{
@@ -1038,7 +1076,7 @@ document.getElementById('addTodo').onclick=()=>{
 
  if(save()){
   document.getElementById('todoInput').value='';
-  renderTodoList();
+  renderTodoViews();
  }
 };
 
@@ -1157,7 +1195,7 @@ document.getElementById('importData').onclick=()=>{
     alert('バックアップを復元しました。');
 
     renderRecord();
-    renderTodoList();
+   renderTodoViews();
    }
 
   }catch(e){
@@ -1196,7 +1234,7 @@ document.getElementById('clearAll').onclick=()=>{
 buildTodoCourseOptions();
 renderMap();
 renderRecord();
-renderTodoList();
+renderTodoViews();
 
 if(
  'serviceWorker'in navigator&&
