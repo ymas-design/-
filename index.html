@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ja">
 <head>
@@ -14,28 +13,18 @@
 
 <style>
 :root{
- --green:#163c35;
- --green2:#2e6a50;
- --lime:#d5f18a;
- --bg:#f3f5ef;
- --card:#fff;
- --ink:#1c2923;
- --muted:#647168;
- --line:#dce3db;
- --red:#a64236;
- --orange:#d97724;
+ --green:#163c35;--green2:#2e6a50;--lime:#d5f18a;
+ --bg:#f3f5ef;--card:#fff;--ink:#1c2923;--muted:#647168;
+ --line:#dce3db;--red:#a64236;--orange:#d97724;
 }
 *{box-sizing:border-box}
 body{
- margin:0;
- background:var(--bg);
- color:var(--ink);
+ margin:0;background:var(--bg);color:var(--ink);
  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
  padding-bottom:calc(24px + env(safe-area-inset-bottom))
 }
 header{
- background:var(--green);
- color:white;
+ background:var(--green);color:white;
  padding:calc(18px + env(safe-area-inset-top)) 18px 18px
 }
 .brand{display:flex;align-items:center;gap:12px}
@@ -45,84 +34,40 @@ header{
 main{max-width:760px;margin:auto;padding:14px}
 .tabs{display:flex;gap:8px;margin-bottom:14px}
 .tab,button{
- border:0;
- border-radius:12px;
- padding:12px 14px;
- font:inherit;
- font-weight:650;
- cursor:pointer
+ border:0;border-radius:12px;padding:12px 14px;
+ font:inherit;font-weight:650;cursor:pointer
 }
 .tab{flex:1;background:#e3e9e0;color:var(--green)}
 .tab.active,button.primary{background:var(--green2);color:white}
 .card{
- background:var(--card);
- border:1px solid var(--line);
- border-radius:17px;
- padding:15px;
- margin-bottom:13px;
+ background:var(--card);border:1px solid var(--line);
+ border-radius:17px;padding:15px;margin-bottom:13px;
  box-shadow:0 2px 7px #193c3508
 }
 .card h2{font-size:17px;margin:0 0 11px}
 .card h3{font-size:14px;margin:0 0 8px}
 .muted{color:var(--muted);font-size:13px;line-height:1.5}
-.grid{
- display:grid;
- grid-template-columns:repeat(4,minmax(0,1fr));
- gap:6px
-}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .course{
- background:#f8faf6;
- border:1px solid var(--line);
+ background:#f8faf6;border:1px solid var(--line);
  border-left:5px solid var(--course-color,#d8ddd8);
- border-radius:9px;
- padding:9px 3px;
- text-align:center;
- color:var(--ink);
- min-width:0;
- min-height:48px
+ border-radius:9px;padding:9px 3px;text-align:center;
+ color:var(--ink);min-width:0;min-height:48px
 }
 .course strong{
- display:block;
- font-size:10px;
- line-height:1.35;
- overflow-wrap:anywhere
+ display:block;font-size:10px;line-height:1.35;overflow-wrap:anywhere
 }
-.course.selected{
- border:3px solid var(--green2);
- background:#e5f3e8;
- font-weight:bold
-}
-.course.origin{
- border:3px solid #23834b;
- background:#e3f5e8;
- color:#14552f
-}
-.course.destination{
- border:3px solid #e58a27;
- background:#fff0dc;
- color:#87420b
-}
+.course.selected{border:3px solid var(--green2);background:#e5f3e8;font-weight:bold}
+.course.origin{border:3px solid #23834b;background:#e3f5e8;color:#14552f}
+.course.destination{border:3px solid #e58a27;background:#fff0dc;color:#87420b}
 .course:disabled{
- opacity:.28;
- filter:grayscale(1);
- cursor:not-allowed;
- background:#e8eae6;
- border:1px solid #d5d9d3
+ opacity:.28;filter:grayscale(1);cursor:not-allowed;
+ background:#e8eae6;border:1px solid #d5d9d3
 }
-label{
- display:block;
- font-size:13px;
- font-weight:650;
- margin:10px 0 5px
-}
+label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}
 input,select,textarea{
- width:100%;
- padding:12px;
- border:1px solid #cbd5cc;
- border-radius:10px;
- background:white;
- color:var(--ink);
- font:inherit
+ width:100%;padding:12px;border:1px solid #cbd5cc;
+ border-radius:10px;background:white;color:var(--ink);font:inherit
 }
 textarea{resize:vertical;min-height:75px}
 .row{display:flex;gap:8px;align-items:center}
@@ -137,198 +82,87 @@ textarea{resize:vertical;min-height:75px}
 .stat span{display:block;color:var(--muted);font-size:12px}
 .stat strong{font-size:27px}
 .barrow{margin:12px 0}
-.barlabel{
- display:flex;
- justify-content:space-between;
- font-size:13px;
- margin-bottom:5px
-}
-.bar{
- height:8px;
- border-radius:20px;
- background:#e5eae3;
- overflow:hidden
-}
-.bar>i{
- display:block;
- height:100%;
- background:#4b8b61;
- border-radius:20px
-}
+.barlabel{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px}
+.bar{height:8px;border-radius:20px;background:#e5eae3;overflow:hidden}
+.bar>i{display:block;height:100%;background:#4b8b61;border-radius:20px}
 .item{
- padding:11px 0;
- border-bottom:1px solid var(--line);
- display:flex;
- gap:9px;
- align-items:flex-start
+ padding:11px 0;border-bottom:1px solid var(--line);
+ display:flex;gap:9px;align-items:flex-start
 }
 .item:last-child{border-bottom:0}
 .itemtext{flex:1;min-width:0}
 .itemtext strong{display:block;font-size:14px}
-.itemtext small{
- color:var(--muted);
- display:block;
- margin-top:3px;
- line-height:1.5
-}
+.itemtext small{color:var(--muted);display:block;margin-top:3px;line-height:1.5}
 .tiny{padding:7px 9px;font-size:12px}
 .hidden{display:none!important}
-.notice{
- background:#fff6d9;
- color:#6d5715;
- border-radius:12px;
- padding:11px;
- font-size:12px;
- line-height:1.5
-}
-.foot{
- text-align:center;
- color:var(--muted);
- font-size:11px;
- padding:8px
-}
+.notice{background:#fff6d9;color:#6d5715;border-radius:12px;padding:11px;font-size:12px;line-height:1.5}
+.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px}
 .todo-course{
- display:inline-block;
- background:#edf5e9;
- color:var(--green2);
- border-radius:7px;
- padding:3px 7px;
- font-size:11px;
- margin-top:5px
+ display:inline-block;background:#edf5e9;color:var(--green2);
+ border-radius:7px;padding:3px 7px;font-size:11px;margin-top:5px
 }
-@media(min-width:600px){
- main{padding:20px}
-}
+@media(min-width:600px){main{padding:20px}}
 
-/* ===== コース記録画面をコンパクトに ===== */
-#pageRecord .card{
- padding:11px;
- margin-bottom:8px;
- border-radius:14px;
-}
-#pageRecord .card h2{
- font-size:15px;
- margin:0 0 7px;
-}
-#pageRecord .card h3{
- font-size:13px;
- margin-bottom:6px;
-}
-#pageRecord .muted{
- font-size:11px;
- line-height:1.4;
-}
-#pageRecord .card > .muted{
- margin-top:4px;
- margin-bottom:6px;
-}
-#pageRecord button{
- padding:9px 11px;
- border-radius:10px;
- font-size:13px;
-}
-#pageRecord button.tiny{
- padding:6px 8px;
- font-size:11px;
-}
-#pageRecord input{
- padding:9px;
- font-size:14px;
-}
-#pageRecord textarea{
- min-height:55px;
- padding:9px;
- font-size:13px;
-}
+/* コース記録画面をコンパクトに */
+#pageRecord .card{padding:11px;margin-bottom:8px;border-radius:14px}
+#pageRecord .card h2{font-size:15px;margin:0 0 7px}
+#pageRecord .card h3{font-size:13px;margin-bottom:6px}
+#pageRecord .muted{font-size:11px;line-height:1.4}
+#pageRecord .card > .muted{margin-top:4px;margin-bottom:6px}
+#pageRecord button{padding:9px 11px;border-radius:10px;font-size:13px}
+#pageRecord button.tiny{padding:6px 8px;font-size:11px}
+#pageRecord input{padding:9px;font-size:14px}
+#pageRecord textarea{min-height:55px;padding:9px;font-size:13px}
 #pageRecord .statgrid{gap:7px}
-#pageRecord .stat{
- padding:8px;
- border-radius:10px;
-}
+#pageRecord .stat{padding:8px;border-radius:10px}
 #pageRecord .stat span{font-size:11px}
 #pageRecord .stat strong{font-size:23px}
 #pageRecord #stats{margin-top:7px!important}
 #pageRecord .barrow{margin:8px 0}
-#pageRecord .barlabel{
- font-size:11px;
- margin-bottom:4px;
-}
+#pageRecord .barlabel{font-size:11px;margin-bottom:4px}
 #pageRecord .bar{height:6px}
-#pageRecord .btnrow{
- gap:6px;
- margin-top:7px;
-}
-#pageRecord .item{
- padding:7px 0;
- gap:6px;
- align-items:center;
-}
+#pageRecord .btnrow{gap:6px;margin-top:7px}
+#pageRecord .item{padding:7px 0;gap:6px;align-items:center}
 #pageRecord .itemtext strong{font-size:13px}
-#pageRecord .itemtext small{
- font-size:10px;
- margin-top:2px;
-}
-#pageRecord .todo-course{
- font-size:10px;
- padding:2px 5px;
- margin-top:3px;
-}
+#pageRecord .itemtext small{font-size:10px;margin-top:2px}
+#pageRecord .todo-course{font-size:10px;padding:2px 5px;margin-top:3px}
 #pageRecord #courseTodoList .item button,
-#pageRecord #history .item button{
- flex:0 0 auto;
- min-width:auto;
-}
+#pageRecord #history .item button{flex:0 0 auto;min-width:auto}
 #pageRecord #courseMemo{min-height:65px}
-#pageRecord #activeTitle{
- font-size:17px;
- margin-top:7px!important;
-}
-#pageRecord #backMap{padding:7px 10px}
+#pageRecord #activeTitle{font-size:17px;margin-top:0!important}
+#pageRecord #courseMemoStatus{display:none}
 
-/* コース画面の説明文を非表示 */
+/* 説明文を非表示 */
 #pageRecord > .card:first-child > .muted,
 #pageRecord > .card:nth-of-type(4) > .muted,
 #pageRecord #memoGuide,
 #pageRecord #courseTodoList > .muted,
 #pageRecord #stats > p,
-#pageRecord #courseMemoStatus,
-#pageRecord #history > p{
- display:none;
-}
+#pageRecord #history > p{display:none}
+
+/* コース画面TODO入力 */
+.course-todo-input{display:flex;gap:6px;align-items:center}
+.course-todo-input input{flex:1;min-width:0}
+.course-todo-input button{flex:0 0 auto;min-width:auto}
 
 /* TODO画面 */
-#pageTodo .card{
- padding:11px;
- margin-bottom:8px;
-}
-#pageTodo .card h2{
- font-size:15px;
- margin-bottom:7px;
-}
-#pageTodo .card > .muted{
- font-size:11px;
- margin:0 0 6px;
-}
-#pageTodo .course{
- min-height:43px;
- padding:7px 3px;
-}
-#pageTodo .item{
- padding:7px 0;
- gap:6px;
- align-items:center;
-}
+#pageTodo .card{padding:11px;margin-bottom:8px}
+#pageTodo .card h2{font-size:15px;margin-bottom:7px}
+#pageTodo .card > .muted{font-size:11px;margin:0 0 6px}
+#pageTodo .course{min-height:43px;padding:7px 3px}
+#pageTodo .item{padding:7px 0;gap:6px;align-items:center}
 #pageTodo .itemtext strong{font-size:13px}
 #pageTodo .itemtext small{font-size:10px}
-#pageTodo button.tiny{
- padding:6px 7px;
- font-size:11px;
-}
+#pageTodo button.tiny{padding:6px 7px;font-size:11px}
+
+/* 道中サンダー入力 */
+.road-thunder-input{display:flex;gap:7px;align-items:center}
+.road-thunder-input input{flex:1;min-width:0}
+.road-thunder-input button{flex:0 0 auto;min-width:auto}
 </style>
 </head>
 
 <body>
-
 <header>
  <div class="brand">
   <div class="logo">🏁</div>
@@ -340,39 +174,32 @@ textarea{resize:vertical;min-height:75px}
 </header>
 
 <main>
-
 <div class="tabs">
  <button class="tab active" id="tabMap">🗺 コース選択</button>
  <button class="tab" id="tabTodo">📌 TODO</button>
  <button class="tab" id="tabBackup">💾 バックアップ</button>
 </div>
 
-<!-- コース選択画面 -->
+<!-- コース選択 -->
 <section id="pageMap">
  <div class="card">
   <h2>コースを選ぶ</h2>
   <p class="muted">モードを選んでコースを選択してください。</p>
-
   <div class="row">
    <button class="primary" id="modeCircuit">🏁 周回</button>
    <button class="secondary" id="modeRoad">🛣 道中</button>
   </div>
-
   <div style="margin-top:14px;background:#edf5e9;border:1px solid #c4dcbd;border-radius:12px;padding:10px;text-align:center">
    <span id="selectionGuide" style="font-weight:bold;color:var(--green2);font-size:13px">サーキットを1つ選択してください</span>
   </div>
-
   <h3 style="margin-top:14px" id="gridTitle">サーキットを選択</h3>
   <div class="grid" id="courseGrid"></div>
-
   <div style="margin-top:8px;text-align:right" id="resetArea" class="hidden">
    <button class="secondary tiny" id="resetSelection">↻ 選び直す</button>
   </div>
-
   <div class="btnrow" style="margin-top:14px">
    <button class="primary" id="openSelectedCourse">コースを開く →</button>
   </div>
-
   <p class="mapnote" id="mapNote"></p>
  </div>
 </section>
@@ -382,50 +209,42 @@ textarea{resize:vertical;min-height:75px}
  <div class="card">
   <h2>📌 TODOリスト</h2>
   <p class="muted">攻略で確認したいことや、やることを登録できます。</p>
-
   <h3>対象コース</h3>
   <div class="row">
    <button class="primary" id="todoModeCircuit">🏁 周回</button>
    <button class="secondary" id="todoModeRoad">🛣 道中</button>
   </div>
-
   <div style="margin-top:10px;background:#edf5e9;border:1px solid #c4dcbd;border-radius:12px;padding:10px;text-align:center">
    <span id="todoSelectionGuide" style="font-weight:bold;color:var(--green2);font-size:13px">サーキットを1つ選択してください</span>
   </div>
-
   <h3 style="margin-top:12px" id="todoGridTitle">サーキットを選択</h3>
   <div class="grid" id="todoCourseGrid"></div>
-
   <div style="margin-top:8px;text-align:right" id="todoResetArea" class="hidden">
    <button class="secondary tiny" id="todoResetSelection">↻ 選び直す</button>
   </div>
-
   <label for="todoInput">やること</label>
   <textarea id="todoInput" rows="2" placeholder="例：ショートカットの場所を確認する"></textarea>
-
-  <button class="primary" id="addTodo" style="width:100%;margin-top:8px">
-   ＋ TODOを追加
-  </button>
+  <button class="primary" id="addTodo" style="width:100%;margin-top:8px">＋ TODOを追加</button>
  </div>
-
  <div class="card">
   <h2>登録したTODO</h2>
-  <div id="todoAllList">
-   <p class="muted">TODOはまだありません。</p>
-  </div>
+  <div id="todoAllList"><p class="muted">TODOはまだありません。</p></div>
  </div>
 </section>
 
 <!-- コース記録画面 -->
 <section id="pageRecord" class="hidden">
  <div class="card">
-  <button class="secondary tiny" id="backMap">← コース選択へ</button>
-  <h2 id="activeTitle" style="margin-top:12px">コース</h2>
+  <h2 id="activeTitle">コース</h2>
   <p class="muted">このコースの記録は端末内に自動保存されます。</p>
  </div>
 
  <div class="card">
-  <h2>📌 このコースのTODO</h2>
+  <h2>📌 Todo</h2>
+  <div class="course-todo-input">
+   <input id="courseTodoInput" type="text" placeholder="TODOを入力">
+   <button class="primary" id="addCourseTodo">追加</button>
+  </div>
   <div id="courseTodoList">
    <p class="muted">TODOはまだありません。</p>
   </div>
@@ -434,14 +253,8 @@ textarea{resize:vertical;min-height:75px}
  <div class="card">
   <h2>サンダー発生率</h2>
   <div class="statgrid">
-   <div class="stat">
-    <span>記録レース数</span>
-    <strong id="raceCount">0</strong>
-   </div>
-   <div class="stat">
-    <span>サンダーあり</span>
-    <strong id="thunderCount">0</strong>
-   </div>
+   <div class="stat"><span>記録レース数</span><strong id="raceCount">0</strong></div>
+   <div class="stat"><span>サンダーあり</span><strong id="thunderCount">0</strong></div>
   </div>
   <div id="stats" class="muted" style="margin-top:12px">
    記録を追加すると、位置ごとの発生率が表示されます。
@@ -450,16 +263,28 @@ textarea{resize:vertical;min-height:75px}
 
  <div class="card">
   <h2>サンダーを記録</h2>
-  <p class="muted">
+  <p class="muted" id="thunderGuide">
    位置は「周回-アイテム位置」の形式で入力（例：3-2）。
    サンダーが出なかったレースも必ず記録すると、発生率が正しく計算できます。
   </p>
 
-  <label>発生位置</label>
-  <div style="display:flex;align-items:center;gap:8px">
-   <input id="thunderLap" type="number" inputmode="numeric" min="1" placeholder="3">
-   <span>-</span>
-   <input id="thunderSlot" type="number" inputmode="numeric" min="1" placeholder="2">
+  <!-- 周回コース用 -->
+  <div id="circuitThunderInput">
+   <label>発生位置</label>
+   <div style="display:flex;align-items:center;gap:8px">
+    <input id="thunderLap" type="number" inputmode="numeric" min="1" placeholder="3">
+    <span>-</span>
+    <input id="thunderSlot" type="number" inputmode="numeric" min="1" placeholder="2">
+   </div>
+  </div>
+
+  <!-- 道中コース用 -->
+  <div id="roadThunderInput" class="hidden">
+   <label>アイテム何個目？</label>
+   <div class="road-thunder-input">
+    <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="例：5">
+    <button class="primary" id="addRoadThunder">⚡ サンダーあり</button>
+   </div>
   </div>
 
   <div class="btnrow">
@@ -482,54 +307,36 @@ textarea{resize:vertical;min-height:75px}
  </div>
 </section>
 
-<!-- バックアップ画面 -->
+<!-- バックアップ -->
 <section id="pageBackup" class="hidden">
  <div class="card">
   <h2>💾 自動保存について</h2>
-  <p>
-   記録やTODOを追加・削除すると、このiPhoneのブラウザ内に自動保存します。
-   Safariを閉じても通常は残ります。
-  </p>
+  <p>記録やTODOを追加・削除すると、このiPhoneのブラウザ内に自動保存します。Safariを閉じても通常は残ります。</p>
   <div class="notice">
-   注意：Safariの履歴とWebサイトデータを消去すると、端末内の記録も消える場合があります。
-   定期的にバックアップを書き出してください。
+   注意：Safariの履歴とWebサイトデータを消去すると、端末内の記録も消える場合があります。定期的にバックアップを書き出してください。
   </div>
  </div>
-
  <div class="card">
   <h2>バックアップを書き出す</h2>
-  <p class="muted">
-   サンダー記録、TODO、各コースのメモをJSONファイルに保存します。
-  </p>
-  <button class="primary" id="exportData" style="width:100%">
-   ⬇ バックアップを保存
-  </button>
+  <p class="muted">サンダー記録、TODO、各コースのメモをJSONファイルに保存します。</p>
+  <button class="primary" id="exportData" style="width:100%">⬇ バックアップを保存</button>
  </div>
-
  <div class="card">
   <h2>バックアップから復元</h2>
-  <p class="muted">
-   以前書き出したJSONファイルを選択します。
-   現在の記録に上書きされるので、必要なら先にバックアップを取ってください。
-  </p>
+  <p class="muted">以前書き出したJSONファイルを選択します。現在の記録に上書きされるので、必要なら先にバックアップを取ってください。</p>
   <input type="file" id="importFile" accept=".json,application/json">
   <div class="btnrow">
    <button class="secondary" id="importData">バックアップを読み込む</button>
   </div>
  </div>
-
  <div class="card">
   <h2>ホーム画面に追加</h2>
   <p>1. このアプリをSafariで開く</p>
   <p>2. 共有ボタン（□↑）をタップ</p>
   <p>3. 「ホーム画面に追加」を選ぶ</p>
   <p>4. 追加をタップ</p>
-  <p class="muted">
-   ホーム画面から開けば、アプリのように使えます。
-   ホーム画面追加とオフライン対応には、HTTPSで公開されたサイトが必要です。
-  </p>
+  <p class="muted">ホーム画面から開けば、アプリのように使えます。ホーム画面追加とオフライン対応には、HTTPSで公開されたサイトが必要です。</p>
  </div>
-
  <div class="card">
   <h2>記録をすべて消去</h2>
   <p class="muted">消去前にバックアップを保存してください。</p>
@@ -560,9 +367,9 @@ const circuits=[
 'SFC チョコレーとう1','SFC チョコレーとう2','SFC バニラレイク1',
 'SFC ノコノコビーチ1'
 ];
-
 circuits.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
 
+/* 道中コース一覧 */
 const roadCourses=[
 'どんぐりツリーハウス','キラーシップ','おばけシネマ',
 'クッパキャッスル','プクプクフォールズ','チョコマウンテン',
@@ -575,6 +382,7 @@ const roadCourses=[
 'ロゼッタてんもんだい','キノピオファクトリー','ワリオシップ',
 'ワリオスタジアム','シュポポコースター','レインボーロード'
 ];
+roadCourses.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
 
 /* 道中ルート */
 const routeNames={
@@ -587,7 +395,6 @@ const routeNames={
  Y:'ロゼッタてんもんだい',Z:'キノピオファクトリー',a:'ワリオシップ',b:'ワリオスタジアム',
  c:'シュポポコースター',d:'レインボーロード'
 };
-
 const routeData={
  A:'C H M R Z',
  B:'D M W Z b',
@@ -619,71 +426,40 @@ const routeData={
  b:'B D F G M Q W Z',
  c:'F G I L P Q'
 };
-
 const allowedDestinations={};
-
 Object.entries(routeData).forEach(([from,list])=>{
  const origin=routeNames[from];
  allowedDestinations[origin]=list.split(' ').map(code=>routeNames[code]);
 });
-
 const routeCount=Object.values(allowedDestinations).reduce((n,a)=>n+a.length,0);
-
-if(routeCount!==202){
- console.error('道中ルート件数が202ではありません:',routeCount);
-}
+if(routeCount!==202)console.error('道中ルート件数が202ではありません:',routeCount);
 
 /* コースカラー */
 const courseColors={
-'マリオブラザーズサーキット':'#E85D5D',
-'トロフィーシティ':'#E5B84B',
-'シュポポコースター':'#E99A45',
-'DKうちゅうセンター':'#5489D5',
-'サンサンさばく':'#E6B34C',
-'ヘイホーカーニバル':'#D879B5',
-'ワリオスタジアム':'#E5A044',
-'キラーシップ':'#687D9B',
-'DKスノーマウンテン':'#8CC8E8',
-'ロゼッタてんもんだい':'#8B78D1',
-'アイスビルディング':'#75C8D8',
-'ワリオシップ':'#477DAD',
-'ノコノコビーチ':'#43BFC4',
-'リバーサイドサファリ':'#62A96D',
-'ピーチスタジアム':'#E98DBB',
-'ピーチビーチ':'#F0A6C5',
-'ソルティータウン':'#D9A66B',
-'ディノディノジャングル':'#6D9B54',
-'ハテナしんでん':'#A68ACB',
-'プクプクフォールズ':'#50B9D0',
-'ショーニューロード':'#D9B85B',
-'おばけシネマ':'#9875C7',
-'ホネホネツイスター':'#A18B78',
-'モーモーカントリー':'#83AD59',
-'チョコマウンテン':'#A97955',
-'キノピオファクトリー':'#8496A8',
-'クッパキャッスル':'#D6534D',
-'どんぐりツリーハウス':'#79A65C',
-'マリオサーキット':'#E85D5D',
-'レインボーロード':'#B47BD1',
-'SFC マリオサーキット1':'#E85D5D',
-'SFC マリオサーキット2':'#E85D5D',
-'SFC マリオサーキット3':'#E85D5D',
-'SFC おばけぬま1':'#9875C7',
-'SFC おばけぬま2':'#9875C7',
-'SFC おばけぬま3':'#9875C7',
-'SFC チョコレーとう1':'#A97955',
-'SFC チョコレーとう2':'#A97955',
-'SFC バニラレイク1':'#8CC8E8',
-'SFC ノコノコビーチ1':'#43BFC4'
+'マリオブラザーズサーキット':'#E85D5D','トロフィーシティ':'#E5B84B',
+'シュポポコースター':'#E99A45','DKうちゅうセンター':'#5489D5',
+'サンサンさばく':'#E6B34C','ヘイホーカーニバル':'#D879B5',
+'ワリオスタジアム':'#E5A044','キラーシップ':'#687D9B',
+'DKスノーマウンテン':'#8CC8E8','ロゼッタてんもんだい':'#8B78D1',
+'アイスビルディング':'#75C8D8','ワリオシップ':'#477DAD',
+'ノコノコビーチ':'#43BFC4','リバーサイドサファリ':'#62A96D',
+'ピーチスタジアム':'#E98DBB','ピーチビーチ':'#F0A6C5',
+'ソルティータウン':'#D9A66B','ディノディノジャングル':'#6D9B54',
+'ハテナしんでん':'#A68ACB','プクプクフォールズ':'#50B9D0',
+'ショーニューロード':'#D9B85B','おばけシネマ':'#9875C7',
+'ホネホネツイスター':'#A18B78','モーモーカントリー':'#83AD59',
+'チョコマウンテン':'#A97955','キノピオファクトリー':'#8496A8',
+'クッパキャッスル':'#D6534D','どんぐりツリーハウス':'#79A65C',
+'マリオサーキット':'#E85D5D','レインボーロード':'#B47BD1',
+'SFC マリオサーキット1':'#E85D5D','SFC マリオサーキット2':'#E85D5D',
+'SFC マリオサーキット3':'#E85D5D','SFC おばけぬま1':'#9875C7',
+'SFC おばけぬま2':'#9875C7','SFC おばけぬま3':'#9875C7',
+'SFC チョコレーとう1':'#A97955','SFC チョコレーとう2':'#A97955',
+'SFC バニラレイク1':'#8CC8E8','SFC ノコノコビーチ1':'#43BFC4'
 };
 
 /* データ読み込み */
-let data={
- version:2,
- races:[],
- todos:[]
-};
-
+let data={version:2,races:[],todos:[]};
 let activeCourse=circuits[0];
 let courseMode='circuit';
 let selectedCircuit=circuits[0];
@@ -692,10 +468,8 @@ let roadDestination=null;
 
 try{
  const raw=localStorage.getItem(KEY);
-
  if(raw){
   const parsed=JSON.parse(raw);
-
   if(parsed&&Array.isArray(parsed.races)){
    data={
     version:2,
@@ -704,9 +478,7 @@ try{
    };
   }
  }
-}catch(e){
- console.error('保存データの読み込みエラー',e);
-}
+}catch(e){console.error('保存データの読み込みエラー',e);}
 
 /* 保存 */
 function save(){
@@ -722,46 +494,33 @@ function save(){
 /* HTML表示用 */
 function esc(s){
  return String(s).replace(/[&<>"']/g,c=>({
-  '&':'&amp;',
-  '<':'&lt;',
-  '>':'&gt;',
-  '"':'&quot;',
-  "'":'&#39;'
+  '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
  }[c]));
 }
 
 /* 画面切り替え */
 function setPage(name){
  const pages=['Map','Todo','Record','Backup'];
-
  pages.forEach(n=>{
   const page=document.getElementById('page'+n);
   const tab=document.getElementById('tab'+n);
-
   page.classList.toggle('hidden',n.toLowerCase()!==name);
-
-  if(tab){
-   tab.classList.toggle('active',n.toLowerCase()===name);
-  }
+  if(tab)tab.classList.toggle('active',n.toLowerCase()===name);
  });
 }
 
 /* コースメモの初期テンプレート */
 function createMemoTemplate(course){
- if(course.startsWith('道中：')){
-  return '・周回方法：\n・サンダーP：\n\n';
- }
+ if(course.startsWith('道中：'))return '・周回方法：\n・サンダーP：\n\n';
  return '・サンダーP：\n\n';
 }
 
 /* コースを開く */
 function openCourse(name){
  activeCourse=name;
-
  document.getElementById('activeTitle').textContent=name;
 
  const savedMemo=localStorage.getItem('courseMemo_'+name);
-
  document.getElementById('courseMemo').value=
   savedMemo===null?createMemoTemplate(name):savedMemo;
 
@@ -772,6 +531,15 @@ function openCourse(name){
   name.startsWith('道中：')
    ?'道中コース用の項目を入力してから、攻略メモを追加できます。'
    :'サンダーPと攻略メモを入力できます。';
+
+ const isRoad=name.startsWith('道中：');
+ document.getElementById('circuitThunderInput').classList.toggle('hidden',isRoad);
+ document.getElementById('roadThunderInput').classList.toggle('hidden',!isRoad);
+ document.getElementById('addThunder').classList.toggle('hidden',isRoad);
+
+ document.getElementById('thunderGuide').textContent=isRoad
+  ?'サンダーを振ったアイテムが何個目かを入力してください。'
+  :'位置は「周回-アイテム位置」の形式で入力（例：3-2）。サンダーなしのレースも記録してください。';
 
  setPage('record');
  renderRecord();
@@ -791,51 +559,34 @@ function renderMap(){
   title.textContent='サーキットを選択';
   guide.textContent='選択中: '+selectedCircuit;
   note.textContent='周回モードでは40コースから選べます。';
-
   grid.innerHTML=circuits.map(c=>`
-   <button
-    class="course ${selectedCircuit===c?'selected':''}"
+   <button class="course ${selectedCircuit===c?'selected':''}"
     style="--course-color:${courseColors[c]||'#d8ddd8'}"
     onclick="selectCircuitCourse('${esc(c)}')">
     <strong>${esc(c)}</strong>
    </button>
   `).join('');
-
  }else{
   resetArea.classList.remove('hidden');
   title.textContent=roadOrigin?'到着コースを選択':'出発コースを選択';
 
-  if(!roadOrigin){
-   guide.textContent='1/2 出発コースを選んでください';
-  }else if(!roadDestination){
-   guide.textContent='出発：'+roadOrigin+'　→　到着コースを選んでください';
-  }else{
-   guide.textContent='選択完了：'+roadOrigin+' → '+roadDestination;
-  }
+  if(!roadOrigin)guide.textContent='1/2 出発コースを選んでください';
+  else if(!roadDestination)guide.textContent='出発：'+roadOrigin+'　→　到着コースを選んでください';
+  else guide.textContent='選択完了：'+roadOrigin+' → '+roadDestination;
 
-  note.textContent=
-   '出発コースを選ぶと、接続している到着コースだけ選択できます。出発・到着の向きも区別しています。';
+  note.textContent='出発コースを選ぶと、接続している到着コースだけ選択できます。出発・到着の向きも区別しています。';
 
   const choices=roadOrigin
    ?(allowedDestinations[roadOrigin]||[])
-   :roadCourses.filter(c=>
-      Array.isArray(allowedDestinations[c])&&
-      allowedDestinations[c].length>0
-    );
+   :roadCourses.filter(c=>Array.isArray(allowedDestinations[c])&&allowedDestinations[c].length>0);
 
   grid.innerHTML=roadCourses.map(c=>{
    const isOrigin=c===roadOrigin;
    const isDest=c===roadDestination;
-
-   const enabled=roadOrigin
-    ?(choices.includes(c)||isOrigin)
-    :choices.includes(c);
-
+   const enabled=roadOrigin?(choices.includes(c)||isOrigin):choices.includes(c);
    const cls=isOrigin?'origin':isDest?'destination':'';
-
    return `
-    <button
-     class="course ${cls}"
+    <button class="course ${cls}"
      style="--course-color:${courseColors[c]||'#d8ddd8'}"
      ${enabled?'':'disabled'}
      onclick="selectRoadCourse('${esc(c)}')">
@@ -846,50 +597,26 @@ function renderMap(){
  }
 }
 
-function selectCircuitCourse(c){
- selectedCircuit=c;
- renderMap();
-}
+function selectCircuitCourse(c){selectedCircuit=c;renderMap();}
 
 function selectRoadCourse(c){
- if(!roadOrigin){
-  roadOrigin=c;
-  roadDestination=null;
- }else if(c===roadOrigin){
-  roadOrigin=null;
-  roadDestination=null;
- }else if((allowedDestinations[roadOrigin]||[]).includes(c)){
-  roadDestination=c;
- }
+ if(!roadOrigin){roadOrigin=c;roadDestination=null;}
+ else if(c===roadOrigin){roadOrigin=null;roadDestination=null;}
+ else if((allowedDestinations[roadOrigin]||[]).includes(c)){roadDestination=c;}
  renderMap();
 }
 
-function resetRoad(){
- roadOrigin=null;
- roadDestination=null;
- renderMap();
-}
+function resetRoad(){roadOrigin=null;roadDestination=null;renderMap();}
 
 /* タブ操作 */
 document.getElementById('tabMap').onclick=()=>{
- setPage('map');
- window.scrollTo(0,0);
+ setPage('map');window.scrollTo(0,0);
 };
-
 document.getElementById('tabTodo').onclick=()=>{
- setPage('todo');
- renderTodoList();
- window.scrollTo(0,0);
+ setPage('todo');renderTodoList();window.scrollTo(0,0);
 };
-
 document.getElementById('tabBackup').onclick=()=>{
- setPage('backup');
- window.scrollTo(0,0);
-};
-
-document.getElementById('backMap').onclick=()=>{
- setPage('map');
- window.scrollTo(0,0);
+ setPage('backup');window.scrollTo(0,0);
 };
 
 /* モード切り替え */
@@ -899,23 +626,18 @@ document.getElementById('modeCircuit').onclick=()=>{
  document.getElementById('modeRoad').className='secondary';
  renderMap();
 };
-
 document.getElementById('modeRoad').onclick=()=>{
  courseMode='road';
  document.getElementById('modeCircuit').className='secondary';
  document.getElementById('modeRoad').className='primary';
  resetRoad();
 };
-
 document.getElementById('resetSelection').onclick=resetRoad;
 
-/* コースを開くボタン */
+/* コースを開く */
 document.getElementById('openSelectedCourse').onclick=()=>{
  if(courseMode==='circuit'){
-  if(!selectedCircuit){
-   alert('サーキットを選択してください。');
-   return;
-  }
+  if(!selectedCircuit){alert('サーキットを選択してください。');return;}
   openCourse(selectedCircuit);
  }else{
   if(!roadOrigin||!roadDestination){
@@ -930,16 +652,11 @@ document.getElementById('openSelectedCourse').onclick=()=>{
 function renderRecord(){
  const races=data.races.filter(r=>r.course===activeCourse);
  const thunder=races.filter(r=>r.position);
-
  document.getElementById('raceCount').textContent=races.length;
  document.getElementById('thunderCount').textContent=thunder.length;
 
  const counts={};
-
- thunder.forEach(r=>{
-  counts[r.position]=(counts[r.position]||0)+1;
- });
-
+ thunder.forEach(r=>{counts[r.position]=(counts[r.position]||0)+1;});
  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 
  document.getElementById('stats').innerHTML=sorted.length
@@ -947,23 +664,20 @@ function renderRecord(){
    sorted.map(([p,n])=>`
     <div class="barrow">
      <div class="barlabel">
-      <strong>${esc(p)}</strong>
+      <strong>${esc(formatThunderPosition(p))}</strong>
       <span>${n}回・${Math.round(n/races.length*100)}%</span>
      </div>
-     <div class="bar">
-      <i style="width:${n/races.length*100}%"></i>
-     </div>
+     <div class="bar"><i style="width:${n/races.length*100}%"></i></div>
     </div>
    `).join('')
   :'<p>まだ記録がありません。サンダーなしのレースも含めて登録してください。</p>';
 
  const history=[...races].reverse();
-
  document.getElementById('history').innerHTML=history.length
   ?history.map(r=>`
    <div class="item">
     <div class="itemtext">
-     <strong>${r.position?'⚡ サンダー：'+esc(r.position):'○ サンダーなし'}</strong>
+     <strong>${r.position?'⚡ サンダー：'+esc(formatThunderPosition(r.position)):'○ サンダーなし'}</strong>
      <small>${esc(r.created||'記録')}</small>
     </div>
     <button class="danger tiny" data-del-race="${r.id}">削除</button>
@@ -974,24 +688,31 @@ function renderRecord(){
  document.querySelectorAll('[data-del-race]').forEach(b=>{
   b.onclick=()=>{
    if(!confirm('このレース記録を削除しますか？'))return;
-
-   data.races=data.races.filter(
-    r=>r.id!==Number(b.dataset.delRace)
-   );
-
-   save();
-   renderRecord();
+   data.races=data.races.filter(r=>r.id!==Number(b.dataset.delRace));
+   save();renderRecord();
   };
  });
-
  renderCourseTodoList();
+}
+
+/* 周回・道中の記録表示 */
+function formatThunderPosition(position){
+ if(activeCourse.startsWith('道中：'))return position+'個目';
+ return position;
 }
 
 /* サンダー記録追加 */
 function addRace(position){
- if(position&&!/^\d+-\d+$/.test(position.trim())){
-  alert('「3-2」の形式で入力してください。');
-  return;
+ if(position){
+  if(activeCourse.startsWith('道中：')){
+   if(!/^\d+$/.test(position.trim())||Number(position)<1){
+    alert('アイテムの個数を数字で入力してください。');
+    return;
+   }
+  }else if(!/^\d+-\d+$/.test(position.trim())){
+   alert('「3-2」の形式で入力してください。');
+   return;
+  }
  }
 
  data.races.push({
@@ -1004,49 +725,45 @@ function addRace(position){
  if(save()){
   document.getElementById('thunderLap').value='';
   document.getElementById('thunderSlot').value='';
+  document.getElementById('roadThunderItem').value='';
   renderRecord();
  }
 }
 
+/* 周回コース：サンダーあり */
 document.getElementById('addThunder').onclick=()=>{
  const lap=document.getElementById('thunderLap').value;
  const slot=document.getElementById('thunderSlot').value;
-
  if(!lap||!slot){
   alert('発生位置の2つの数字を入力してください');
   return;
  }
-
  addRace(lap+'-'+slot);
 };
 
-document.getElementById('addNoThunder').onclick=()=>{
- addRace('');
+/* 道中コース：サンダーあり */
+document.getElementById('addRoadThunder').onclick=()=>{
+ const item=document.getElementById('roadThunderItem').value;
+ if(!item||Number(item)<1){
+  alert('アイテムの個数を入力してください。');
+  return;
+ }
+ addRace(String(Number(item)));
 };
+
+/* サンダーなし */
+document.getElementById('addNoThunder').onclick=()=>addRace('');
 
 /* コースメモ保存 */
 document.getElementById('saveCourseMemo').onclick=()=>{
- if(!activeCourse){
-  alert('先にコースを選択してください');
-  return;
- }
-
+ if(!activeCourse){alert('先にコースを選択してください');return;}
  try{
-  localStorage.setItem(
-   'courseMemo_'+activeCourse,
-   document.getElementById('courseMemo').value
-  );
-
+  localStorage.setItem('courseMemo_'+activeCourse,document.getElementById('courseMemo').value);
   document.getElementById('courseMemoStatus').textContent='保存しました！';
- }catch(e){
-  alert('メモを保存できませんでした。');
- }
+ }catch(e){alert('メモを保存できませんでした。');}
 };
 
-/* ==================================
-   TODO専用コース選択
-   ================================== */
-
+/* TODO専用コース選択 */
 let todoMode='circuit';
 let todoSelectedCircuit=circuits[0];
 let todoRoadOrigin=null;
@@ -1062,48 +779,32 @@ function renderTodoCoursePicker(){
   reset.classList.add('hidden');
   title.textContent='サーキットを選択';
   guide.textContent='選択中：'+todoSelectedCircuit;
-
   grid.innerHTML=circuits.map(c=>`
-   <button
-    class="course ${todoSelectedCircuit===c?'selected':''}"
+   <button class="course ${todoSelectedCircuit===c?'selected':''}"
     style="--course-color:${courseColors[c]||'#d8ddd8'}"
     onclick="selectTodoCircuit('${esc(c)}')">
     <strong>${esc(c)}</strong>
    </button>
   `).join('');
-
  }else{
   reset.classList.remove('hidden');
   title.textContent=todoRoadOrigin?'到着コースを選択':'出発コースを選択';
 
-  if(!todoRoadOrigin){
-   guide.textContent='1/2 出発コースを選んでください';
-  }else if(!todoRoadDestination){
-   guide.textContent='出発：'+todoRoadOrigin+' → 到着コースを選んでください';
-  }else{
-   guide.textContent='選択完了：'+todoRoadOrigin+' → '+todoRoadDestination;
-  }
+  if(!todoRoadOrigin)guide.textContent='1/2 出発コースを選んでください';
+  else if(!todoRoadDestination)guide.textContent='出発：'+todoRoadOrigin+' → 到着コースを選んでください';
+  else guide.textContent='選択完了：'+todoRoadOrigin+' → '+todoRoadDestination;
 
   const choices=todoRoadOrigin
    ?(allowedDestinations[todoRoadOrigin]||[])
-   :roadCourses.filter(c=>
-      Array.isArray(allowedDestinations[c])&&
-      allowedDestinations[c].length>0
-    );
+   :roadCourses.filter(c=>Array.isArray(allowedDestinations[c])&&allowedDestinations[c].length>0);
 
   grid.innerHTML=roadCourses.map(c=>{
    const isOrigin=c===todoRoadOrigin;
    const isDest=c===todoRoadDestination;
-
-   const enabled=todoRoadOrigin
-    ?(choices.includes(c)||isOrigin)
-    :choices.includes(c);
-
+   const enabled=todoRoadOrigin?(choices.includes(c)||isOrigin):choices.includes(c);
    const cls=isOrigin?'origin':isDest?'destination':'';
-
    return `
-    <button
-     class="course ${cls}"
+    <button class="course ${cls}"
      style="--course-color:${courseColors[c]||'#d8ddd8'}"
      ${enabled?'':'disabled'}
      onclick="selectTodoRoad('${esc(c)}')">
@@ -1114,29 +815,17 @@ function renderTodoCoursePicker(){
  }
 }
 
-function selectTodoCircuit(c){
- todoSelectedCircuit=c;
- renderTodoCoursePicker();
-}
+function selectTodoCircuit(c){todoSelectedCircuit=c;renderTodoCoursePicker();}
 
 function selectTodoRoad(c){
- if(!todoRoadOrigin){
-  todoRoadOrigin=c;
-  todoRoadDestination=null;
- }else if(c===todoRoadOrigin){
-  todoRoadOrigin=null;
-  todoRoadDestination=null;
- }else if((allowedDestinations[todoRoadOrigin]||[]).includes(c)){
-  todoRoadDestination=c;
- }
-
+ if(!todoRoadOrigin){todoRoadOrigin=c;todoRoadDestination=null;}
+ else if(c===todoRoadOrigin){todoRoadOrigin=null;todoRoadDestination=null;}
+ else if((allowedDestinations[todoRoadOrigin]||[]).includes(c)){todoRoadDestination=c;}
  renderTodoCoursePicker();
 }
 
 function resetTodoRoad(){
- todoRoadOrigin=null;
- todoRoadDestination=null;
- renderTodoCoursePicker();
+ todoRoadOrigin=null;todoRoadDestination=null;renderTodoCoursePicker();
 }
 
 document.getElementById('todoModeCircuit').onclick=()=>{
@@ -1145,25 +834,17 @@ document.getElementById('todoModeCircuit').onclick=()=>{
  document.getElementById('todoModeRoad').className='secondary';
  renderTodoCoursePicker();
 };
-
 document.getElementById('todoModeRoad').onclick=()=>{
  todoMode='road';
  document.getElementById('todoModeCircuit').className='secondary';
  document.getElementById('todoModeRoad').className='primary';
  resetTodoRoad();
 };
-
 document.getElementById('todoResetSelection').onclick=resetTodoRoad;
 
 function getTodoSelectedCourse(){
- if(todoMode==='circuit'){
-  return todoSelectedCircuit;
- }
-
- if(!todoRoadOrigin||!todoRoadDestination){
-  return null;
- }
-
+ if(todoMode==='circuit')return todoSelectedCircuit;
+ if(!todoRoadOrigin||!todoRoadDestination)return null;
  return '道中：'+todoRoadOrigin+' → '+todoRoadDestination;
 }
 
@@ -1186,88 +867,56 @@ function renderTodoItems(el,todos){
   </div>
  `).join('');
 
- /* TODO編集 */
  el.querySelectorAll('[data-todo-edit]').forEach(btn=>{
   btn.onclick=()=>{
-   const todo=data.todos.find(
-    t=>t.id===Number(btn.dataset.todoEdit)
-   );
-
+   const todo=data.todos.find(t=>t.id===Number(btn.dataset.todoEdit));
    if(!todo)return;
-
    const newText=prompt('TODOを編集してください',todo.text);
-
    if(newText===null)return;
-
-   if(!newText.trim()){
-    alert('内容を入力してください。');
-    return;
-   }
-
+   if(!newText.trim()){alert('内容を入力してください。');return;}
    todo.text=newText.trim();
-
    if(save())renderTodoViews();
   };
  });
 
- /* TODO削除 */
  el.querySelectorAll('[data-todo-delete]').forEach(btn=>{
   btn.onclick=()=>{
    if(!confirm('このTODOを削除しますか？'))return;
-
-   data.todos=data.todos.filter(
-    t=>t.id!==Number(btn.dataset.todoDelete)
-   );
-
+   data.todos=data.todos.filter(t=>t.id!==Number(btn.dataset.todoDelete));
    if(save())renderTodoViews();
   };
  });
 }
 
-/* TODOタブ：全TODO表示 */
+/* TODOタブ：全TODO */
 function renderTodoList(){
- const el=document.getElementById('todoAllList');
- renderTodoItems(el,data.todos);
+ renderTodoItems(document.getElementById('todoAllList'),data.todos);
 }
 
-/* コースページ：選択中のコースだけ表示 */
+/* コースページ：選択中コースのTODO */
 function renderCourseTodoList(){
  const el=document.getElementById('courseTodoList');
-
  if(!el)return;
-
- const todos=data.todos.filter(t=>
-  t.course===activeCourse
- );
-
+ const todos=data.todos.filter(t=>t.course===activeCourse);
  renderTodoItems(el,todos);
 }
 
-/* TODO表示をまとめて更新 */
 function renderTodoViews(){
  renderTodoList();
  renderCourseTodoList();
 }
 
-/* TODO追加 */
+/* TODOタブから追加 */
 document.getElementById('addTodo').onclick=()=>{
  const text=document.getElementById('todoInput').value.trim();
  const course=getTodoSelectedCourse();
 
- if(!text){
-  alert('TODOの内容を入力してください。');
-  return;
- }
-
- if(!course){
-  alert('出発コースと到着コースを選択してください。');
-  return;
- }
+ if(!text){alert('TODOの内容を入力してください。');return;}
+ if(!course){alert('出発コースと到着コースを選択してください。');return;}
 
  data.todos.push({
   id:Date.now()+Math.floor(Math.random()*1000),
-  course,
-  text,
+  course,text,
   created:new Date().toLocaleString('ja-JP')
  });
 
@@ -1277,19 +926,43 @@ document.getElementById('addTodo').onclick=()=>{
  }
 };
 
+/* コース画面から追加 */
+document.getElementById('addCourseTodo').onclick=()=>{
+ const input=document.getElementById('courseTodoInput');
+ const text=input.value.trim();
+
+ if(!text){alert('TODOの内容を入力してください。');return;}
+
+ data.todos.push({
+  id:Date.now()+Math.floor(Math.random()*1000),
+  course:activeCourse,
+  text,
+  created:new Date().toLocaleString('ja-JP')
+ });
+
+ if(save()){
+  input.value='';
+  renderTodoViews();
+ }
+};
+
+document.getElementById('courseTodoInput').addEventListener('keydown',e=>{
+ if(e.key==='Enter'){
+  e.preventDefault();
+  document.getElementById('addCourseTodo').click();
+ }
+});
+
 /* コースメモをまとめて取得 */
 function getAllCourseMemos(){
  const memos={};
-
  for(let i=0;i<localStorage.length;i++){
   const key=localStorage.key(i);
-
   if(key&&key.startsWith('courseMemo_')){
    const course=key.substring('courseMemo_'.length);
    memos[course]=localStorage.getItem(key);
   }
  }
-
  return memos;
 }
 
@@ -1302,50 +975,28 @@ document.getElementById('exportData').onclick=()=>{
   courseMemos:getAllCourseMemos(),
   exportedAt:new Date().toISOString()
  };
-
- const blob=new Blob(
-  [JSON.stringify(backup,null,2)],
-  {type:'application/json'}
- );
-
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
  const url=URL.createObjectURL(blob);
  const a=document.createElement('a');
-
  a.href=url;
- a.download='world-track-note-backup-'+
-  new Date().toISOString().slice(0,10)+'.json';
-
+ a.download='world-track-note-backup-'+new Date().toISOString().slice(0,10)+'.json';
  a.click();
-
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 };
 
 /* バックアップ復元 */
 document.getElementById('importData').onclick=()=>{
  const f=document.getElementById('importFile').files[0];
-
- if(!f){
-  alert('バックアップファイルを選択してください。');
-  return;
- }
+ if(!f){alert('バックアップファイルを選択してください。');return;}
 
  const reader=new FileReader();
-
  reader.onload=()=>{
   try{
    const x=JSON.parse(reader.result);
+   if(!x||!Array.isArray(x.races))throw Error('invalid');
+   if(x.todos!==undefined&&!Array.isArray(x.todos))throw Error('invalid todos');
 
-   if(!x||!Array.isArray(x.races)){
-    throw Error('invalid');
-   }
-
-   if(x.todos!==undefined&&!Array.isArray(x.todos)){
-    throw Error('invalid todos');
-   }
-
-   if(!confirm('現在の記録・TODOをバックアップの内容で置き換えますか？')){
-    return;
-   }
+   if(!confirm('現在の記録・TODOをバックアップの内容で置き換えますか？'))return;
 
    data={
     version:2,
@@ -1354,33 +1005,18 @@ document.getElementById('importData').onclick=()=>{
    };
 
    if(save()){
-    /* 新形式バックアップにメモが含まれる場合だけ復元 */
-    if(
-     x.courseMemos&&
-     typeof x.courseMemos==='object'&&
-     !Array.isArray(x.courseMemos)
-    ){
+    if(x.courseMemos&&typeof x.courseMemos==='object'&&!Array.isArray(x.courseMemos)){
      const oldKeys=[];
-
      for(let i=0;i<localStorage.length;i++){
       const key=localStorage.key(i);
-
-      if(key&&key.startsWith('courseMemo_')){
-       oldKeys.push(key);
-      }
+      if(key&&key.startsWith('courseMemo_'))oldKeys.push(key);
      }
-
      oldKeys.forEach(key=>localStorage.removeItem(key));
-
      Object.entries(x.courseMemos).forEach(([course,memo])=>{
-      if(typeof memo==='string'){
-       localStorage.setItem('courseMemo_'+course,memo);
-      }
+      if(typeof memo==='string')localStorage.setItem('courseMemo_'+course,memo);
      });
     }
-
     alert('バックアップを復元しました。');
-
     renderRecord();
     renderTodoViews();
    }
@@ -1389,22 +1025,13 @@ document.getElementById('importData').onclick=()=>{
    alert('バックアップを読み込めませんでした。');
   }
  };
-
  reader.readAsText(f);
 };
 
 /* 全消去 */
 document.getElementById('clearAll').onclick=()=>{
- if(
-  confirm('すべてのサンダー記録とTODOを消去しますか？')&&
-  confirm('本当に消去しますか？')
- ){
-  data={
-   version:2,
-   races:[],
-   todos:[]
-  };
-
+ if(confirm('すべてのサンダー記録とTODOを消去しますか？')&&confirm('本当に消去しますか？')){
+  data={version:2,races:[],todos:[]};
   if(save()){
    renderRecord();
    renderTodoViews();
@@ -1419,15 +1046,11 @@ renderMap();
 renderRecord();
 renderTodoViews();
 
-if(
- 'serviceWorker'in navigator&&
- location.protocol.startsWith('http')
-){
+if('serviceWorker'in navigator&&location.protocol.startsWith('http')){
  window.addEventListener('load',()=>{
   navigator.serviceWorker.register('./sw.js').catch(()=>{});
  });
 }
 </script>
-
 </body>
 </html>
