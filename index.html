@@ -393,7 +393,8 @@ circuits.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
  周回・道中で共通して使うコース配列。
  道中のルート選択では、この配列から接続先を絞り込む。
 */
-const courseList=circuits;
+// 道中専用コース一覧（SFCコースを除外）
+const courseList=circuits.filter(c=>!c.startsWith('SFC '));
 
 /* 道中ルート */
 const routeNames={
