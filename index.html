@@ -394,7 +394,8 @@ circuits.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
  道中のルート選択では、この配列から接続先を絞り込む。
 */
 // 道中専用コース一覧（SFCコースを除外）
-const courseList=circuits.filter(c=>!c.startsWith('SFC '));
+const courseList=circuits;
+const roadCourses=circuits.filter(c=>!c.startsWith('SFC '));
 
 /* 道中ルート */
 const routeNames={
@@ -584,7 +585,7 @@ function renderMap(){
   title.textContent='サーキットを選択';
   guide.textContent='選択中: '+selectedCircuit;
   note.textContent='周回モードでは40コースから選べます。';
-  grid.innerHTML=courseList.map(c=>`
+  grid.innerHTML=circuits.map(c=>`
    <button class="course ${selectedCircuit===c?'selected':''}"
     style="--course-color:${courseColors[c]||'#d8ddd8'}"
     onclick="selectCircuitCourse('${esc(c)}')">
@@ -603,9 +604,9 @@ function renderMap(){
 
   const choices=roadOrigin
    ?(allowedDestinations[roadOrigin]||[])
-   :courseList.filter(c=>Array.isArray(allowedDestinations[c])&&allowedDestinations[c].length>0);
+   :roadCourses.filter(c=>Array.isArray(allowedDestinations[c])&&allowedDestinations[c].length>0);
 
-  grid.innerHTML=courseList.map(c=>{
+  grid.innerHTML=roadCourses.map(c=>{
    const isOrigin=c===roadOrigin;
    const isDest=c===roadDestination;
    const enabled=roadOrigin?(choices.includes(c)||isOrigin):choices.includes(c);
@@ -804,7 +805,7 @@ function renderTodoCoursePicker(){
   reset.classList.add('hidden');
   title.textContent='サーキットを選択';
   guide.textContent='選択中：'+todoSelectedCircuit;
-  grid.innerHTML=courseList.map(c=>`
+  grid.innerHTML=circuits.map(c=>`
    <button class="course ${todoSelectedCircuit===c?'selected':''}"
     style="--course-color:${courseColors[c]||'#d8ddd8'}"
     onclick="selectTodoCircuit('${esc(c)}')">
@@ -823,7 +824,7 @@ function renderTodoCoursePicker(){
    ?(allowedDestinations[todoRoadOrigin]||[])
    :courseList.filter(c=>Array.isArray(allowedDestinations[c])&&allowedDestinations[c].length>0);
 
-  grid.innerHTML=courseList.map(c=>{
+  grid.innerHTML=roadCourses.map(c=>{
    const isOrigin=c===todoRoadOrigin;
    const isDest=c===todoRoadDestination;
    const enabled=todoRoadOrigin?(choices.includes(c)||isOrigin):choices.includes(c);
