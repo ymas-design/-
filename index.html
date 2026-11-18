@@ -169,7 +169,18 @@ textarea{resize:vertical;min-height:75px}
 .road-thunder-input{display:flex;gap:7px;align-items:center}
 .road-thunder-input input{flex:1;min-width:0}
 .road-thunder-input button{flex:0 0 auto;min-width:auto}
+/* 選び直すボタンの位置調整 */
+#resetArea{
+ position:relative;
+ height:0;
+ margin:0!important;
+}
 
+#resetSelection{
+ position:absolute;
+ right:0;
+ bottom:0;
+}
 @media(min-width:600px){main{padding:20px}}
 </style>
 </head>
@@ -206,7 +217,7 @@ textarea{resize:vertical;min-height:75px}
   <div style="margin-top:8px;text-align:right" id="resetArea" class="hidden">
    <button class="secondary tiny" id="resetSelection">↻ 選び直す</button>
   </div>
-  <div class="btnrow" style="margin-top:14px">
+ <div class="btnrow" style="margin-top:12px">
    <button class="primary" id="openSelectedCourse">コースを開く →</button>
   </div>
 
