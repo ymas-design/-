@@ -49,7 +49,9 @@ main{max-width:760px;margin:auto;padding:14px}
  white-space:nowrap;border-radius:9px
 }
 .tab.active,button.primary{background:var(--green2);color:white}
-
+#pageRecord .tabs .tab{
+ flex:0 0 calc((100% - 10px)/3);
+}
 .card{
  background:var(--card);border:1px solid var(--line);
  border-radius:17px;padding:15px;margin-bottom:13px;
@@ -284,7 +286,9 @@ input,select,textarea{
    記録を追加すると、位置ごとの発生率が表示されます。
   </div>
  </div>
-
+ <div class="tabs" style="margin:0 0 8px">
+  <button class="tab" id="recordTabMap">🗺 コース選択</button>
+ </div>
  <!-- 4. サンダーを記録 -->
  <div class="card">
   <h2>サンダーを記録</h2>
@@ -546,7 +550,38 @@ function setPage(name){
   if(tab)tab.classList.toggle('active',n.toLowerCase()===name);
  });
 }
+/* コース記録画面：右フリックでコース選択へ */
+let recordTouchStartX=0;
+let recordTouchStartY=0;
+let recordTouchActive=false;
 
+const recordPage=document.getElementById('pageRecord');
+
+recordPage.addEventListener('touchstart',e=>{
+ if(e.touches.length!==1)return;
+ if(e.target.closest('input,textarea,button,select'))return;
+
+ recordTouchActive=true;
+ recordTouchStartX=e.touches[0].clientX;
+ recordTouchStartY=e.touches[0].clientY;
+},{passive:true});
+
+recordPage.addEventListener('touchend',e=>{
+ if(!recordTouchActive)return;
+ recordTouchActive=false;
+
+ const dx=e.changedTouches[0].clientX-recordTouchStartX;
+ const dy=e.changedTouches[0].clientY-recordTouchStartY;
+
+ if(dx>70 && Math.abs(dx)>Math.abs(dy)*1.3){
+  setPage('map');
+  window.scrollTo(0,0);
+ }
+},{passive:true});
+
+recordPage.addEventListener('touchcancel',()=>{
+ recordTouchActive=false;
+},{passive:true});
 /* コースメモの初期テンプレート */
 function createMemoTemplate(course){
  if(course.startsWith('道中：'))return '・周回方法：\n・サンダーP：\n\n';
@@ -658,7 +693,10 @@ document.getElementById('tabTodo').onclick=()=>{
 document.getElementById('tabBackup').onclick=()=>{
  setPage('backup');window.scrollTo(0,0);
 };
-
+document.getElementById('recordTabMap').onclick=()=>{
+ setPage('map');
+ window.scrollTo(0,0);
+};
 /* モード切り替え */
 document.getElementById('modeCircuit').onclick=()=>{
  courseMode='circuit';
