@@ -193,15 +193,13 @@ textarea{resize:vertical;min-height:75px}
 <section id="pageMap">
  <div class="card">
   <h2>コースを選ぶ</h2>
-  <p class="muted">モードを選んでコースを選択してください。</p>
+  
   <div class="row">
    <button class="primary" id="modeCircuit">🏁 周回</button>
    <button class="secondary" id="modeRoad">🛣 道中</button>
   </div>
-  <div style="margin-top:14px;background:#edf5e9;border:1px solid #c4dcbd;border-radius:12px;padding:10px;text-align:center">
-   <span id="selectionGuide" style="font-weight:bold;color:var(--green2);font-size:13px">サーキットを1つ選択してください</span>
-  </div>
-  <h3 style="margin-top:14px" id="gridTitle">サーキットを選択</h3>
+
+
   <div class="grid" id="courseGrid"></div>
   <div style="margin-top:8px;text-align:right" id="resetArea" class="hidden">
    <button class="secondary tiny" id="resetSelection">↻ 選び直す</button>
@@ -209,7 +207,7 @@ textarea{resize:vertical;min-height:75px}
   <div class="btnrow" style="margin-top:14px">
    <button class="primary" id="openSelectedCourse">コースを開く →</button>
   </div>
-  <p class="mapnote" id="mapNote"></p>
+
  </div>
 </section>
 
@@ -274,10 +272,7 @@ textarea{resize:vertical;min-height:75px}
  <!-- 4. サンダーを記録 -->
  <div class="card">
   <h2>サンダーを記録</h2>
-  <p class="muted" id="thunderGuide">
-   位置は「周回-アイテム位置」の形式で入力（例：3-2）。
-   サンダーが出なかったレースも必ず記録すると、発生率が正しく計算できます。
-  </p>
+  
 
   <!-- 周回コース用 -->
   <div id="circuitThunderInput">
@@ -291,7 +286,7 @@ textarea{resize:vertical;min-height:75px}
 
   <!-- 道中コース用 -->
   <div id="roadThunderInput" class="hidden">
-   <label>アイテム何個目？</label>
+  
    <div class="road-thunder-input">
     <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="例：5">
     <button class="primary" id="addRoadThunder">⚡ サンダーあり</button>
