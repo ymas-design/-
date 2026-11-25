@@ -388,8 +388,11 @@ input,select,textarea{
 <script>
 const KEY='worldTrackNote.v1';
 
+
 /* コース一覧 */
-const circuits=[
+
+/* ① 最初からある通常コース */
+const originalCircuits=[
 'マリオブラザーズサーキット','トロフィーシティ','シュポポコースター',
 'DKうちゅうセンター','サンサンさばく','ヘイホーカーニバル',
 'ワリオスタジアム','キラーシップ','DKスノーマウンテン',
@@ -399,21 +402,43 @@ const circuits=[
 'ハテナしんでん','プクプクフォールズ','ショーニューロード',
 'おばけシネマ','ホネホネツイスター','モーモーカントリー',
 'チョコマウンテン','キノピオファクトリー','クッパキャッスル',
-'どんぐりツリーハウス','マリオサーキット','レインボーロード',
+'どんぐりツリーハウス','マリオサーキット','レインボーロード'
+];
+
+/* ② SFCコース */
+const sfcCircuits=[
 'SFC マリオサーキット1','SFC マリオサーキット2','SFC マリオサーキット3',
 'SFC おばけぬま1','SFC おばけぬま2','SFC おばけぬま3',
 'SFC チョコレーとう1','SFC チョコレーとう2','SFC バニラレイク1',
 'SFC ノコノコビーチ1'
 ];
-circuits.sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
 
-/*
- 周回・道中で共通して使うコース配列。
- 道中のルート選択では、この配列から接続先を絞り込む。
-*/
-// 道中専用コース一覧（SFCコースを除外）
-const courseList=circuits;
-const roadCourses=circuits.filter(c=>!c.startsWith('SFC '));
+/* ③ 新しく追加されたコース */
+const newCircuits=[
+'キラーシップ 2',
+'ノコノコビーチ 2',
+'マリオブラザーズサーキット 2',
+'ソルティータウン 2',
+'ヘイホーカーニバル 2',
+'ワリオスタジアム 2',
+'DKスノーマウンテン 2',
+'サンサンさばく 2'
+];
+
+/* 各グループ内を五十音順にする */
+const sortJapanese=(list)=>[...list].sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
+
+/* 周回コース：通常 → SFC → 新コース */
+const circuits=[
+ ...sortJapanese(originalCircuits),
+ ...sortJapanese(sfcCircuits),
+ ...sortJapanese(newCircuits)
+];
+
+/* 道中では既存の通常コースだけを使用 */
+const courseList=sortJapanese(originalCircuits);
+const roadCourses=[...courseList];
+
 
 /* 道中ルート */
 const routeNames={
