@@ -284,18 +284,19 @@ input,select,textarea{font-size:16px!important}
   </div>
 
   <!-- 道中コース用 -->
-  <div id="roadThunderInput" class="hidden">
-   <div class="road-thunder-input" style="margin-bottom:7px">
-    <strong style="width:55px;font-size:13px">道中</strong>
-    <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
-    <button class="primary" id="addRoadThunder">追加</button>
-   </div>
-   <div class="road-thunder-input">
-    <strong style="width:55px;font-size:13px">入場後</strong>
-    <input id="entryThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
-    <button class="primary" id="addEntryThunder">追加</button>
-   </div>
-  </div>
+<div id="roadThunderInput" class="hidden">
+ <div class="road-thunder-input" style="margin-bottom:7px">
+  <strong style="width:55px;font-size:13px">道中</strong>
+  <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
+  <button class="primary" id="addRoadThunder">追加</button>
+ </div>
+
+ <div class="road-thunder-input">
+  <strong style="width:55px;font-size:13px">入場後</strong>
+  <input id="entryThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
+  <button class="primary" id="addEntryThunder">追加</button>
+ </div>
+</div>
 
   <div class="btnrow">
    <button class="primary" id="addThunder">⚡ サンダーあり</button>
@@ -735,46 +736,69 @@ function renderRecord(){
  const races=data.races.filter(r=>r.course===activeCourse);
  const isRoad=activeCourse.startsWith('道中：');
 
- /* 道中では周回専用ボタンとレース数表示を隠す */
  document.getElementById('addThunder').style.display=isRoad?'none':'';
  document.getElementById('addNoThunder').style.display=isRoad?'none':'';
- document.querySelector('#pageRecord .statgrid').style.display=isRoad?'none':'';
 
  const thunder=races.filter(r=>r.position);
+
+ const statgrid=document.querySelector('#pageRecord .statgrid');
+ statgrid.style.display=isRoad?'none':'';
 
  document.getElementById('raceCount').textContent=races.length;
  document.getElementById('thunderCount').textContent=thunder.length;
 
- /* 道中・入場後はsectionを分けず、positionで合算 */
- const counts={};
- thunder.forEach(r=>{
-  counts[r.position]=(counts[r.position]||0)+1;
- });
+ function makeStats(records,title){
+  const counts={};
 
- const sorted=Object.entries(counts).sort((a,b)=>{
-  return Number(a[0])-Number(b[0]);
- });
+  records.forEach(r=>{
+   counts[r.position]=(counts[r.position]||0)+1;
+  });
+
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const total=records.length;
+
+  return `
+   <h3 style="margin-top:12px">${title}</h3>
+   ${sorted.length
+    ?sorted.map(([p,n])=>{
+      const rate=Math.round(n/total*100);
+      return `
+       <div class="barrow">
+        <div class="barlabel">
+         <strong>${esc(p)}個目</strong>
+         <span>${n}回・${rate}%</span>
+        </div>
+        <div class="bar">
+         <i style="width:${rate}%"></i>
+        </div>
+       </div>
+      `;
+     }).join('')
+    :'<p>まだ記録がありません。</p>'
+   }
+  `;
+ }
 
  if(isRoad){
-  document.getElementById('stats').innerHTML=sorted.length
-   ?'<h3>何個目にサンダーが出たか（道中・入場後 合算）</h3>'+
-    sorted.map(([p,n])=>`
-     <div class="barrow">
-      <div class="barlabel">
-       <strong>${esc(formatThunderPosition(p))}</strong>
-       <span>${n}回・${Math.round(n/thunder.length*100)}%</span>
-      </div>
-      <div class="bar"><i style="width:${n/thunder.length*100}%"></i></div>
-     </div>
-    `).join('')
-   :'<p>まだ記録がありません。</p>';
- }else{
-  /* 周回コースは今までどおりの表示 */
-  const circuitSorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  const roadThunder=thunder.filter(r=>r.section!=='entry');
+  const entryThunder=thunder.filter(r=>r.section==='entry');
 
-  document.getElementById('stats').innerHTML=circuitSorted.length
+  document.getElementById('stats').innerHTML=
+   makeStats(roadThunder,'道中のサンダー発生率')+
+   makeStats(entryThunder,'入場後のサンダー発生率');
+
+ }else{
+  const counts={};
+
+  thunder.forEach(r=>{
+   counts[r.position]=(counts[r.position]||0)+1;
+  });
+
+  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+
+  document.getElementById('stats').innerHTML=sorted.length
    ?'<h3>位置ごとの発生率（全サンダー回中）</h3>'+
-    circuitSorted.map(([p,n])=>`
+    sorted.map(([p,n])=>`
      <div class="barrow">
       <div class="barlabel">
        <strong>${esc(formatThunderPosition(p))}</strong>
@@ -786,7 +810,6 @@ function renderRecord(){
    :'<p>まだ記録がありません。</p>';
  }
 
- /* 履歴 */
  const history=[...races].reverse();
 
  document.getElementById('history').innerHTML=history.length
