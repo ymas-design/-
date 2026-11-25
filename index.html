@@ -11,10 +11,8 @@
 <link rel="apple-touch-icon" href="icon-192.png">
 <title>WORLD TRACK NOTE</title>
 
-<style> 
-#courseGrid {
-  margin-top: 12px;
-}
+<style>
+#courseGrid{margin-top:12px}
 :root{
  --green:#163c35;--green2:#2e6a50;--lime:#d5f18a;
  --bg:#f3f5ef;--card:#fff;--ink:#1c2923;--muted:#647168;
@@ -35,23 +33,18 @@ header{
 .brand h1{font-size:19px;letter-spacing:.04em;margin:0}
 .brand p{font-size:12px;color:var(--lime);margin:4px 0 0}
 main{max-width:760px;margin:auto;padding:14px}
-
-/* 上部3タブをコンパクトに */
 .tabs{display:flex;gap:5px;margin-bottom:12px}
 .tab,button{
  border:0;border-radius:12px;padding:12px 14px;
  font:inherit;font-weight:650;cursor:pointer
 }
 .tab{
- flex:1;min-width:0;
- background:#e3e9e0;color:var(--green);
+ flex:1;min-width:0;background:#e3e9e0;color:var(--green);
  padding:9px 3px;font-size:11px;
  white-space:nowrap;border-radius:9px
 }
 .tab.active,button.primary{background:var(--green2);color:white}
-#pageRecord .tabs .tab{
- flex:0 0 calc((100% - 10px)/3);
-}
+#pageRecord .tabs .tab{flex:0 0 calc((100% - 10px)/3)}
 .card{
  background:var(--card);border:1px solid var(--line);
  border-radius:17px;padding:15px;margin-bottom:13px;
@@ -170,23 +163,14 @@ textarea{resize:vertical;min-height:75px}
 /* 道中サンダー入力 */
 .road-thunder-input{display:flex;gap:7px;align-items:center}
 .road-thunder-input input{flex:1;min-width:0}
-.road-thunder-input button{flex:0 0 auto;min-width:auto}
-/* 選び直すボタンの位置調整 */
-#resetArea{
- position:relative;
- height:0;
- margin:0!important;
-}
+.road-thunder-input button{flex:0 0 auto;min-width:55px}
 
-#resetSelection{
- position:absolute;
- right:0;
- bottom:0;
-}
+/* 選び直すボタンの位置調整 */
+#resetArea{position:relative;height:0;margin:0!important}
+#resetSelection{position:absolute;right:0;bottom:0}
+
 @media(min-width:600px){main{padding:20px}}
-input,select,textarea{
- font-size:16px !important;
-}
+input,select,textarea{font-size:16px!important}
 </style>
 </head>
 
@@ -211,21 +195,17 @@ input,select,textarea{
 <!-- コース選択 -->
 <section id="pageMap">
  <div class="card">
-  
   <div class="row">
    <button class="primary" id="modeCircuit">🏁 周回</button>
    <button class="secondary" id="modeRoad">🛣 道中</button>
   </div>
-
-
   <div class="grid" id="courseGrid"></div>
   <div style="margin-top:8px;text-align:right" id="resetArea" class="hidden">
    <button class="secondary tiny" id="resetSelection">↻ 選び直す</button>
   </div>
- <div class="btnrow" style="margin-top:12px">
+  <div class="btnrow" style="margin-top:12px">
    <button class="primary" id="openSelectedCourse">コースを開く →</button>
   </div>
-
  </div>
 </section>
 
@@ -259,14 +239,12 @@ input,select,textarea{
 
 <!-- コース記録画面 -->
 <section id="pageRecord" class="hidden">
-
- <!-- 1. コース名 -->
  <div class="card">
   <h2 id="activeTitle">コース</h2>
   <p class="muted">このコースの記録は端末内に自動保存されます。</p>
  </div>
 
- <!-- 2. コースメモ -->
+ <!-- コースメモ -->
  <div class="card">
   <h2>📝 コースメモ</h2>
   <p class="muted" id="memoGuide">このコースの攻略メモを入力できます。</p>
@@ -275,7 +253,7 @@ input,select,textarea{
   <p id="courseMemoStatus" class="muted">メモは自動保存されません。保存ボタンを押してください。</p>
  </div>
 
- <!-- 3. サンダー発生率 -->
+ <!-- サンダー発生率 -->
  <div class="card">
   <h2>サンダー発生率</h2>
   <div class="statgrid">
@@ -286,13 +264,14 @@ input,select,textarea{
    記録を追加すると、位置ごとの発生率が表示されます。
   </div>
  </div>
+
  <div class="tabs" style="margin:0 0 8px">
   <button class="tab" id="recordTabMap">🗺 コース選択</button>
  </div>
- <!-- 4. サンダーを記録 -->
+
+ <!-- サンダーを記録 -->
  <div class="card">
   <h2>サンダーを記録</h2>
-  
 
   <!-- 周回コース用 -->
   <div id="circuitThunderInput">
@@ -306,10 +285,15 @@ input,select,textarea{
 
   <!-- 道中コース用 -->
   <div id="roadThunderInput" class="hidden">
-  
+   <div class="road-thunder-input" style="margin-bottom:7px">
+    <strong style="width:55px;font-size:13px">道中</strong>
+    <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
+    <button class="primary" id="addRoadThunder">追加</button>
+   </div>
    <div class="road-thunder-input">
-    <input id="roadThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="例：5">
-    <button class="primary" id="addRoadThunder">⚡ サンダーあり</button>
+    <strong style="width:55px;font-size:13px">入場後</strong>
+    <input id="entryThunderItem" type="number" inputmode="numeric" min="1" step="1" placeholder="何個目">
+    <button class="primary" id="addEntryThunder">追加</button>
    </div>
   </div>
 
@@ -319,7 +303,7 @@ input,select,textarea{
   </div>
  </div>
 
- <!-- 5. Todo -->
+ <!-- TODO -->
  <div class="card">
   <h2>📌 Todo</h2>
   <div class="course-todo-input">
@@ -331,7 +315,7 @@ input,select,textarea{
   </div>
  </div>
 
- <!-- 6. レース履歴 -->
+ <!-- レース履歴 -->
  <div class="card">
   <h2>レース履歴</h2>
   <div id="history" class="muted">まだ記録はありません。</div>
@@ -377,21 +361,20 @@ input,select,textarea{
 
 <div class="foot">WORLD TRACK NOTE · データはこの端末のブラウザ内に保存</div>
 </main>
+
 <div class="hidden">
-  <span id="selectionGuide"></span>
-  <h3 id="gridTitle"></h3>
-  <p id="mapNote"></p>
-  <p id="thunderGuide"></p>
-  <span id="todoSelectionGuide"></span>
-  <h3 id="todoGridTitle"></h3>
+ <span id="selectionGuide"></span>
+ <h3 id="gridTitle"></h3>
+ <p id="mapNote"></p>
+ <p id="thunderGuide"></p>
+ <span id="todoSelectionGuide"></span>
+ <h3 id="todoGridTitle"></h3>
 </div>
+
 <script>
 const KEY='worldTrackNote.v1';
 
-
 /* コース一覧 */
-
-/* ① 最初からある通常コース */
 const originalCircuits=[
 'マリオブラザーズサーキット','トロフィーシティ','シュポポコースター',
 'DKうちゅうセンター','サンサンさばく','ヘイホーカーニバル',
@@ -405,7 +388,6 @@ const originalCircuits=[
 'どんぐりツリーハウス','マリオサーキット','レインボーロード'
 ];
 
-/* ② SFCコース */
 const sfcCircuits=[
 'SFC マリオサーキット1','SFC マリオサーキット2','SFC マリオサーキット3',
 'SFC おばけぬま1','SFC おばけぬま2','SFC おばけぬま3',
@@ -413,7 +395,6 @@ const sfcCircuits=[
 'SFC ノコノコビーチ1'
 ];
 
-/* ③ 新しく追加されたコース */
 const newCircuits=[
 'キラーシップ 2',
 'ノコノコビーチ 2',
@@ -425,20 +406,16 @@ const newCircuits=[
 'サンサンさばく 2'
 ];
 
-/* 各グループ内を五十音順にする */
 const sortJapanese=(list)=>[...list].sort((a,b)=>a.localeCompare(b,'ja',{numeric:true}));
 
-/* 周回コース：通常 → SFC → 新コース */
 const circuits=[
  ...sortJapanese(originalCircuits),
  ...sortJapanese(sfcCircuits),
  ...sortJapanese(newCircuits)
 ];
 
-/* 道中では既存の通常コースだけを使用 */
 const courseList=sortJapanese(originalCircuits);
 const roadCourses=[...courseList];
-
 
 /* 道中ルート */
 const routeNames={
@@ -451,6 +428,7 @@ const routeNames={
  Y:'ロゼッタてんもんだい',Z:'キノピオファクトリー',a:'ワリオシップ',b:'ワリオスタジアム',
  c:'シュポポコースター',d:'レインボーロード'
 };
+
 const routeData={
  A:'C H M R Z',
  B:'D M W Z b',
@@ -482,11 +460,13 @@ const routeData={
  b:'B D F G M Q W Z',
  c:'F G I L P Q'
 };
+
 const allowedDestinations={};
 Object.entries(routeData).forEach(([from,list])=>{
  const origin=routeNames[from];
  allowedDestinations[origin]=list.split(' ').map(code=>routeNames[code]);
 });
+
 const routeCount=Object.values(allowedDestinations).reduce((n,a)=>n+a.length,0);
 if(routeCount!==202)console.error('道中ルート件数が202ではありません:',routeCount);
 
@@ -575,6 +555,7 @@ function setPage(name){
   if(tab)tab.classList.toggle('active',n.toLowerCase()===name);
  });
 }
+
 /* コース記録画面：右フリックでコース選択へ */
 let recordTouchStartX=0;
 let recordTouchStartY=0;
@@ -585,7 +566,6 @@ const recordPage=document.getElementById('pageRecord');
 recordPage.addEventListener('touchstart',e=>{
  if(e.touches.length!==1)return;
  if(e.target.closest('input,textarea,button,select'))return;
-
  recordTouchActive=true;
  recordTouchStartX=e.touches[0].clientX;
  recordTouchStartY=e.touches[0].clientY;
@@ -594,10 +574,8 @@ recordPage.addEventListener('touchstart',e=>{
 recordPage.addEventListener('touchend',e=>{
  if(!recordTouchActive)return;
  recordTouchActive=false;
-
  const dx=e.changedTouches[0].clientX-recordTouchStartX;
  const dy=e.changedTouches[0].clientY-recordTouchStartY;
-
  if(dx>70 && Math.abs(dx)>Math.abs(dy)*1.3){
   setPage('map');
   window.scrollTo(0,0);
@@ -607,6 +585,7 @@ recordPage.addEventListener('touchend',e=>{
 recordPage.addEventListener('touchcancel',()=>{
  recordTouchActive=false;
 },{passive:true});
+
 /* コースメモの初期テンプレート */
 function createMemoTemplate(course){
  if(course.startsWith('道中：'))return '・周回方法：\n・サンダーP：\n\n';
@@ -636,11 +615,10 @@ function openCourse(name){
  document.getElementById('addThunder').classList.toggle('hidden',isRoad);
 
  document.getElementById('thunderGuide').textContent=isRoad
-  ?'サンダーを振ったアイテムが何個目かを入力してください。サンダーなしのレースも記録してください。'
+  ?'道中と入場後、それぞれサンダーが出たアイテム位置を記録できます。'
   :'位置は「周回-アイテム位置」の形式で入力（例：3-2）。サンダーなしのレースも記録してください。';
 
  document.getElementById('courseTodoInput').value='';
-
  setPage('record');
  renderRecord();
  window.scrollTo(0,0);
@@ -722,6 +700,7 @@ document.getElementById('recordTabMap').onclick=()=>{
  setPage('map');
  window.scrollTo(0,0);
 };
+
 /* モード切り替え */
 document.getElementById('modeCircuit').onclick=()=>{
  courseMode='circuit';
@@ -752,38 +731,64 @@ document.getElementById('openSelectedCourse').onclick=()=>{
 };
 
 /* 記録・統計 */
-/* 記録表示 */
 function renderRecord(){
  const races=data.races.filter(r=>r.course===activeCourse);
  const isRoad=activeCourse.startsWith('道中：');
 
+ /* 道中では周回専用ボタンとレース数表示を隠す */
  document.getElementById('addThunder').style.display=isRoad?'none':'';
  document.getElementById('addNoThunder').style.display=isRoad?'none':'';
+ document.querySelector('#pageRecord .statgrid').style.display=isRoad?'none':'';
 
  const thunder=races.filter(r=>r.position);
+
  document.getElementById('raceCount').textContent=races.length;
  document.getElementById('thunderCount').textContent=thunder.length;
 
+ /* 道中・入場後はsectionを分けず、positionで合算 */
  const counts={};
  thunder.forEach(r=>{
   counts[r.position]=(counts[r.position]||0)+1;
  });
- const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 
- document.getElementById('stats').innerHTML=sorted.length
-  ?'<h3>位置ごとの発生率（全サンダー回中）</h3>'+
-   sorted.map(([p,n])=>`
-    <div class="barrow">
-     <div class="barlabel">
-      <strong>${esc(formatThunderPosition(p))}</strong>
-      <span>${n}回・${Math.round(n/thunder.length*100)}%</span>
+ const sorted=Object.entries(counts).sort((a,b)=>{
+  return Number(a[0])-Number(b[0]);
+ });
+
+ if(isRoad){
+  document.getElementById('stats').innerHTML=sorted.length
+   ?'<h3>何個目にサンダーが出たか（道中・入場後 合算）</h3>'+
+    sorted.map(([p,n])=>`
+     <div class="barrow">
+      <div class="barlabel">
+       <strong>${esc(formatThunderPosition(p))}</strong>
+       <span>${n}回・${Math.round(n/thunder.length*100)}%</span>
+      </div>
+      <div class="bar"><i style="width:${n/thunder.length*100}%"></i></div>
      </div>
-     <div class="bar"><i style="width:${n/thunder.length*100}%"></i></div>
-    </div>
-   `).join('')
-  :'<p>まだ記録がありません。</p>';
+    `).join('')
+   :'<p>まだ記録がありません。</p>';
+ }else{
+  /* 周回コースは今までどおりの表示 */
+  const circuitSorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 
+  document.getElementById('stats').innerHTML=circuitSorted.length
+   ?'<h3>位置ごとの発生率（全サンダー回中）</h3>'+
+    circuitSorted.map(([p,n])=>`
+     <div class="barrow">
+      <div class="barlabel">
+       <strong>${esc(formatThunderPosition(p))}</strong>
+       <span>${n}回・${Math.round(n/thunder.length*100)}%</span>
+      </div>
+      <div class="bar"><i style="width:${n/thunder.length*100}%"></i></div>
+     </div>
+    `).join('')
+   :'<p>まだ記録がありません。</p>';
+ }
+
+ /* 履歴 */
  const history=[...races].reverse();
+
  document.getElementById('history').innerHTML=history.length
   ?history.map(r=>`
    <div class="item">
@@ -804,9 +809,11 @@ function renderRecord(){
   b.onclick=()=>{
    if(!confirm('この記録を削除しますか？'))return;
    data.races=data.races.filter(r=>r.id!==Number(b.dataset.delRace));
-   save();renderRecord();
+   save();
+   renderRecord();
   };
  });
+
  renderCourseTodoList();
 }
 
@@ -863,10 +870,12 @@ function addRoadPosition(inputId,section){
  }
 }
 
+/* 道中のサンダー追加 */
 document.getElementById('addRoadThunder').onclick=()=>{
  addRoadPosition('roadThunderItem','road');
 };
 
+/* 入場後のサンダー追加 */
 document.getElementById('addEntryThunder').onclick=()=>{
  addRoadPosition('entryThunderItem','entry');
 };
@@ -965,12 +974,14 @@ document.getElementById('todoModeCircuit').onclick=()=>{
  document.getElementById('todoModeRoad').className='secondary';
  renderTodoCoursePicker();
 };
+
 document.getElementById('todoModeRoad').onclick=()=>{
  todoMode='road';
  document.getElementById('todoModeCircuit').className='secondary';
  document.getElementById('todoModeRoad').className='primary';
  resetTodoRoad();
 };
+
 document.getElementById('todoResetSelection').onclick=resetTodoRoad;
 
 function getTodoSelectedCourse(){
