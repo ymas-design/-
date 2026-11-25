@@ -752,35 +752,47 @@ document.getElementById('openSelectedCourse').onclick=()=>{
 };
 
 /* 記録・統計 */
+/* 記録表示 */
 function renderRecord(){
  const races=data.races.filter(r=>r.course===activeCourse);
+ const isRoad=activeCourse.startsWith('道中：');
+
+ document.getElementById('addThunder').style.display=isRoad?'none':'';
+ document.getElementById('addNoThunder').style.display=isRoad?'none':'';
+
  const thunder=races.filter(r=>r.position);
  document.getElementById('raceCount').textContent=races.length;
  document.getElementById('thunderCount').textContent=thunder.length;
 
  const counts={};
- thunder.forEach(r=>{counts[r.position]=(counts[r.position]||0)+1;});
+ thunder.forEach(r=>{
+  counts[r.position]=(counts[r.position]||0)+1;
+ });
  const sorted=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
 
  document.getElementById('stats').innerHTML=sorted.length
-  ?'<h3>位置ごとの発生率（全レース中）</h3>'+
+  ?'<h3>位置ごとの発生率（全サンダー回中）</h3>'+
    sorted.map(([p,n])=>`
     <div class="barrow">
      <div class="barlabel">
       <strong>${esc(formatThunderPosition(p))}</strong>
-      <span>${n}回・${Math.round(n/races.length*100)}%</span>
+      <span>${n}回・${Math.round(n/thunder.length*100)}%</span>
      </div>
-     <div class="bar"><i style="width:${n/races.length*100}%"></i></div>
+     <div class="bar"><i style="width:${n/thunder.length*100}%"></i></div>
     </div>
    `).join('')
-  :'<p>まだ記録がありません。サンダーなしのレースも含めて登録してください。</p>';
+  :'<p>まだ記録がありません。</p>';
 
  const history=[...races].reverse();
  document.getElementById('history').innerHTML=history.length
   ?history.map(r=>`
    <div class="item">
     <div class="itemtext">
-     <strong>${r.position?'⚡ サンダー：'+esc(formatThunderPosition(r.position)):'○ サンダーなし'}</strong>
+     <strong>${r.position
+      ?(isRoad
+        ?esc(r.section==='entry'?'入場後：':'道中：')+esc(formatThunderPosition(r.position))
+        :'⚡ サンダー：'+esc(formatThunderPosition(r.position)))
+      :'○ サンダーなし'}</strong>
      <small>${esc(r.created||'記録')}</small>
     </div>
     <button class="danger tiny" data-del-race="${r.id}">削除</button>
@@ -790,7 +802,7 @@ function renderRecord(){
 
  document.querySelectorAll('[data-del-race]').forEach(b=>{
   b.onclick=()=>{
-   if(!confirm('このレース記録を削除しますか？'))return;
+   if(!confirm('この記録を削除しますか？'))return;
    data.races=data.races.filter(r=>r.id!==Number(b.dataset.delRace));
    save();renderRecord();
   };
@@ -798,21 +810,16 @@ function renderRecord(){
  renderCourseTodoList();
 }
 
-/* 周回・道中の記録表示 */
+/* 発生位置の表示 */
 function formatThunderPosition(position){
  if(activeCourse.startsWith('道中：'))return position+'個目';
  return position;
 }
 
-/* サンダー記録追加 */
+/* 周回コース：サンダー記録 */
 function addRace(position){
  if(position){
-  if(activeCourse.startsWith('道中：')){
-   if(!/^\d+$/.test(position.trim())||Number(position)<1){
-    alert('アイテムの個数を数字で入力してください。');
-    return;
-   }
-  }else if(!/^\d+-\d+$/.test(position.trim())){
+  if(!/^\d+-\d+$/.test(position.trim())){
    alert('「3-2」の形式で入力してください。');
    return;
   }
@@ -828,10 +835,41 @@ function addRace(position){
  if(save()){
   document.getElementById('thunderLap').value='';
   document.getElementById('thunderSlot').value='';
-  document.getElementById('roadThunderItem').value='';
   renderRecord();
  }
 }
+
+/* 道中・入場後：サンダー記録 */
+function addRoadPosition(inputId,section){
+ const input=document.getElementById(inputId);
+ const value=input.value.trim();
+
+ if(!/^\d+$/.test(value)||Number(value)<1){
+  alert('1以上の数字を入力してください。');
+  return;
+ }
+
+ data.races.push({
+  id:Date.now()+Math.floor(Math.random()*1000),
+  course:activeCourse,
+  position:String(Number(value)),
+  section:section,
+  created:new Date().toLocaleString('ja-JP')
+ });
+
+ if(save()){
+  input.value='';
+  renderRecord();
+ }
+}
+
+document.getElementById('addRoadThunder').onclick=()=>{
+ addRoadPosition('roadThunderItem','road');
+};
+
+document.getElementById('addEntryThunder').onclick=()=>{
+ addRoadPosition('entryThunderItem','entry');
+};
 
 /* 周回コース：サンダーあり */
 document.getElementById('addThunder').onclick=()=>{
@@ -844,17 +882,7 @@ document.getElementById('addThunder').onclick=()=>{
  addRace(lap+'-'+slot);
 };
 
-/* 道中コース：サンダーあり */
-document.getElementById('addRoadThunder').onclick=()=>{
- const item=document.getElementById('roadThunderItem').value;
- if(!item||Number(item)<1){
-  alert('アイテムの個数を入力してください。');
-  return;
- }
- addRace(String(Number(item)));
-};
-
-/* サンダーなし */
+/* 周回コース：サンダーなし */
 document.getElementById('addNoThunder').onclick=()=>addRace('');
 
 /* コースメモ保存 */
