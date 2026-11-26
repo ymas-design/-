@@ -55,7 +55,7 @@ main{max-width:760px;margin:auto;padding:14px}
 .muted{color:var(--muted);font-size:13px;line-height:1.5}
 .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
 .course{
- background:#f8faf6;border:1px solid var(--line);
+ background:var(--course-bg,#f8faf6);border:1px solid var(--line);
  border-left:5px solid var(--course-color,#d8ddd8);
  border-radius:9px;padding:9px 3px;text-align:center;
  color:var(--ink);min-width:0;min-height:48px
@@ -495,6 +495,17 @@ const courseColors={
 'SFC バニラレイク1':'#8CC8E8','SFC ノコノコビーチ1':'#43BFC4'
 };
 
+/* コース分類ごとのタブカラー */
+function getCourseStyle(name){
+ const isSfc=name.startsWith('SFC ');
+ const isNew=newCircuits.includes(name);
+
+ const bg=isSfc?'#E5EAF2':isNew?'#F8E8D8':'#E4EEE6';
+ const line=isSfc?'#9AA0A6':isNew?'#4F8F83':(courseColors[name]||'#d8ddd8');
+
+ return `--course-bg:${bg};--course-color:${line}`;
+}
+
 /* データ読み込み */
 let data={version:2,races:[],todos:[]};
 let activeCourse=circuits[0];
@@ -640,7 +651,7 @@ function renderMap(){
   note.textContent='周回モードでは40コースから選べます。';
   grid.innerHTML=circuits.map(c=>`
    <button class="course ${selectedCircuit===c?'selected':''}"
-    style="--course-color:${courseColors[c]||'#d8ddd8'}"
+style="${getCourseStyle(c)}"
     onclick="selectCircuitCourse('${esc(c)}')">
     <strong>${esc(c)}</strong>
    </button>
@@ -666,7 +677,7 @@ function renderMap(){
    const cls=isOrigin?'origin':isDest?'destination':'';
    return `
     <button class="course ${cls}"
-     style="--course-color:${courseColors[c]||'#d8ddd8'}"
+     style="${getCourseStyle(c)}"
      ${enabled?'':'disabled'}
      onclick="selectRoadCourse('${esc(c)}')">
      <strong>${esc(c)}</strong>
@@ -944,7 +955,7 @@ function renderTodoCoursePicker(){
   guide.textContent='選択中：'+todoSelectedCircuit;
   grid.innerHTML=circuits.map(c=>`
    <button class="course ${todoSelectedCircuit===c?'selected':''}"
-    style="--course-color:${courseColors[c]||'#d8ddd8'}"
+   style="${getCourseStyle(c)}"
     onclick="selectTodoCircuit('${esc(c)}')">
     <strong>${esc(c)}</strong>
    </button>
@@ -968,7 +979,7 @@ function renderTodoCoursePicker(){
    const cls=isOrigin?'origin':isDest?'destination':'';
    return `
     <button class="course ${cls}"
-     style="--course-color:${courseColors[c]||'#d8ddd8'}"
+  style="${getCourseStyle(c)}"
      ${enabled?'':'disabled'}
      onclick="selectTodoRoad('${esc(c)}')">
      <strong>${esc(c)}</strong>
